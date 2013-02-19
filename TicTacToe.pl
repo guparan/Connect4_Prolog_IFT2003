@@ -213,6 +213,7 @@ play(P) :-
 
 
 %.......................................
+% 
 % square
 %.......................................
 % The mark in a square(N) corresponds to an item in a list, as follows:
@@ -232,7 +233,9 @@ square([_,_,_,_,_,_,_,_,M],9,M).
 % win
 %.......................................
 % Players win by having their mark in one of the following square configurations:
-%
+
+% Controle d'une victoire eventuelle
+% -> Lucas
 
 win([M,M,M, _,_,_, _,_,_],M).
 win([_,_,_, M,M,M, _,_,_],M).
@@ -284,14 +287,15 @@ game_over2(P, B) :-
 %
 
 make_move(P, B) :-
-    player(P, Type),
+    player(P, Type),			% recuperation du Type du joueur P (human ou computer)
 
-    make_move2(Type, P, B, B2),
+    make_move2(Type, P, B, B2),	% demande d'un coup dans une nouvelle board
 
-    retract( board(_) ),
-    asserta( board(B2) )
+    retract( board(_) ),	% remplacement de la board precedente
+    asserta( board(B2) )	% par la nouvelle board
     .
 
+% Demande d'un coup a un humain
 make_move2(human, P, B, B2) :-
     nl,
     nl,
@@ -300,26 +304,28 @@ make_move2(human, P, B, B2) :-
     write(' move? '),
     read(S),
 
-    blank_mark(E),
-    square(B, S, E),
-    player_mark(P, M),
-    move(B, S, M, B2), !
+    blank_mark(E),		% definition de E a la valeur de la blank_mark (voir les predicats, blank_mark = 'e')
+    square(B, S, E),		% verification de la disponibilite de la case demandee (on regarde si elle contient la blank_mark)
+    player_mark(P, M),		% recuperation de la marque M du joueur P
+    move(B, S, M, B2), !	% realisation du coup 
     .
 
+% Fonction executee si la precedente echoue : l'utilisateur a entre un nombre invalide
 make_move2(human, P, B, B2) :-
     nl,
     nl,
-    write('Please select a numbered square.'),
-    make_move2(human,P,B,B2)
+    write('Error : Please select a numbered square.'),		% Message d'erreur
+    make_move2(human,P,B,B2)					% reexecution de la fonction precedente
     .
 
+% Demande d'un coup a l'ordinateur
 make_move2(computer, P, B, B2) :-
     nl,
     nl,
     write('Computer is thinking about next move...'),
-    player_mark(P, M),
-    minimax(0, B, M, S, U),
-    move(B,S,M,B2),
+    player_mark(P, M),		% recuperation de la marque M du joueur P
+    minimax(0, B, M, S, U),	% calcul de la position S a jouer avec M
+    move(B,S,M,B2),		% enregistrement du coup 
 
     nl,
     nl,
@@ -338,10 +344,10 @@ make_move2(computer, P, B, B2) :-
 %
 
 moves(B,L) :-
-    not(win(B,x)),                %%% if either player already won, then there are no available moves
+    not(win(B,x)),                	%%% if either player already won, then there are no available moves
     not(win(B,o)),
-    blank_mark(E),
-    findall(N, square(B,N,E), L), 
+    blank_mark(E),			% init de E a la valeur du blank_mark
+    findall(N, square(B,N,E), L), 	% remplit L avec toutes les positions N des cases vides (qui correspondent a square(B,N,E))
     L \= []
     .
 
@@ -353,19 +359,19 @@ moves(B,L) :-
 %
 
 utility(B,U) :-
-    win(B,'x'),
-    U = 1,
+    win(B,'x'),		% si les 'x' gagnent
+    U = 1,		% alors U vaudra 1
     !
     .
 
-utility(B,U) :-
-    win(B,'o'),
-    U = (-1), 
+utility(B,U) :-		% SINON (n'est execute que si la precedente a echoue)
+    win(B,'o'),		% si les 'o' gagnent
+    U = (-1), 		% alors U vaudra -1
     !
     .
 
-utility(B,U) :-
-    U = 0
+utility(B,U) :-		% SINON (n'est execute que si la precedente a echoue)
+    U = 0		% U vaudra 0
     .
 
 
@@ -380,13 +386,20 @@ utility(B,U) :-
 % Save the user the trouble of waiting  for the computer to search the entire minimax tree 
 % by simply selecting a random square.
 
+% On connait D : profondeur de recherche
+% On connait B : board de recherche
+% On connait M : mark du joueur ('x' ou 'o')
+% On cherche a determiner S, la meilleure position a jouer
+% On cherche a determiner U, la meilleure evaluation qu'on a trouve, celle qui correspond a S
+
+
 minimax(D,[E,E,E, E,E,E, E,E,E],M,S,U) :-   
-    blank_mark(E),
-    random_int_1n(9,S),
+    blank_mark(E),		% Si la board est vide (toutes les cases matchent la blank_mark)
+    random_int_1n(9,S),		% On choisit une position a jouer au hasard
     !
     .
 
-minimax(D,B,M,S,U) :-
+minimax(D,B,M,S,U) :-	% SINON (la board n'est pas vide)
     D2 is D + 1,
     moves(B,L),          %%% get the list of available moves
     !,
@@ -394,11 +407,10 @@ minimax(D,B,M,S,U) :-
     !
     .
 
-% if there are no more available moves, 
-% then the minimax value is the utility of the given board position
 
-minimax(D,B,M,S,U) :-
-    utility(B,U)      
+
+minimax(D,B,M,S,U) :-	% SINON (there are no more available moves)
+    utility(B,U)      	% then the minimax value is the utility of the given board position
     .
 
 
@@ -408,28 +420,26 @@ minimax(D,B,M,S,U) :-
 % determines the best move in a given list of moves by recursively calling minimax
 %
 
-% if there is only one move left in the list...
-
-best(D,B,M,[S1],S,U) :-
+% if there is only one move left in the list ( [S1] )
+best(D,B,M,[S1],S,U) :-		
     move(B,S1,M,B2),        %%% apply that move to the board,
-    inverse_mark(M,M2), 
+    inverse_mark(M,M2), 	% recuperation de la mark de l'adversaire de M dans M2
     !,  
-    minimax(D,B2,M2,_S,U),  %%% then recursively search for the utility value of that move.
+    minimax(D,B2,M2,_S,U),  %%% then recursively search for the utility value of that move. (???)
     S = S1, !,
     output_value(D,S,U),
     !
     .
 
-% if there is more than one move in the list...
-
+% if there is more than one move in the list ( [S1|T] )
 best(D,B,M,[S1|T],S,U) :-
-    move(B,S1,M,B2),             %%% apply the first move (in the list) to the board,
-    inverse_mark(M,M2), 
+    move(B,S1,M,B2),			%%% apply the first move (in the list) to the board,
+    inverse_mark(M,M2), 		% recuperation de la mark de l'adversaire de M dans M2
     !,
-    minimax(D,B2,M2,_S,U1),      %%% recursively search for the utility value of that move,
-    best(D,B,M,T,S2,U2),         %%% determine the best move of the remaining moves,
+    minimax(D,B2,M2,_S,U1),		%%% recursively search for the utility value of that move,
+    best(D,B,M,T,S2,U2),		%%% determine the best move of the remaining moves,
     output_value(D,S1,U1),      
-    better(D,M,S1,U1,S2,U2,S,U)  %%% and choose the better of the two moves (based on their respective utility values)
+    better(D,M,S1,U1,S2,U2,S,U)	%%% and choose the better of the two moves (based on their respective utility values)
     .
 
 
