@@ -601,7 +601,7 @@ moves(B,L) :-
 
 
 %.......................................
-% minimax - TODO : A revoir 
+% minimax - TODO : A revoir, il faudrait gerer la profondeur max
 %.......................................
 % The minimax algorithm always assumes an optimal opponent.
 % For tic-tac-toe, optimal play will always result in a tie, so the algorithm is effectively playing not-to-lose.
@@ -611,20 +611,22 @@ moves(B,L) :-
 % Save the user the trouble of waiting  for the computer to search the entire minimax tree 
 % by simply selecting a random square.
 
-% On connait D : profondeur de recherche
+% On connait Dmax : profondeur max de recherche
+% On connait D : profondeur actuelle de recherche
 % On connait B : board de recherche
 % On connait M : mark du joueur ('x' ou 'o')
 % On cherche a determiner C, la meilleure position a jouer
 % On cherche a determiner U, la meilleure evaluation qu'on a trouve, celle qui correspond a C
 
+minimax(Dmax, B, M, C, U) :- minimax(Dmax, 0, B, M, C, U). % launcher
 
-minimax(D, [[],[],[],[],[],[],[]], M, C, U) :-   % Si la board est vide
+minimax(Dmax, D, [[],[],[],[],[],[],[]], M, C, U) :-   % Si la board est vide
 %     blank_mark(E),		% toutes les cases matchent la blank_mark
     random_int_1n(7, C),	% On choisit une position a jouer au hasard
     !
     .
 
-minimax(D,B,M,C,U) :-	% SINON (la board n'est pas vide)
+minimax(Dmax, D, B, M, C, U) :-	% SINON (la board n'est pas vide)
     D2 is D + 1,
     moves(B,L),          %%% get the list of available moves
     !,
@@ -633,7 +635,8 @@ minimax(D,B,M,C,U) :-	% SINON (la board n'est pas vide)
     .
 
 % A la fin de la simulation de coups, la board est pleine
-minimax(D,B,M,C,U) :-
+% TODO : ne pas avoir a attendre que la board soit pleine
+minimax(Dmax, D, B, M, C, U) :-
     utility(B,U)      	% on retourne alors l'evaluation de la board
     .
 
