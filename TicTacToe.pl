@@ -409,9 +409,9 @@ minimax(D,B,M,S,U) :-	% SINON (la board n'est pas vide)
 
 
 
-minimax(D,B,M,S,U) :-	% SINON (there are no more available moves)
-    utility(B,U)      	% then the minimax value is the utility of the given board position
-    .
+% minimax(D,B,M,S,U) :-	% SINON (there are no more available moves)
+%     utility(B,U)      	% then the minimax value is the utility of the given board position
+%     .
 
 
 %.......................................

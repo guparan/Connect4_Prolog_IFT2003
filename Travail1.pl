@@ -1,5 +1,5 @@
-﻿%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% CST 381 -– Artificial Intelligence
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% CCT 381 -– Artificial Intelligence
 %%% Robert Pinchbeck
 %%% Final Project 
 %%% Due December 20, 2006
@@ -15,7 +15,7 @@
 
 The following conventions are used in this program...
 
-Single letter variables represent:
+Cingle letter variables represent:
 
 L - a list
 N - a number, position, index, or counter
@@ -29,7 +29,7 @@ For this implementation, these single letter variables represent:
 P - a player number (1 or 2)
 B - the board (a 9 item list representing a 3x3 matrix)
     each "square" on the board can contain one of 3 values: x ,o, or e (for empty)
-S - the number of a square on the board (1 - 9)
+C - the number of a square on the board (1 - 9)
 M - a mark on a square (x or o)
 E - the mark used to represent an empty square ('e').
 U - the utility value of a board position
@@ -58,7 +58,7 @@ asserta( player(P, Type) ) - indicates which players are human/computer.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%     FACTS
+%%%     FACTC
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 next_player(1, 2).      %%% determines the next player after the given player
@@ -234,10 +234,10 @@ finListe([], _).
 finListe(L, E) :- last(L,E).
 
 % Fonction qui renvoie une sous-liste à partir d'une liste L
-/* Paramètres : S sous-liste, L liste */
+/* Paramètres : C sous-liste, L liste */
 prefix(P,L) :-append(P,_,L).
-sublist(S,L) :-prefix(S,L).
-sublist(S,[_|T]) :-sublist(S,T).
+sublist(C,L) :-prefix(C,L).
+sublist(C,[_|T]) :-sublist(C,T).
 
 % Fonction qui renvoie le nième élément d'une liste 
 /* Paramètres : N index de l'élement qu'on veut récupérer, L liste, X élément retourné */
@@ -249,82 +249,82 @@ nthElem(N, L, X) :- nth1(N, L, X).
 gagnant(J) :-write('Le Joueur '), write(J), write(' a gagné !').
 
 % Fonction qui enregistre un coup joué dans la grille
-/* Paramètres : N numéro de la colonne dans laquelle J joue, G grille, J joueur, G' nouvelle grille */          
+/* Paramètres : C numéro de la colonne dans laquelle J joue, G grille, J joueur, G' nouvelle grille */          
 enregistrerCoup(1, [L|G], x, _, I) :- 
-    length(L,N), 
-    N >= 6, 
+    length(L,C), 
+    C >= 6, 
     write('Coup Invalide\n'), 
     jouerCoupX(I)
     .
     
 enregistrerCoup(1, [L|G], o, _, I) :- 
-    length(L,N), 
-    N >= 6, 
+    length(L,C), 
+    C >= 6, 
     write('Coup Invalide\n'), 
     jouerCoupO(I)
     .
     
 enregistrerCoup(1, [L|G], J, F, I) :- 
-    length(L,N), 
-    N < 6, 
+    length(L,C), 
+    C < 6, 
     addToColumn(J,L,M), 
     F=[M|G]
     .
     
-enregistrerCoup(N, [L|G], x, _, I) :- 
-    N > 7, 
+enregistrerCoup(C, [L|G], x, _, I) :- 
+    C > 7, 
     write('Coup Invalide\n'), 
     jouerCoupX(I)
     .
     
-enregistrerCoup(N, [L|G], o, _, I) :-
-    N > 7, 
+enregistrerCoup(C, [L|G], o, _, I) :-
+    C > 7, 
     write('Coup Invalide\n'), 
     jouerCoupO(I)
     .
     
-enregistrerCoup(N, [T|X], J, [T|G], I) :- 
-    N > 0, 
-    N1 is N-1, 
-    enregistrerCoup(N1, X, J, G, I)
+enregistrerCoup(C, [T|X], J, [T|G], I) :- 
+    C > 0, 
+    C1 is C-1, 
+    enregistrerCoup(C1, X, J, G, I)
     .
                                         
 enregistrerCoupJoueur(1, [L|G], x, _, I) :- 
-    length(L,N), N >= 6, 
+    length(L,C), C >= 6, 
     write('Coup Invalide\n'), 
     jouerCoupJoueur(I)
     .
     
 enregistrerCoupJoueur(1, [L|G], J, F, I) :- 
-    length(L,N), 
-    N < 6, 
+    length(L,C), 
+    C < 6, 
     addToColumn(J,L,M), 
     F=[M|G]
     .
     
-enregistrerCoupJoueur(N, [L|G], x, _, I) :- 
-    N > 7, 
+enregistrerCoupJoueur(C, [L|G], x, _, I) :- 
+    C > 7, 
     write('Coup Invalide\n'), 
     jouerCoupJoueur(I)
     .
     
-enregistrerCoupJoueur(N, [T|X], J, [T|G], I) :-  
-    N > 0, 
-    N1 is N-1, 
-    enregistrerCoupJoueur(N1, X, J, G, I)
+enregistrerCoupJoueur(C, [T|X], J, [T|G], I) :-  
+    C > 0, 
+    C1 is C-1, 
+    enregistrerCoupJoueur(C1, X, J, G, I)
     .
     
 enregistrerCoupIA(1, [L|G], J, F, I) :- 
-    length(L,N), 
-    N < 6, 
+    length(L,C), 
+    C < 6, 
     addToColumn(J,L,M), 
     F=[M|G]
     .
     
-enregistrerCoupIA(N, [T|X], J, [T|G], I) :- 
-    N > 0, 
-    N1 is N-1, 
-    enregistrerCoupIA(N1, X, J, G, I)
+enregistrerCoupIA(C, [T|X], J, [T|G], I) :- 
+    C > 0, 
+    C1 is C-1, 
+    enregistrerCoupIA(C1, X, J, G, I)
     .
  
 % Fonctions principales dans le deroulement de la partie
@@ -333,24 +333,24 @@ jouerCoupX(G) :- finJeu(G,J), gagnant(J),!.
 jouerCoupO(G) :- finJeu(G,J), gagnant(J),!.
 jouerCoupX(G) :- 
     write('Joueur x, entrez un numéro de colonne : '),
-    read(N), 
-    enregistrerCoup(N,G, x, X, G),
+    read(C), 
+    enregistrerCoup(C,G, x, X, G),
     afficherGrille(X),
     write('\n'),
     jouerCoupO(X)
     .
 jouerCoupO(G) :- 
     write('Joueur o, entrez un numéro de colonne : '),
-    read(N), 
-    enregistrerCoup(N,G, o, X, G),
+    read(C), 
+    enregistrerCoup(C,G, o, X, G),
     afficherGrille(X),
     write('\n'),
     jouerCoupX(X)
     .
 jouerCoupJoueur(G) :- 
     write('Joueur x, entrez un numéro de colonne : '),
-    read(N), 
-    enregistrerCoupJoueur(N,G, x, X, G),
+    read(C), 
+    enregistrerCoupJoueur(C,G, x, X, G),
     afficherGrille(X),
     write('\n'),
     jouerIA(X)
@@ -358,7 +358,7 @@ jouerCoupJoueur(G) :-
     
     jouerIA(G):-finJeu(G,J), gagnant(J),!.
 
-%Si un coup permet de gagner il faut le jouer.
+%Ci un coup permet de gagner il faut le jouer.
 jouerIA(G) :- 
     coupGagnant(C,G,o), 
     enregistrerCoupIA(C,G,o,X,G),
@@ -367,7 +367,7 @@ jouerIA(G) :-
     jouerCoupJoueur(X)
     .
 
-%Si un coup permet a l'adversaire de gagner on se défend(coup défensif).
+%Ci un coup permet a l'adversaire de gagner on se défend(coup défensif).
 jouerIA(G) :- 
     coupGagnant(C,G,x), 
     enregistrerCoupIA(C,G,o,X,G), 
@@ -386,44 +386,44 @@ jouerIA(C, G) :-
     .
 
 espaceRestant(1, [L|G], E, L) :- 
-    longueur(L,N2), 
-    N3 is 6-N2, 
-    E=N3
+    longueur(L,C2), 
+    C3 is 6-C2, 
+    E=C3
     .
     
-espaceRestant(N, [T|X], E, L) :- 
-    N > 0, 
-    N1 is N-1, 
-    espaceRestant(N1, X, E, L)
+espaceRestant(C, [T|X], E, L) :- 
+    C > 0, 
+    C1 is C-1, 
+    espaceRestant(C1, X, E, L)
     .
                                                                         
-%Si on a pas de coup immédiat on fait un coup au centre ou au plus près possible pour une victoire possible en verticale. : Inutile
-jouerIA(G):- espaceRestant(4,G,E,L), finListe(L,o), E > 3, not(coupPerdantIA(4,G)), jouerIA(4,G).
-jouerIA(G):- espaceRestant(5,G,E,L), finListe(L,o), E > 3, not(coupPerdantIA(5,G)), jouerIA(5,G).
-jouerIA(G):- espaceRestant(3,G,E,L), finListe(L,o), E > 3, not(coupPerdantIA(3,G)), jouerIA(3,G).
-jouerIA(G):- espaceRestant(6,G,E,L), finListe(L,o), E > 3, not(coupPerdantIA(6,G)), jouerIA(6,G).
-jouerIA(G):- espaceRestant(2,G,E,L), finListe(L,o), E > 3, not(coupPerdantIA(2,G)), jouerIA(2,G).
-jouerIA(G):- espaceRestant(7,G,E,L), finListe(L,o), E > 3, not(coupPerdantIA(7,G)), jouerIA(7,G).
-jouerIA(G):- espaceRestant(1,G,E,L), finListe(L,o), E > 3, not(coupPerdantIA(1,G)), jouerIA(1,G).
-
-%Sinon jouer au plus près du centre quand même. : Inutile
-jouerIA(G):- jouerIA(4,G),not(coupPerdantIA(4,G)).
-jouerIA(G):- jouerIA(5,G),not(coupPerdantIA(5,G)).
-jouerIA(G):- jouerIA(3,G),not(coupPerdantIA(3,G)).
-jouerIA(G):- jouerIA(6,G),not(coupPerdantIA(6,G)).
-jouerIA(G):- jouerIA(2,G),not(coupPerdantIA(2,G)).
-jouerIA(G):- jouerIA(7,G),not(coupPerdantIA(7,G)).
-jouerIA(G):- jouerIA(1,G),not(coupPerdantIA(1,G)).
-
-%Déblocage de situation : Inutile
-jouerIA(G):- jouerIA(4,G).
-jouerIA(G):- jouerIA(5,G).
-jouerIA(G):- jouerIA(3,G).
-jouerIA(G):- jouerIA(6,G).
-jouerIA(G):- jouerIA(2,G).
-jouerIA(G):- jouerIA(7,G).
-jouerIA(G):- jouerIA(1,G).
-jouerIA(G):- jouerIA(0,G).
+% %Ci on a pas de coup immédiat on fait un coup au centre ou au plus près possible pour une victoire possible en verticale. : Inutile
+% jouerIA(G):- espaceRestant(4,G,E,L), finListe(L,o), E > 3, not(coupPerdantIA(4,G)), jouerIA(4,G).
+% jouerIA(G):- espaceRestant(5,G,E,L), finListe(L,o), E > 3, not(coupPerdantIA(5,G)), jouerIA(5,G).
+% jouerIA(G):- espaceRestant(3,G,E,L), finListe(L,o), E > 3, not(coupPerdantIA(3,G)), jouerIA(3,G).
+% jouerIA(G):- espaceRestant(6,G,E,L), finListe(L,o), E > 3, not(coupPerdantIA(6,G)), jouerIA(6,G).
+% jouerIA(G):- espaceRestant(2,G,E,L), finListe(L,o), E > 3, not(coupPerdantIA(2,G)), jouerIA(2,G).
+% jouerIA(G):- espaceRestant(7,G,E,L), finListe(L,o), E > 3, not(coupPerdantIA(7,G)), jouerIA(7,G).
+% jouerIA(G):- espaceRestant(1,G,E,L), finListe(L,o), E > 3, not(coupPerdantIA(1,G)), jouerIA(1,G).
+% 
+% %Cinon jouer au plus près du centre quand même. : Inutile
+% jouerIA(G):- jouerIA(4,G),not(coupPerdantIA(4,G)).
+% jouerIA(G):- jouerIA(5,G),not(coupPerdantIA(5,G)).
+% jouerIA(G):- jouerIA(3,G),not(coupPerdantIA(3,G)).
+% jouerIA(G):- jouerIA(6,G),not(coupPerdantIA(6,G)).
+% jouerIA(G):- jouerIA(2,G),not(coupPerdantIA(2,G)).
+% jouerIA(G):- jouerIA(7,G),not(coupPerdantIA(7,G)).
+% jouerIA(G):- jouerIA(1,G),not(coupPerdantIA(1,G)).
+% 
+% %Déblocage de situation : Inutile
+% jouerIA(G):- jouerIA(4,G).
+% jouerIA(G):- jouerIA(5,G).
+% jouerIA(G):- jouerIA(3,G).
+% jouerIA(G):- jouerIA(6,G).
+% jouerIA(G):- jouerIA(2,G).
+% jouerIA(G):- jouerIA(7,G).
+% jouerIA(G):- jouerIA(1,G).
+% jouerIA(G):- jouerIA(0,G).
     
     
 %.......................................
@@ -442,17 +442,16 @@ jouerIA(G):- jouerIA(0,G).
 % square([_,_,_,_,_,_,_,M,_],8,M).
 % square([_,_,_,_,_,_,_,_,M],9,M).
 
-% verification de la disponibilite de la colonne demandee
-is_playable([L|_], 1) :- length(L, N), N<6.
-is_playable([_|B], C) :- C1 is C-1, is_playable(B, C1).
+
 
 %.......................................
-% win   DEPRECATED
+% win
 %.......................................
 % Players win by having their mark in one of the following square configurations:
 
-% Controle d'une victoire eventuelle
-% -> Lucas
+win(B, M) :- % Controle si la marque M a gagne dans la grille B (l'utilise-t-on vraiment ?)
+    % ... -> TODO Lucas
+    .
 
 % win([M,M,M, _,_,_, _,_,_],M).
 % win([_,_,_, M,M,M, _,_,_],M).
@@ -465,15 +464,17 @@ is_playable([_|B], C) :- C1 is C-1, is_playable(B, C1).
 
 
 % %.......................................
-% % move        
+% % move	
 % %.......................................
 % % applies a move on the given board
-% % (put mark M in square S on board B and return the resulting board B2)
+% % (put mark M in square C on board B and return the resulting board B2)
 % %
 % 
 move(B,C,M,B2) :-
-%     set_item(B,S,M,B2)
+%     set_item(B,C,M,B2)
     % TODO : ajouter un M dans la grille B a la colonne C et renvoyer la nouvelle grille B2
+    % -> voir les fonctions d'ajout, ligne 251
+    % Controler si l'ajout de M a ete victorieux (utilisation de win ?)
     .
 
 
@@ -493,11 +494,11 @@ move(B,C,M,B2) :-
 % 
 % game_over2(P, B) :-
 %     blank_mark(E),
-%     not(square(B,S,E))     %%% game is over if opponent wins
+%     not(square(B,C,E))     %%% game is over if opponent wins
 %     .
 
 
-% METTE COUP GAGNANT ICI
+% TODO : METTRE COUP GAGNANT ICI
 
 
 % %.......................................
@@ -508,12 +509,12 @@ move(B,C,M,B2) :-
 % %
 % 
 make_move(P, B) :-
-    player(P, Type),                    % recuperation du type du joueur p (human ou computer)
+    player(P, Type),			% recuperation du type du joueur p (human ou computer)
 
-    make_move2(Type, P, B, B2), % demande d'un coup dans une nouvelle board
+    make_move2(Type, P, B, B2),	% demande d'un coup dans une nouvelle board
 
-    retract( board(_) ),        % remplacement de la board precedente
-    asserta( board(B2) )        % par la nouvelle board
+    retract( board(_) ),	% remplacement de la board precedente
+    asserta( board(B2) )	% par la nouvelle board
     .
 % 
 % % Demande d'un coup a un humain
@@ -525,80 +526,82 @@ make_move2(human, P, B, B2) :-
     write(' move? '),
     read(C),
 
-    blank_mark(E),              % definition de E a la valeur de la blank_mark (voir les predicats, blank_mark = 'e')
-%     square(B, S, E),   INUTILE
-%     is_playable(B, C),        % TODO : verification de la disponibilite de la colonne demandee
-    player_mark(P, M),          % recuperation de la marque M du joueur P
-    move(B, C, M, B2), !        % realisation du coup 
+    blank_mark(E),		% definition de E a la valeur de la blank_mark (voir les predicats, blank_mark = 'e')
+%     square(B, C, E),	 INUTILE
+%     is_playable(B, C),	% TODO : verification de la disponibilite de la colonne demandee
+    player_mark(P, M),		% recuperation de la marque M du joueur P
+    move(B, C, M, B2), !	% realisation du coup 
     .
 % 
-% % Fonction executee si la precedente echoue : l'utilisateur a entre un nombre invalide / la case est prise ou n'existe pas
-% make_move2(human, P, B, B2) :-
-%     nl,
-%     nl,
-%     write('Error : Please select a numbered square.'),                % Message d'erreur
-%     make_move2(human,P,B,B2)                                  % reexecution de la fonction precedente
-%     .
-% 
-% % Demande d'un coup a l'ordinateur
-% make_move2(computer, P, B, B2) :-
-%     nl,
-%     nl,
-%     write('Computer is thinking about next move...'),
-%     player_mark(P, M),                % recuperation de la marque M du joueur P
-%     minimax(0, B, M, S, U),   % calcul de la position S a jouer avec M
-%     move(B,S,M,B2),           % enregistrement du coup 
-% 
-%     nl,
-%     nl,
-%     write('Computer places '),
-%     write(M),
-%     write(' in square '),
-%     write(S),
-%     write('.')
-%     .
-% 
-% 
-% %.......................................
-% % moves
-% %.......................................
-% % retrieves a list of available moves (empty squares) on a board.
-% %
-% 
-% moves(B,L) :-
-%     not(win(B,x)),                    %%% if either player already won, then there are no available moves
-%     not(win(B,o)),
-%     blank_mark(E),                    % init de E a la valeur du blank_mark
-%     findall(N, square(B,N,E), L),     % remplit L avec toutes les positions N des cases vides (qui correspondent a square(B,N,E))
-%     L \= []
-%     .
+% Fonction executee si la precedente echoue : l'utilisateur a entre un nombre invalide / la case est prise ou n'existe pas
+make_move2(human, P, B, B2) :-
+    nl,
+    nl,
+    write('Error : Please select a numbered column.'),		% Message d'erreur
+    make_move2(human, P, B, B2)				% reexecution de la fonction precedente
+    .
+
+% Demande d'un coup a l'ordinateur
+make_move2(computer, P, B, B2) :-
+    nl,
+    nl,
+    write('Computer is thinking about next move...'),
+    player_mark(P, M),		% recuperation de la marque M du joueur P
+    minimax(0, B, M, C, U),	% calcul de la position C a jouer avec M
+    move(B,C,M,B2),		% enregistrement du coup 
+
+    nl,
+    nl,
+    write('Computer places '),
+    write(M),
+    write(' in column '),
+    write(C),
+    write('.')
+    .
 
 
 %.......................................
-% utility
+% moves
+%.......................................
+% retrieves a list of available moves (empty squares) on a board.
+%
+
+moves(B,L) :-
+    not(win(B,x)),                	%%% if either player already won, then there are no available moves
+    not(win(B,o)),
+%     blank_mark(E),			% init de E a la valeur du blank_mark
+%     findall(N, square(B,N,E), L), 	% remplit L avec toutes les positions N des cases vides (qui correspondent a square(B,N,E))
+    available_columns(B, L),		% TODO : remplit L avec toutes les colonnes jouables
+    L \= []
+    .
+
+
+%.......................................
+% utility  Determine qui est le gagnant d'une grille pleine (appelee par minimax quand la grille est pleine)
+% 
+% Il faut faire en sorte de se passer de cette fonction. On ne veut pas tester la victoire sur une board pleine mais plutot a chaque coup
 %.......................................
 % determines the value of a given board position
 %
-
-utility(B,U) :-
-    win(B,'x'),         % si les 'x' gagnent
-    U = 1,              % alors U vaudra 1
-    !
-    .
-
-utility(B,U) :-         % SINON (n'est execute que si la precedente a echoue)
-    win(B,'o'),         % si les 'o' gagnent
-    U = (-1),           % alors U vaudra -1
-    !
-    .
-
-utility(B,U) :-         % SINON (n'est execute que si la precedente a echoue)
-    U = 0               % U vaudra 0
-    .
+% utility(B,U) :-
+%     win(B,'x'),		% si les 'x' gagnent
+%     U = 1,		% alors U vaudra 1
+%     !
+%     .
+% 
+% utility(B,U) :-		% SINON (n'est execute que si la precedente a echoue)
+%     win(B,'o'),		% si les 'o' gagnent
+%     U = (-1), 		% alors U vaudra -1
+%     !
+%     .
+% 
+% utility(B,U) :-		% SINON (n'est execute que si la precedente a echoue)
+%     U = 0		% U vaudra 0
+%     .
 
 
 %.......................................
-% minimax
+% minimax - TODO : A revoir 
 %.......................................
 % The minimax algorithm always assumes an optimal opponent.
 % For tic-tac-toe, optimal play will always result in a tie, so the algorithm is effectively playing not-to-lose.
@@ -611,28 +614,27 @@ utility(B,U) :-         % SINON (n'est execute que si la precedente a echoue)
 % On connait D : profondeur de recherche
 % On connait B : board de recherche
 % On connait M : mark du joueur ('x' ou 'o')
-% On cherche a determiner S, la meilleure position a jouer
-% On cherche a determiner U, la meilleure evaluation qu'on a trouve, celle qui correspond a S
+% On cherche a determiner C, la meilleure position a jouer
+% On cherche a determiner U, la meilleure evaluation qu'on a trouve, celle qui correspond a C
 
 
-minimax(D,[E,E,E, E,E,E, E,E,E],M,S,U) :-   
-    blank_mark(E),              % Si la board est vide (toutes les cases matchent la blank_mark)
-    random_int_1n(9,S),         % On choisit une position a jouer au hasard
+minimax(D, [[],[],[],[],[],[],[]], M, C, U) :-   % Si la board est vide
+%     blank_mark(E),		% toutes les cases matchent la blank_mark
+    random_int_1n(7, C),	% On choisit une position a jouer au hasard
     !
     .
 
-minimax(D,B,M,S,U) :-   % SINON (la board n'est pas vide)
+minimax(D,B,M,C,U) :-	% SINON (la board n'est pas vide)
     D2 is D + 1,
     moves(B,L),          %%% get the list of available moves
     !,
-    best(D2,B,M,L,S,U),  %%% recursively determine the best available move
+    best(D2,B,M,L,C,U),  %%% recursively determine the best available move
     !
     .
 
-
-
-minimax(D,B,M,S,U) :-   % SINON (there are no more available moves)
-    utility(B,U)        % then the minimax value is the utility of the given board position
+% A la fin de la simulation de coups, la board est pleine
+minimax(D,B,M,C,U) :-
+    utility(B,U)      	% on retourne alors l'evaluation de la board
     .
 
 
@@ -642,26 +644,26 @@ minimax(D,B,M,S,U) :-   % SINON (there are no more available moves)
 % determines the best move in a given list of moves by recursively calling minimax
 %
 
-% if there is only one move left in the list ( [S1] )
-best(D,B,M,[S1],S,U) :-         
-    move(B,S1,M,B2),        %%% apply that move to the board,
-    inverse_mark(M,M2),         % recuperation de la mark de l'adversaire de M dans M2
+% if there is only one move left in the list ( [C1] )
+best(D,B,M,[C1],C,U) :-		
+    move(B,C1,M,B2),        %%% apply that move to the board,
+    inverse_mark(M,M2), 	% recuperation de la mark de l'adversaire de M dans M2
     !,  
-    minimax(D,B2,M2,_S,U),  %%% then recursively search for the utility value of that move. (???)
-    S = S1, !,
-    output_value(D,S,U),
+    minimax(D,B2,M2,_C,U),  %%% then recursively search for the utility value of that move. (???)
+    C = C1, !,
+    output_value(D,C,U),
     !
     .
 
-% if there is more than one move in the list ( [S1|T] )
-best(D,B,M,[S1|T],S,U) :-
-    move(B,S1,M,B2),                    %%% apply the first move (in the list) to the board,
-    inverse_mark(M,M2),                 % recuperation de la mark de l'adversaire de M dans M2
+% if there is more than one move in the list ( [C1|T] )
+best(D,B,M,[C1|T],C,U) :-
+    move(B,C1,M,B2),			%%% apply the first move (in the list) to the board,
+    inverse_mark(M,M2), 		% recuperation de la mark de l'adversaire de M dans M2
     !,
-    minimax(D,B2,M2,_S,U1),             %%% recursively search for the utility value of that move,
-    best(D,B,M,T,S2,U2),                %%% determine the best move of the remaining moves,
-    output_value(D,S1,U1),      
-    better(D,M,S1,U1,S2,U2,S,U) %%% and choose the better of the two moves (based on their respective utility values)
+    minimax(D,B2,M2,_C,U1),		%%% recursively search for the utility value of that move,
+    best(D,B,M,T,C2,U2),		%%% determine the best move of the remaining moves,
+    output_value(D,C1,U1),      
+    better(D,M,C1,U1,C2,U2,C,U)	%%% and choose the better of the two moves (based on their respective utility values)
     .
 
 
@@ -672,31 +674,31 @@ best(D,B,M,[S1|T],S,U) :-
 %
 % if both moves have the same utility value, then one is chosen at random.
 
-better(D,M,S1,U1,S2,U2,     S,U) :-
+better(D,M,C1,U1,C2,U2,     C,U) :-
     maximizing(M),                     %%% if the player is maximizing
     U1 > U2,                           %%% then greater is better.
-    S = S1,
+    C = C1,
     U = U1,
     !
     .
 
-better(D,M,S1,U1,S2,U2,     S,U) :-
+better(D,M,C1,U1,C2,U2,     C,U) :-
     minimizing(M),                     %%% if the player is minimizing,
     U1 < U2,                           %%% then lesser is better.
-    S = S1,
+    C = C1,
     U = U1, 
     !
     .
 
-better(D,M,S1,U1,S2,U2,     S,U) :-
+better(D,M,C1,U1,C2,U2,     C,U) :-
     U1 == U2,                          %%% if moves have equal utility,
-    random_int_1n(10,R),               %%% then pick one of them at random
-    better2(D,R,M,S1,U1,S2,U2,S,U),    
+    random_int_1n(8,R),               %%% then pick one of them at random
+    better2(D,R,M,C1,U1,C2,U2,C,U),    
     !
     .
 
-better(D,M,S1,U1,S2,U2,     S,U) :-        %%% otherwise, second move is better
-    S = S2,
+better(D,M,C1,U1,C2,U2,     C,U) :-        %%% otherwise, second move is better
+    C = C2,
     U = U2,
     !
     .
@@ -708,15 +710,15 @@ better(D,M,S1,U1,S2,U2,     S,U) :-        %%% otherwise, second move is better
 % randomly selects two squares of the same utility value given a single probability
 %
 
-better2(D,R,M,S1,U1,S2,U2,  S,U) :-
+better2(D,R,M,C1,U1,C2,U2,  C,U) :-
     R < 6,
-    S = S1,
+    C = C1,
     U = U1, 
     !
     .
 
-better2(D,R,M,S1,U1,S2,U2,  S,U) :-
-    S = S2,
+better2(D,R,M,C1,U1,C2,U2,  C,U) :-
+    C = C2,
     U = U2,
     !
     .
@@ -727,35 +729,35 @@ better2(D,R,M,S1,U1,S2,U2,  S,U) :-
 %%% OUTPUT
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% output_players :- 
-%     nl,
-%     player(1, V1),
-%     write('Player 1 is '),   %%% either human or computer
-%     write(V1),
-% 
-%     nl,
-%     player(2, V2),
-%     write('Player 2 is '),   %%% either human or computer
-%     write(V2), 
-%     !
-%     .
-% 
-% 
-% output_winner(B) :-
-%     win(B,x),
-%     write('X wins.'),
-%     !
-%     .
-% 
-% output_winner(B) :-
-%     win(B,o),
-%     write('O wins.'),
-%     !
-%     .
-% 
-% output_winner(B) :-
-%     write('No winner.')
-%     .
+output_players :- 
+    nl,
+    player(1, V1),
+    write('Player 1 is '),   %%% either human or computer
+    write(V1),
+
+    nl,
+    player(2, V2),
+    write('Player 2 is '),   %%% either human or computer
+    write(V2), 
+    !
+    .
+
+
+output_winner(B) :-
+    win(B,x),
+    write('X wins.'),
+    !
+    .
+
+output_winner(B) :-
+    win(B,o),
+    write('O wins.'),
+    !
+    .
+
+output_winner(B) :-
+    write('No winner.')
+    .
 
 
 % output_board(B) :-
@@ -789,34 +791,35 @@ better2(D,R,M,S1,U1,S2,U2,  S,U) :-
 %     output_board(B), !
 %     .
 % 
-% output_square(B,S) :-
-%     square(B,S,M),
+% output_square(B,C) :-
+%     square(B,C,M),
 %     write(' '), 
-%     output_square2(S,M),  
+%     output_square2(C,M),  
 %     write(' '), !
 %     .
 % 
-% output_square2(S, E) :- 
+% output_square2(C, E) :- 
 %     blank_mark(E),
-%     write(S), !              %%% if square is empty, output the square number
+%     write(C), !              %%% if square is empty, output the square number
 %     .
 % 
-% output_square2(S, M) :- 
+% output_square2(C, M) :- 
 %     write(M), !              %%% if square is marked, output the mark
 %     .
 % 
-% output_value(D,S,U) :-
-%     D == 1,
-%     nl,
-%     write('Square '),
-%     write(S),
-%     write(', utility: '),
-%     write(U), !
-%     .
-% 
-% output_value(D,S,U) :- 
-%     true
-%     .
+
+output_value(D,C,U) :-
+    D == 1,
+    nl,
+    write('Column '),
+    write(C),
+    write(', utility: '),
+    write(U), !
+    .
+
+output_value(D,C,U) :- % If previous fails, do not stop the program
+    true
+    .
     
     
 % ..............................
@@ -843,7 +846,7 @@ afficherElement(E):- write(E).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% PSEUDO-RANDOM NUMBERS 
+%%% PCEUDO-RANDOM NUMBERC 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %.......................................
@@ -871,7 +874,7 @@ random_seed(N) :-
     .
 
 /*****************************************
- OTHER COMPILER SUPPORT
+ OTHER COMPILER CUPPORT
 ******************************************
 
 arity_prolog___random_seed(N) :-
@@ -882,8 +885,8 @@ arity_prolog___random_seed(N) :-
 
 arity_prolog___random_seed(N) :-
     var(N),
-    time(time(Hour,Minute,Second,Tick)),
-    N is ( (Hour+1) * (Minute+1) * (Second+1) * (Tick+1)),
+    time(time(Hour,Minute,Cecond,Tick)),
+    N is ( (Hour+1) * (Minute+1) * (Cecond+1) * (Tick+1)),
     randomize(N), 
     !
     .
@@ -903,7 +906,7 @@ random_int_1n(N, V) :-
     .
 
 /*****************************************
- OTHER COMPILER SUPPORT
+ OTHER COMPILER CUPPORT
 ******************************************
 
 arity_prolog___random_int_1n(N, V) :-
@@ -919,7 +922,7 @@ arity_prolog___random_int_1n(N, V) :-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% LIST PROCESSING
+%%% LICT PROCECCING
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 member([V|T], V).
@@ -958,7 +961,7 @@ append([H|T1], L2, [H|T3]) :- append(T1, L2, T3).
 
 
 % %.......................................
-% % get_item    Primitives inutiles
+% % get_item	Primitives inutiles
 % %.......................................
 % % Given a list L, retrieve the item at position N and return it as value V
 % %
