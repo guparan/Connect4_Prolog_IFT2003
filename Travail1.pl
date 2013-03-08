@@ -91,6 +91,13 @@ corner_square(4, 9).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+% A quoi ca sert ..?    
+lancerIA :- jouerIA([[],[],[],[],[],[],[]]).
+
+% Lancement du jeu : grille de départ de 6*7 (vide). C'est le joueur 'o' qui commence, suivi par x, jusqu'à ce que l'un des deux gagne [ou GRILLE PLEINE]
+jouer:- jouerCoupO([[],[],[],[],[],[],[]]).
+
+
 run :-
     hello,          %%% Display welcome message, initialize game
 
@@ -127,7 +134,7 @@ goodbye :-
     nl,
     nl,
     write('Game over: '),
-    output_winner(B),
+    output_winner(B), % TODO
     retract(board(_)),
     retract(player(_,_)),
     read_play_again(V), !,
@@ -187,14 +194,14 @@ set_players(N) :-
 human_playing(M) :- 
     (M == 'x' ; M == 'X'),
     asserta( player(1, human) ),
-    asserta( player(2, computer) ), !
-    .
+    asserta( player(2, computer) ), 
+    !.
 
 human_playing(M) :- 
     (M == 'o' ; M == 'O'),
     asserta( player(1, computer) ),
-    asserta( player(2, human) ), !
-    .
+    asserta( player(2, human) ),
+    !.
 
 human_playing(M) :-
     nl,
@@ -418,11 +425,6 @@ jouerIA(G):- jouerIA(7,G).
 jouerIA(G):- jouerIA(1,G).
 jouerIA(G):- jouerIA(0,G).
     
-% A quoi ca sert ..?    
-lancerIA :- jouerIA([[],[],[],[],[],[],[]]).
-
-% Lancement du jeu : grille de départ de 6*7 (vide). C'est le joueur 'o' qui commence, suivi par x, jusqu'à ce que l'un des deux gagne [ou GRILLE PLEINE]
-jouer:- jouerCoupO([[],[],[],[],[],[],[]]).
     
 %.......................................
 % 
@@ -461,15 +463,16 @@ jouer:- jouerCoupO([[],[],[],[],[],[],[]]).
 
 
 % %.......................................
-% % move	Remplace par jouerCoupJoueur
+% % move	
 % %.......................................
 % % applies a move on the given board
 % % (put mark M in square S on board B and return the resulting board B2)
 % %
 % 
-% move(B,S,M,B2) :-
+move(B,C,M,B2) :-
 %     set_item(B,S,M,B2)
-%     .
+    % TODO : ajouter un M dans la grille B a la colonne C et renvoyer la nouvelle grille B2
+    .
 
 
 % %.......................................
@@ -502,29 +505,30 @@ jouer:- jouerCoupO([[],[],[],[],[],[],[]]).
 % % then applies that move to the given board
 % %
 % 
-% make_move(P, B) :-
-%     player(P, Type),			% recuperation du Type du joueur P (human ou computer)
-% 
-%     make_move2(Type, P, B, B2),	% demande d'un coup dans une nouvelle board
-% 
-%     retract( board(_) ),	% remplacement de la board precedente
-%     asserta( board(B2) )	% par la nouvelle board
-%     .
+make_move(P, B) :-
+    player(P, Type),			% recuperation du type du joueur p (human ou computer)
+
+    make_move2(Type, P, B, B2),	% demande d'un coup dans une nouvelle board
+
+    retract( board(_) ),	% remplacement de la board precedente
+    asserta( board(B2) )	% par la nouvelle board
+    .
 % 
 % % Demande d'un coup a un humain
-% make_move2(human, P, B, B2) :-
-%     nl,
-%     nl,
-%     write('Player '),
-%     write(P),
-%     write(' move? '),
-%     read(S),
-% 
-%     blank_mark(E),		% definition de E a la valeur de la blank_mark (voir les predicats, blank_mark = 'e')
-%     square(B, S, E),		% verification de la disponibilite de la case demandee (on regarde si elle contient la blank_mark)
-%     player_mark(P, M),		% recuperation de la marque M du joueur P
-%     move(B, S, M, B2), !	% realisation du coup 
-%     .
+make_move2(human, P, B, B2) :-
+    nl,
+    nl,
+    write('Player '),
+    write(P),
+    write(' move? '),
+    read(C),
+
+    blank_mark(E),		% definition de E a la valeur de la blank_mark (voir les predicats, blank_mark = 'e')
+%     square(B, S, E),	 INUTILE
+%     is_playable(B, C),	% TODO : verification de la disponibilite de la colonne demandee
+    player_mark(P, M),		% recuperation de la marque M du joueur P
+    move(B, C, M, B2), !	% realisation du coup 
+    .
 % 
 % % Fonction executee si la precedente echoue : l'utilisateur a entre un nombre invalide / la case est prise ou n'existe pas
 % make_move2(human, P, B, B2) :-
@@ -827,7 +831,7 @@ afficherGrille(G, N):-
     afficherGrille(G, N1)
     .
     
-afficherGrille(G):- afficherGrille(G,6).
+output_board(B):- afficherGrille(B,6).
  
 afficherListe([]):- write('|').
 afficherListe([E|L]):-  write('|'), afficherElement(E), afficherListe(L).
