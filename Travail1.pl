@@ -1,4 +1,4 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+﻿%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% CST 381 -– Artificial Intelligence
 %%% Robert Pinchbeck
 %%% Final Project 
@@ -442,10 +442,12 @@ jouerIA(G):- jouerIA(0,G).
 % square([_,_,_,_,_,_,_,M,_],8,M).
 % square([_,_,_,_,_,_,_,_,M],9,M).
 
-
+% verification de la disponibilite de la colonne demandee
+is_playable([L|_], 1) :- length(L, N), N<6.
+is_playable([_|B], C) :- C1 is C-1, is_playable(B, C1).
 
 %.......................................
-% win	DEPRECATED
+% win   DEPRECATED
 %.......................................
 % Players win by having their mark in one of the following square configurations:
 
@@ -463,7 +465,7 @@ jouerIA(G):- jouerIA(0,G).
 
 
 % %.......................................
-% % move	
+% % move        
 % %.......................................
 % % applies a move on the given board
 % % (put mark M in square S on board B and return the resulting board B2)
@@ -506,12 +508,12 @@ move(B,C,M,B2) :-
 % %
 % 
 make_move(P, B) :-
-    player(P, Type),			% recuperation du type du joueur p (human ou computer)
+    player(P, Type),                    % recuperation du type du joueur p (human ou computer)
 
-    make_move2(Type, P, B, B2),	% demande d'un coup dans une nouvelle board
+    make_move2(Type, P, B, B2), % demande d'un coup dans une nouvelle board
 
-    retract( board(_) ),	% remplacement de la board precedente
-    asserta( board(B2) )	% par la nouvelle board
+    retract( board(_) ),        % remplacement de la board precedente
+    asserta( board(B2) )        % par la nouvelle board
     .
 % 
 % % Demande d'un coup a un humain
@@ -523,19 +525,19 @@ make_move2(human, P, B, B2) :-
     write(' move? '),
     read(C),
 
-    blank_mark(E),		% definition de E a la valeur de la blank_mark (voir les predicats, blank_mark = 'e')
-%     square(B, S, E),	 INUTILE
-%     is_playable(B, C),	% TODO : verification de la disponibilite de la colonne demandee
-    player_mark(P, M),		% recuperation de la marque M du joueur P
-    move(B, C, M, B2), !	% realisation du coup 
+    blank_mark(E),              % definition de E a la valeur de la blank_mark (voir les predicats, blank_mark = 'e')
+%     square(B, S, E),   INUTILE
+%     is_playable(B, C),        % TODO : verification de la disponibilite de la colonne demandee
+    player_mark(P, M),          % recuperation de la marque M du joueur P
+    move(B, C, M, B2), !        % realisation du coup 
     .
 % 
 % % Fonction executee si la precedente echoue : l'utilisateur a entre un nombre invalide / la case est prise ou n'existe pas
 % make_move2(human, P, B, B2) :-
 %     nl,
 %     nl,
-%     write('Error : Please select a numbered square.'),		% Message d'erreur
-%     make_move2(human,P,B,B2)					% reexecution de la fonction precedente
+%     write('Error : Please select a numbered square.'),                % Message d'erreur
+%     make_move2(human,P,B,B2)                                  % reexecution de la fonction precedente
 %     .
 % 
 % % Demande d'un coup a l'ordinateur
@@ -543,9 +545,9 @@ make_move2(human, P, B, B2) :-
 %     nl,
 %     nl,
 %     write('Computer is thinking about next move...'),
-%     player_mark(P, M),		% recuperation de la marque M du joueur P
-%     minimax(0, B, M, S, U),	% calcul de la position S a jouer avec M
-%     move(B,S,M,B2),		% enregistrement du coup 
+%     player_mark(P, M),                % recuperation de la marque M du joueur P
+%     minimax(0, B, M, S, U),   % calcul de la position S a jouer avec M
+%     move(B,S,M,B2),           % enregistrement du coup 
 % 
 %     nl,
 %     nl,
@@ -564,10 +566,10 @@ make_move2(human, P, B, B2) :-
 % %
 % 
 % moves(B,L) :-
-%     not(win(B,x)),                	%%% if either player already won, then there are no available moves
+%     not(win(B,x)),                    %%% if either player already won, then there are no available moves
 %     not(win(B,o)),
-%     blank_mark(E),			% init de E a la valeur du blank_mark
-%     findall(N, square(B,N,E), L), 	% remplit L avec toutes les positions N des cases vides (qui correspondent a square(B,N,E))
+%     blank_mark(E),                    % init de E a la valeur du blank_mark
+%     findall(N, square(B,N,E), L),     % remplit L avec toutes les positions N des cases vides (qui correspondent a square(B,N,E))
 %     L \= []
 %     .
 
@@ -579,19 +581,19 @@ make_move2(human, P, B, B2) :-
 %
 
 utility(B,U) :-
-    win(B,'x'),		% si les 'x' gagnent
-    U = 1,		% alors U vaudra 1
+    win(B,'x'),         % si les 'x' gagnent
+    U = 1,              % alors U vaudra 1
     !
     .
 
-utility(B,U) :-		% SINON (n'est execute que si la precedente a echoue)
-    win(B,'o'),		% si les 'o' gagnent
-    U = (-1), 		% alors U vaudra -1
+utility(B,U) :-         % SINON (n'est execute que si la precedente a echoue)
+    win(B,'o'),         % si les 'o' gagnent
+    U = (-1),           % alors U vaudra -1
     !
     .
 
-utility(B,U) :-		% SINON (n'est execute que si la precedente a echoue)
-    U = 0		% U vaudra 0
+utility(B,U) :-         % SINON (n'est execute que si la precedente a echoue)
+    U = 0               % U vaudra 0
     .
 
 
@@ -614,12 +616,12 @@ utility(B,U) :-		% SINON (n'est execute que si la precedente a echoue)
 
 
 minimax(D,[E,E,E, E,E,E, E,E,E],M,S,U) :-   
-    blank_mark(E),		% Si la board est vide (toutes les cases matchent la blank_mark)
-    random_int_1n(9,S),		% On choisit une position a jouer au hasard
+    blank_mark(E),              % Si la board est vide (toutes les cases matchent la blank_mark)
+    random_int_1n(9,S),         % On choisit une position a jouer au hasard
     !
     .
 
-minimax(D,B,M,S,U) :-	% SINON (la board n'est pas vide)
+minimax(D,B,M,S,U) :-   % SINON (la board n'est pas vide)
     D2 is D + 1,
     moves(B,L),          %%% get the list of available moves
     !,
@@ -629,8 +631,8 @@ minimax(D,B,M,S,U) :-	% SINON (la board n'est pas vide)
 
 
 
-minimax(D,B,M,S,U) :-	% SINON (there are no more available moves)
-    utility(B,U)      	% then the minimax value is the utility of the given board position
+minimax(D,B,M,S,U) :-   % SINON (there are no more available moves)
+    utility(B,U)        % then the minimax value is the utility of the given board position
     .
 
 
@@ -641,9 +643,9 @@ minimax(D,B,M,S,U) :-	% SINON (there are no more available moves)
 %
 
 % if there is only one move left in the list ( [S1] )
-best(D,B,M,[S1],S,U) :-		
+best(D,B,M,[S1],S,U) :-         
     move(B,S1,M,B2),        %%% apply that move to the board,
-    inverse_mark(M,M2), 	% recuperation de la mark de l'adversaire de M dans M2
+    inverse_mark(M,M2),         % recuperation de la mark de l'adversaire de M dans M2
     !,  
     minimax(D,B2,M2,_S,U),  %%% then recursively search for the utility value of that move. (???)
     S = S1, !,
@@ -653,13 +655,13 @@ best(D,B,M,[S1],S,U) :-
 
 % if there is more than one move in the list ( [S1|T] )
 best(D,B,M,[S1|T],S,U) :-
-    move(B,S1,M,B2),			%%% apply the first move (in the list) to the board,
-    inverse_mark(M,M2), 		% recuperation de la mark de l'adversaire de M dans M2
+    move(B,S1,M,B2),                    %%% apply the first move (in the list) to the board,
+    inverse_mark(M,M2),                 % recuperation de la mark de l'adversaire de M dans M2
     !,
-    minimax(D,B2,M2,_S,U1),		%%% recursively search for the utility value of that move,
-    best(D,B,M,T,S2,U2),		%%% determine the best move of the remaining moves,
+    minimax(D,B2,M2,_S,U1),             %%% recursively search for the utility value of that move,
+    best(D,B,M,T,S2,U2),                %%% determine the best move of the remaining moves,
     output_value(D,S1,U1),      
-    better(D,M,S1,U1,S2,U2,S,U)	%%% and choose the better of the two moves (based on their respective utility values)
+    better(D,M,S1,U1,S2,U2,S,U) %%% and choose the better of the two moves (based on their respective utility values)
     .
 
 
@@ -956,7 +958,7 @@ append([H|T1], L2, [H|T3]) :- append(T1, L2, T3).
 
 
 % %.......................................
-% % get_item	Primitives inutiles
+% % get_item    Primitives inutiles
 % %.......................................
 % % Given a list L, retrieve the item at position N and return it as value V
 % %
