@@ -58,7 +58,7 @@ asserta( player(P, Type) ) - indicates which players are human/computer.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%     FACTC
+%%%     FACTS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 next_player(1, 2).      %%% determines the next player after the given player
@@ -443,6 +443,10 @@ espaceRestant(C, [T|X], E, L) :-
 % square([_,_,_,_,_,_,_,_,M],9,M).
 
 
+% verification de la disponibilite de la colonne demandee
+is_playable([L|_], 1) :- length(L, N), N<6.
+is_playable([_|B], C) :- C1 is C-1, is_playable(B, C1).
+
 
 %.......................................
 % win
@@ -452,15 +456,6 @@ espaceRestant(C, [T|X], E, L) :-
 win(B, M) :- % Controle si la marque M a gagne dans la grille B (l'utilise-t-on vraiment ?)
     % ... -> TODO Lucas
     .
-
-% win([M,M,M, _,_,_, _,_,_],M).
-% win([_,_,_, M,M,M, _,_,_],M).
-% win([_,_,_, _,_,_, M,M,M],M).
-% win([M,_,_, M,_,_, M,_,_],M).
-% win([_,M,_, _,M,_, _,M,_],M).
-% win([_,_,M, _,_,M, _,_,M],M).
-% win([M,_,_, _,M,_, _,_,M],M).
-% win([_,_,M, _,M,_, M,_,_],M).
 
 
 % %.......................................
@@ -476,6 +471,8 @@ move(B,C,M,B2) :-
     % -> voir les fonctions d'ajout, ligne 251
     % Controler si l'ajout de M a ete victorieux (utilisation de win ?)
     .
+set_item([L|B], 1, M, B2) :- addToColumn(M,L,L2), B2=[L2|B].
+set_item([L|B], C, M, [L|B2]) :- C > 0, C < 8, C1 is C-1, set_item(B, C1, M, B2).
 
 
 % %.......................................
@@ -498,7 +495,30 @@ move(B,C,M,B2) :-
 %     .
 
 
-% TODO : METTRE COUP GAGNANT ICI
+
+%%%%%%%%%%%%%%%% controle coup gagnant %%%%%%%%%%%%%%%
+
+% win_move(B, C, M) with B the board, C the column and M the mark (x or o).
+% Return Yes if the move let the player win, No if not.
+% Checks only the column and the line concerned by the move
+% PRECOND. : must be called after the move
+win_move(B, C, M) :- win_move_column(B, C, M), !.
+win_move(B, C, M) :- line_played(B, C, N), win_move_line(B, N, M).
+
+% Win condition (column) : 4 pieces of the same color (x or o) in a row
+% B board, C column to test, M mark
+win_move_column([L|_], 1, M) :- sublist([M,M,M,M], L), !.
+win_move_column([_|B], C, M) :- C1 is C-1, win_move_column(B, C1, M).
+
+% B board, C column played and N index of the line in which the piece went
+% Notice : the bottom line is the 1st and the top line is the 6th
+line_played([L|_], 1, N) :- length(L, N).
+line_played([_|B], C, N) :- C1 is C-1, line_played(B, C1, N).
+
+% Win condition (line) : 4 pieces of the same color (x or o) in a row
+% B board, N index of the line, M mark
+win_move_line(B, N, M) :- maplist(nthElem(N), B, L), sublist([M,M,M,M], L).
+
 
 
 % %.......................................
@@ -528,7 +548,7 @@ make_move2(human, P, B, B2) :-
 
     blank_mark(E),		% definition de E a la valeur de la blank_mark (voir les predicats, blank_mark = 'e')
 %     square(B, C, E),	 INUTILE
-%     is_playable(B, C),	% TODO : verification de la disponibilite de la colonne demandee
+    is_playable(B, C),	    % verification de la disponibilite de la colonne demandee
     player_mark(P, M),		% recuperation de la marque M du joueur P
     move(B, C, M, B2), !	% realisation du coup 
     .
@@ -558,6 +578,11 @@ make_move2(computer, P, B, B2) :-
     write(C),
     write('.')
     .
+
+
+% Remplit L avec les indices de toutes les colonnes jouables dans la board B
+available_columns(B, []).
+available_columns(B, [C|L]) :- is_playable(B, C), is_playable(B, L).
 
 
 %.......................................
