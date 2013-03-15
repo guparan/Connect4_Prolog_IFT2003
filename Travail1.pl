@@ -445,7 +445,7 @@ espaceRestant(C, [T|X], E, L) :-
 
 % verification de la disponibilite de la colonne demandee
 is_playable([L|_], 1) :- length(L, N), N<6.
-is_playable([_|B], C) :- C1 is C-1, is_playable(B, C1).
+is_playable([_|B], C) :- C > 1, C < 8, C1 is C-1, is_playable(B, C1).
 
 
 %.......................................
@@ -581,8 +581,7 @@ make_move2(computer, P, B, B2) :-
 
 
 % Remplit L avec les indices de toutes les colonnes jouables dans la board B
-available_columns(B, []).
-available_columns(B, [C|L]) :- is_playable(B, C), is_playable(B, L).
+available_columns(B, L) :- findall(C, is_playable(B, C), L).
 
 
 %.......................................
