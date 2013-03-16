@@ -109,8 +109,8 @@ hello :-
 
 initialize :-
     random_seed,          %%% use current time to initialize random number generator
-    blank_mark(E),
-    asserta( board([[],[],[],[],[],[],[]])
+%     blank_mark(E),
+    asserta( board([[],[],[],[],[],[],[]]) )
     .
 
 goodbye :-
@@ -118,7 +118,7 @@ goodbye :-
     nl,
     nl,
     write('Game over: '),
-    output_winner(B), % TODO -> a quoi sert cette fonction ?
+    output_winner(B),
     retract(board(_)),
     retract(player(_,_)),
     read_play_again(V), !,
@@ -229,211 +229,6 @@ nthElem(N, L, []) :- length(L, N1), N1 < N.
 nthElem(N, L, V) :- nth1(N, L, V).                            
 
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%  		 ??????
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Fonction qui enregistre un coup joué dans la grille
-/* Paramètres : C numéro de la colonne dans laquelle J joue, G grille, J joueur, G' nouvelle grille */          
-enregistrerCoup(1, [L|G], x, _, I) :- 
-    length(L,C), 
-    C >= 6, 
-    write('Coup Invalide\n'), 
-    jouerCoupX(I)
-    .
-    
-enregistrerCoup(1, [L|G], o, _, I) :- 
-    length(L,C), 
-    C >= 6, 
-    write('Coup Invalide\n'), 
-    jouerCoupO(I)
-    .
-    
-enregistrerCoup(1, [L|G], J, F, I) :- 
-    length(L,C), 
-    C < 6, 
-    addToColumn(J,L,M), 
-    F=[M|G]
-    .
-    
-enregistrerCoup(C, [L|G], x, _, I) :- 
-    C > 7, 
-    write('Coup Invalide\n'), 
-    jouerCoupX(I)
-    .
-    
-enregistrerCoup(C, [L|G], o, _, I) :-
-    C > 7, 
-    write('Coup Invalide\n'), 
-    jouerCoupO(I)
-    .
-    
-enregistrerCoup(C, [T|X], J, [T|G], I) :- 
-    C > 0, 
-    C1 is C-1, 
-    enregistrerCoup(C1, X, J, G, I)
-    .
-                                        
-enregistrerCoupJoueur(1, [L|G], x, _, I) :- 
-    length(L,C), C >= 6, 
-    write('Coup Invalide\n'), 
-    jouerCoupJoueur(I)
-    .
-    
-enregistrerCoupJoueur(1, [L|G], J, F, I) :- 
-    length(L,C), 
-    C < 6, 
-    addToColumn(J,L,M), 
-    F=[M|G]
-    .
-    
-enregistrerCoupJoueur(C, [L|G], x, _, I) :- 
-    C > 7, 
-    write('Coup Invalide\n'), 
-    jouerCoupJoueur(I)
-    .
-    
-enregistrerCoupJoueur(C, [T|X], J, [T|G], I) :-  
-    C > 0, 
-    C1 is C-1, 
-    enregistrerCoupJoueur(C1, X, J, G, I)
-    .
-    
-enregistrerCoupIA(1, [L|G], J, F, I) :- 
-    length(L,C), 
-    C < 6, 
-    addToColumn(J,L,M), 
-    F=[M|G]
-    .
-    
-enregistrerCoupIA(C, [T|X], J, [T|G], I) :- 
-    C > 0, 
-    C1 is C-1, 
-    enregistrerCoupIA(C1, X, J, G, I)
-    .
- 
-
- 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%  	  RUNNING THE GAME
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
-jouerCoupX(B) :- finJeu(B,P), winner(P ),!.
-jouerCoupO(B) :- finJeu(B,P), winner(P ),!.
-jouerCoupX(B) :- 
-    write('Joueur x, entrez un numéro de colonne : '),
-    read(C), 
-    enregistrerCoup(C,G, x, X, G),
-    afficherGrille(X),
-    write('\n'),
-    jouerCoupO(X)
-    .
-jouerCoupO(G) :- 
-    write('Joueur o, entrez un numéro de colonne : '),
-    read(C), 
-    enregistrerCoup(C,G, o, X, G),
-    afficherGrille(X),
-    write('\n'),
-    jouerCoupX(X)
-    .
-jouerCoupJoueur(G) :- 
-    write('Joueur x, entrez un numéro de colonne : '),
-    read(C), 
-    enregistrerCoupJoueur(C,G, x, X, G),
-    afficherGrille(X),
-    write('\n'),
-    jouerIA(X)
-    .
-    
-    jouerIA(G):-finJeu(G,J), winner(J),!.
-
-% Si un coup permet de gagner il faut le jouer.
-jouerIA(G) :- 
-    win_move(C,G,o), 
-    enregistrerCoupIA(C,G,o,X,G),
-    afficherGrille(X),
-    write('\n'),
-    jouerCoupJoueur(X)
-    .
-
-% Si un coup permet a l'adversaire de gagner on se défend(coup défensif).
-jouerIA(G) :- 
-    win_move(C,G,x), 
-    enregistrerCoupIA(C,G,o,X,G), 
-    afficherGrille(X),
-    write('\n'),
-    jouerCoupJoueur(X)
-    .
-
-jouerIA(0, G) :- write('No move found.').
-
-jouerIA(C, G) :- 
-    enregistrerCoupIA(C,G,o,X,G),
-    afficherGrille(X),
-    write('\n'),
-    jouerCoupJoueur(X)
-    .
-
-espaceRestant(1, [L|G], E, L) :- 
-    longueur(L,C2), 
-    C3 is 6-C2, 
-    E=C3
-    .
-    
-espaceRestant(C, [T|X], E, L) :- 
-    C > 0, 
-    C1 is C-1, 
-    espaceRestant(C1, X, E, L)
-    .
-                                                                        
-% % Si on a pas de coup immédiat on fait un coup au centre ou au plus près possible pour une victoire possible en verticale. : Inutile
-% jouerIA(G):- espaceRestant(4,G,E,L), lastItem(L,o), E > 3, not(coupPerdantIA(4,G)), jouerIA(4,G).
-% jouerIA(G):- espaceRestant(5,G,E,L), lastItem(L,o), E > 3, not(coupPerdantIA(5,G)), jouerIA(5,G).
-% jouerIA(G):- espaceRestant(3,G,E,L), lastItem(L,o), E > 3, not(coupPerdantIA(3,G)), jouerIA(3,G).
-% jouerIA(G):- espaceRestant(6,G,E,L), lastItem(L,o), E > 3, not(coupPerdantIA(6,G)), jouerIA(6,G).
-% jouerIA(G):- espaceRestant(2,G,E,L), lastItem(L,o), E > 3, not(coupPerdantIA(2,G)), jouerIA(2,G).
-% jouerIA(G):- espaceRestant(7,G,E,L), lastItem(L,o), E > 3, not(coupPerdantIA(7,G)), jouerIA(7,G).
-% jouerIA(G):- espaceRestant(1,G,E,L), lastItem(L,o), E > 3, not(coupPerdantIA(1,G)), jouerIA(1,G).
-% 
-% % Sinon jouer au plus près du centre quand même. : Inutile
-% jouerIA(G):- jouerIA(4,G),not(coupPerdantIA(4,G)).
-% jouerIA(G):- jouerIA(5,G),not(coupPerdantIA(5,G)).
-% jouerIA(G):- jouerIA(3,G),not(coupPerdantIA(3,G)).
-% jouerIA(G):- jouerIA(6,G),not(coupPerdantIA(6,G)).
-% jouerIA(G):- jouerIA(2,G),not(coupPerdantIA(2,G)).
-% jouerIA(G):- jouerIA(7,G),not(coupPerdantIA(7,G)).
-% jouerIA(G):- jouerIA(1,G),not(coupPerdantIA(1,G)).
-% 
-% % Déblocage de situation : Inutile
-% jouerIA(G):- jouerIA(4,G).
-% jouerIA(G):- jouerIA(5,G).
-% jouerIA(G):- jouerIA(3,G).
-% jouerIA(G):- jouerIA(6,G).
-% jouerIA(G):- jouerIA(2,G).
-% jouerIA(G):- jouerIA(7,G).
-% jouerIA(G):- jouerIA(1,G).
-% jouerIA(G):- jouerIA(0,G).
-    
-    
-%.......................................
-% square  On n'utilise pas cette structure
-%.......................................
-% The mark in a square(N) corresponds to an item in a list, as follows:
-
-% square([M,_,_,_,_,_,_,_,_],1,M).
-% square([_,M,_,_,_,_,_,_,_],2,M).
-% square([_,_,M,_,_,_,_,_,_],3,M).
-% square([_,_,_,M,_,_,_,_,_],4,M).
-% square([_,_,_,_,M,_,_,_,_],5,M).
-% square([_,_,_,_,_,M,_,_,_],6,M).
-% square([_,_,_,_,_,_,M,_,_],7,M).
-% square([_,_,_,_,_,_,_,M,_],8,M).
-% square([_,_,_,_,_,_,_,_,M],9,M).
-
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%         MOVES
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -446,16 +241,9 @@ is_playable([_|B], C) :- C > 1, C < 8, C1 is C-1, is_playable(B, C1).
 available_columns(B, L) :- findall(C, is_playable(B, C), L).
 
 % Applies a move on the given board
-% (put mark M in square C on board B and return the resulting board B2)
-move(B, C, M, B2) :-
-    set_item(B, C, M, B2)    
-    % TODO : Controler si l'ajout de M a ete victorieux (utilisation de win ?)
-    % Question : quelle doit etre la difference entre move et set_item ?
-    .
-    
 % Adds a mark M in the board B at the column C and returns the new board B2
-set_item([L|B], 1, M, B2) :- addToColumn(M,L,L2), B2=[L2|B].
-set_item([L|B], C, M, [L|B2]) :- C > 0, C < 8, C1 is C-1, set_item(B, C1, M, B2).
+move([L|B], 1, M, B2) :- addToColumn(M,L,L2), B2=[L2|B].
+move([L|B], C, M, [L|B2]) :- C > 0, C < 8, C1 is C-1, move(B, C1, M, B2).
 
 
 % %........................
@@ -484,7 +272,6 @@ make_move2(human, P, B, B2) :-
     read(C),
 
     blank_mark(E),		% definition de E a la valeur de la blank_mark (voir les predicats, blank_mark = 'e')
-%     square(B, C, E),	 INUTILE
     is_playable(B, C),	    % verification de la disponibilite de la colonne demandee
     player_mark(P, M),		% recuperation de la marque M du joueur P
     move(B, C, M, B2), !	% realisation du coup 
@@ -504,7 +291,7 @@ make_move2(computer, P, B, B2) :-
     nl,
     write('Computer is thinking about next move...'),
     player_mark(P, M),		% recuperation de la marque M du joueur P
-    minimax(0, B, M, C, U),	% calcul de la position C a jouer avec M
+    minimax(4, B, M, C, U),	% calcul de la position C a jouer avec M
     move(B,C,M,B2),		% enregistrement du coup 
 
     nl,
@@ -526,8 +313,6 @@ make_move2(computer, P, B, B2) :-
 moves(B,L) :-
     not(win(B,x)),                	%%% if either player already won, then there are no available moves
     not(win(B,o)),
-%     blank_mark(E),			% init de E a la valeur du blank_mark
-%     findall(N, square(B,N,E), L), 	% remplit L avec toutes les positions N des cases vides (qui correspondent a square(B,N,E))
     available_columns(B, L),
     L \= []
     .
@@ -538,21 +323,20 @@ moves(B,L) :-
 %%%         GAME OVER
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% % determines when the game is over
-% %
-% game_over(P, B) :-
-%     game_over2(P, B)
-%     .
-% 
-% game_over2(P, B) :-
-%     opponent_mark(P, M),   %%% game is over if opponent wins
-%     win(B, M)
-%     .
-% 
-% game_over2(P, B) :-
-%     blank_mark(E),
-%     not(square(B,C,E))     %%% game is over if opponent wins
-%     .
+% determines when the game is over
+%
+game_over(P, B) :-
+    game_over2(P, B)
+    .
+
+game_over2(P, B) :-
+    opponent_mark(P, M),   %%% game is over if opponent wins
+    win(B, M)
+    .
+
+game_over2(P, B) :-
+    not(is_playable(B, C))     %%% game is over if board is full
+    .
 
 
 
@@ -567,7 +351,7 @@ moves(B,L) :-
 win_move(B, C, M) :- win_move_column(B, C, M), !.
 win_move(B, C, M) :- line_played(B, C, N), win_move_line(B, N, M).
 
-% Win condition (column) : 4 pieces of the same color (x or o) in a row
+% Win condition (column) : 4 pieces of the same color (x or o) in a column
 % B board, C column to test, M mark
 win_move_column([L|_], 1, M) :- sublist([M,M,M,M], L), !.
 win_move_column([_|B], C, M) :- C1 is C-1, win_move_column(B, C1, M).
@@ -582,13 +366,16 @@ line_played([_|B], C, N) :- C1 is C-1, line_played(B, C1, N).
 win_move_line(B, N, M) :- maplist(nthElem(N), B, L), sublist([M,M,M,M], L).
 
 
-% Returns true if the mark M has a winning pattern in the board B
-win(B, M) :- win_column(B, M) ; win_line(B, M).
+win(B, M) :- % Controle si la marque M a gagne dans la grille B (l'utilise-t-on vraiment ?)
+    % ... -> TODO fonction qui check toute la board sans connaitre le dernier pion ajoute
+    win_column(B, M); 
+    win_line(B, M)
+    .
     
 % Win condition (column) : 4 pieces of the same color (x or o) in a row
 % B board, M mark                                                                         
 win_column([L|_], M):- sublist([M,M,M,M], L),!.
-win_column([_|B], M):- finJeuVert(B, M).
+win_column([_|B], M):- win_column(B, M).
 
 % Win condition (line) : 4 pieces of the same color (x or o) in a row
 % B board, N index of the first line to check, M mark
@@ -596,9 +383,8 @@ win_line(N, B, M):- maplist(nthElem(N), B, L), sublist([M,M,M,M],L),!.
 win_line(N, B, M):- N > 0, N1 is N-1, win_line(N1, B, M).
 win_line(B, M):- win_line(6, B, M). 
 
-
 % Writes a message to announce the winner P
-winner(P ) :- write('The player '), write(P ), write(' has won !').
+% winner(P ) :- write('The player '), write(P ), write(' has won !').
 
 
 
@@ -613,22 +399,22 @@ winner(P ) :- write('The player '), write(P ), write(' has won !').
 % Il faut faire en sorte de se passer de cette fonction. On ne veut pas tester la victoire sur une board pleine mais plutot a chaque coup
 %.......................................
 % determines the value of a given board position
-%
-% utility(B,U) :-
-%     win(B,'x'),		% si les 'x' gagnent
-%     U = 1,		% alors U vaudra 1
-%     !
-%     .
-% 
-% utility(B,U) :-		% SINON (n'est execute que si la precedente a echoue)
-%     win(B,'o'),		% si les 'o' gagnent
-%     U = (-1), 		% alors U vaudra -1
-%     !
-%     .
-% 
-% utility(B,U) :-		% SINON (n'est execute que si la precedente a echoue)
-%     U = 0		% U vaudra 0
-%     .
+
+utility(B,U) :-
+    win(B,'x'),		% si les 'x' gagnent
+    U = 1,		% alors U vaudra 1
+    !
+    .
+
+utility(B,U) :-		% SINON (n'est execute que si la precedente a echoue)
+    win(B,'o'),		% si les 'o' gagnent
+    U = (-1), 		% alors U vaudra -1
+    !
+    .
+
+utility(B,U) :-		% SINON (n'est execute que si la precedente a echoue)
+    U = 0		% U vaudra 0
+    .
 
 
 %.......................................
@@ -658,6 +444,7 @@ minimax(Dmax, D, [[],[],[],[],[],[],[]], M, C, U) :-   % Si la board est vide
     .
 
 minimax(Dmax, D, B, M, C, U) :-	% SINON (la board n'est pas vide)
+    D < Dmax,
     D2 is D + 1,
     moves(B,L),          %%% get the list of available moves
     !,
@@ -793,55 +580,6 @@ output_winner(B) :-
     write('No winner.')
     .
 
-
-% output_board(B) :-
-%     nl,
-%     nl,
-%     output_square(B,1),
-%     write('|'),
-%     output_square(B,2),
-%     write('|'),
-%     output_square(B,3),
-%     nl,
-%     write('-----------'),
-%     nl,
-%     output_square(B,4),
-%     write('|'),
-%     output_square(B,5),
-%     write('|'),
-%     output_square(B,6),
-%     nl,
-%     write('-----------'),
-%     nl,
-%     output_square(B,7),
-%     write('|'),
-%     output_square(B,8),
-%     write('|'),
-%     output_square(B,9), !
-%     .
-
-% output_board :-
-%     board(B),
-%     output_board(B), !
-%     .
-% 
-% output_square(B,C) :-
-%     square(B,C,M),
-%     write(' '), 
-%     output_square2(C,M),  
-%     write(' '), !
-%     .
-% 
-% output_square2(C, E) :- 
-%     blank_mark(E),
-%     write(C), !              %%% if square is empty, output the square number
-%     .
-% 
-% output_square2(C, M) :- 
-%     write(M), !              %%% if square is marked, output the mark
-%     .
-% 
-
 output_value(D,C,U) :-
     D == 1,
     nl,
@@ -907,27 +645,6 @@ random_seed(N) :-
     !
     .
 
-/*****************************************
- OTHER COMPILER SUPPORT
-******************************************
-
-arity_prolog___random_seed(N) :-
-    nonvar(N),
-    randomize(N), 
-    !
-    .
-
-arity_prolog___random_seed(N) :-
-    var(N),
-    time(time(Hour,Minute,Cecond,Tick)),
-    N is ( (Hour+1) * (Minute+1) * (Cecond+1) * (Tick+1)),
-    randomize(N), 
-    !
-    .
-
-******************************************/
-
-
 
 %.......................................
 % random_int_1n
@@ -938,79 +655,6 @@ random_int_1n(N, V) :-
     V is random(N) + 1,
     !
     .
-
-/*****************************************
- OTHER COMPILER SUPPORT
-******************************************
-
-arity_prolog___random_int_1n(N, V) :-
-    R is random,
-    V2 is (R * N) - 0.5,           
-    float_text(V2,V3,fixed(0)),
-    int_text(V4,V3),
-    V is V4 + 1,
-    !
-    .
-
-******************************************/
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%     LIST PROCESSING (OTHERS)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% %.......................................
-% % set_item   Primitives inutiles
-% %.......................................
-% % Given a list L, replace the item at position N with V
-% % return the new list in list L2
-% %
-% 
-% set_item(L, N, V, L2) :-
-%     set_item2(L, N, V, 1, L2)
-%         .
-% 
-% set_item2( [], N, V, A, L2) :- 
-%     N == -1, 
-%     L2 = []
-%     .
-% 
-% set_item2( [_|T1], N, V, A, [V|T2] ) :- 
-%     A = N,
-%     A1 is N + 1,
-%     set_item2( T1, -1, V, A1, T2 )
-%     .
-% 
-% set_item2( [H|T1], N, V, A, [H|T2] ) :- 
-%     A1 is A + 1, 
-%     set_item2( T1, N, V, A1, T2 )
-%     .
-
-
-% %.......................................
-% % get_item	Primitives inutiles
-% %.......................................
-% % Given a list L, retrieve the item at position N and return it as value V
-% %
-% 
-% get_item(L, N, V) :-
-%     get_item2(L, N, 1, V)
-%     .
-% 
-% get_item2( [], _N, _A, V) :- 
-%     V = [], !,
-%     fail
-%         .
-% 
-% get_item2( [H|_T], N, A, V) :- 
-%     A = N,
-%     V = H
-%     .
-% 
-% get_item2( [_|T], N, A, V) :-
-%     A1 is A + 1,
-%     get_item2( T, N, A1, V)
-%     .
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
