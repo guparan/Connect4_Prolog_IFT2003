@@ -582,9 +582,20 @@ line_played([_|B], C, N) :- C1 is C-1, line_played(B, C1, N).
 win_move_line(B, N, M) :- maplist(nthElem(N), B, L), sublist([M,M,M,M], L).
 
 
-win(B, M) :- % Controle si la marque M a gagne dans la grille B (l'utilise-t-on vraiment ?)
-    % ... -> TODO Lucas
-    .
+% Returns true if the mark M has a winning pattern in the board B
+win(B, M) :- win_column(B, M) ; win_line(B, M).
+    
+% Win condition (column) : 4 pieces of the same color (x or o) in a row
+% B board, M mark                                                                         
+win_column([L|_], M):- sublist([M,M,M,M], L),!.
+win_column([_|B], M):- finJeuVert(B, M).
+
+% Win condition (line) : 4 pieces of the same color (x or o) in a row
+% B board, N index of the first line to check, M mark
+win_line(N, B, M):- maplist(nthElem(N), B, L), sublist([M,M,M,M],L),!.
+win_line(N, B, M):- N > 0, N1 is N-1, win_line(N1, B, M).
+win_line(B, M):- win_line(6, B, M). 
+
 
 % Writes a message to announce the winner P
 winner(P ) :- write('The player '), write(P ), write(' has won !').
