@@ -1,37 +1,24 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% CCT 381 -– Artificial Intelligence
-%%% Robert Pinchbeck
-%%% Final Project 
-%%% Due December 20, 2006
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% A Prolog Implementation of Tic-Tac-Toe
-%%% using the minimax strategy
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Connect 4 game in Prolog
+%%% AI : minimax algorithm
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 /*
 
 The following conventions are used in this program...
 
-Cingle letter variables represent:
+Single letter variables represent:
 
 L - a list
 N - a number, position, index, or counter
 V - a value (usually a string)
-A - an accumulator
 H - the head of a list
 T - the tail of a list
-
-For this implementation, these single letter variables represent:
-
 P - a player number (1 or 2)
-B - the board (a 9 item list representing a 3x3 matrix)
-    each "square" on the board can contain one of 3 values: x ,o, or e (for empty)
-C - the number of a square on the board (1 - 9)
-M - a mark on a square (x or o)
-E - the mark used to represent an empty square ('e').
+B - the board (a 7 item list of 6 item lists <=> 6x7 matrix)
+    each case on the board can contain one of 2 values: x or o
+C - the index of a column on the board (1 - 9)
+M - a mark on a case (x or o)
 U - the utility value of a board position
 R - a random number
 D - the depth of the minimax search tree (for outputting utility values, and for debugging)
@@ -57,9 +44,9 @@ asserta( player(P, Type) ) - indicates which players are human/computer.
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%     FACTS
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%        FACTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 next_player(1, 2).      %%% determines the next player after the given player
 next_player(2, 1).
@@ -86,9 +73,9 @@ corner_square(4, 9).
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%     MAIN PROGRAM
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 % A quoi ca sert ..?    
@@ -100,9 +87,7 @@ jouer:- jouerCoupO([[],[],[],[],[],[],[]]).
 
 run :-
     hello,          %%% Display welcome message, initialize game
-
     play(1),        %%% Play the game starting with player 1
-
     goodbye         %%% Display end of game message
     .
 
@@ -117,7 +102,7 @@ hello :-
     nl,
     nl,
     nl,
-    write('Welcome to Tic-Tac-Toe.'),
+    write('Welcome to Connect 4.'),
     read_players,
     output_players
     .
@@ -125,7 +110,6 @@ hello :-
 initialize :-
     random_seed,          %%% use current time to initialize random number generator
     blank_mark(E),
-%     asserta( board([E,E,E, E,E,E, E,E,E]) )  %%% create a blank board
     asserta( board([[],[],[],[],[],[],[]])
     .
 
@@ -219,34 +203,41 @@ play(P) :-
     play(P2), !
     .
 
+   
     
-    
-% ............................
-%
-% Fonctions de puissance4.pl
-% ............................
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%      LIST PROCESSING
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Fonction qui permet d'ajouter un élément en fin de liste
-addToColumn(X,[],[X]).
-addToColumn(X,[Y|L1],[Y|L2]) :- addToColumn(X,L1,L2).
+% Adds an item at the end of a list
+addToColumn(V, [], [V]).
+addToColumn(V, [H|T1], [H|T2]) :- addToColumn(V,T1,T2).
 
-finListe([], _).
-finListe(L, E) :- last(L,E).
+% Gives the last item of a list
+lastItem([], _).
+lastItem(L, V) :- last(L, V).
 
-% Fonction qui renvoie une sous-liste à partir d'une liste L
-/* Paramètres : C sous-liste, L liste */
-prefix(P,L) :-append(P,_,L).
-sublist(C,L) :-prefix(C,L).
-sublist(C,[_|T]) :-sublist(C,T).
+% Gives a sub-list from a list L
+/* Parametres : C sub-list, L list */
+prefix(P, L) :- append(P, _, L).
+sublist(C, L) :- prefix(C, L).
+sublist(C, [_|T]) :- sublist(C, T).
 
-% Fonction qui renvoie le nième élément d'une liste 
-/* Paramètres : N index de l'élement qu'on veut récupérer, L liste, X élément retourné */
+% Gives the Nth element of a list
+/* Parametres : N index of the element, L list, V element returned */
 nthElem(N, L, []) :- length(L, N1), N1 < N.
-nthElem(N, L, X) :- nth1(N, L, X).                               
+nthElem(N, L, V) :- nth1(N, L, V).                            
 
-% Fonction qui declare qu'un joueur a gagne
-/* Paramètres : J joueur */
-gagnant(J) :-write('Le Joueur '), write(J), write(' a gagné !').
+member([V|T], V).
+member([_|T], V) :- member(T,V).
+
+append([], L, L).
+append([H|T1], L2, [H|T3]) :- append(T1, L2, T3).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  		 ??????
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Fonction qui enregistre un coup joué dans la grille
 /* Paramètres : C numéro de la colonne dans laquelle J joue, G grille, J joueur, G' nouvelle grille */          
@@ -327,11 +318,15 @@ enregistrerCoupIA(C, [T|X], J, [T|G], I) :-
     enregistrerCoupIA(C1, X, J, G, I)
     .
  
-% Fonctions principales dans le deroulement de la partie
-/* Paramètres : G grille*/
-jouerCoupX(G) :- finJeu(G,J), gagnant(J),!.
-jouerCoupO(G) :- finJeu(G,J), gagnant(J),!.
-jouerCoupX(G) :- 
+
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  	  RUNNING THE GAME
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+jouerCoupX(B) :- finJeu(B,P), winner(P ),!.
+jouerCoupO(B) :- finJeu(B,P), winner(P ),!.
+jouerCoupX(B) :- 
     write('Joueur x, entrez un numéro de colonne : '),
     read(C), 
     enregistrerCoup(C,G, x, X, G),
@@ -356,27 +351,27 @@ jouerCoupJoueur(G) :-
     jouerIA(X)
     .
     
-    jouerIA(G):-finJeu(G,J), gagnant(J),!.
+    jouerIA(G):-finJeu(G,J), winner(J),!.
 
-%Ci un coup permet de gagner il faut le jouer.
+% Si un coup permet de gagner il faut le jouer.
 jouerIA(G) :- 
-    coupGagnant(C,G,o), 
+    win_move(C,G,o), 
     enregistrerCoupIA(C,G,o,X,G),
     afficherGrille(X),
     write('\n'),
     jouerCoupJoueur(X)
     .
 
-%Ci un coup permet a l'adversaire de gagner on se défend(coup défensif).
+% Si un coup permet a l'adversaire de gagner on se défend(coup défensif).
 jouerIA(G) :- 
-    coupGagnant(C,G,x), 
+    win_move(C,G,x), 
     enregistrerCoupIA(C,G,o,X,G), 
     afficherGrille(X),
     write('\n'),
     jouerCoupJoueur(X)
     .
 
-jouerIA(0, G) :- write('Pas de coup trouvé').
+jouerIA(0, G) :- write('No move found.').
 
 jouerIA(C, G) :- 
     enregistrerCoupIA(C,G,o,X,G),
@@ -397,16 +392,16 @@ espaceRestant(C, [T|X], E, L) :-
     espaceRestant(C1, X, E, L)
     .
                                                                         
-% %Ci on a pas de coup immédiat on fait un coup au centre ou au plus près possible pour une victoire possible en verticale. : Inutile
-% jouerIA(G):- espaceRestant(4,G,E,L), finListe(L,o), E > 3, not(coupPerdantIA(4,G)), jouerIA(4,G).
-% jouerIA(G):- espaceRestant(5,G,E,L), finListe(L,o), E > 3, not(coupPerdantIA(5,G)), jouerIA(5,G).
-% jouerIA(G):- espaceRestant(3,G,E,L), finListe(L,o), E > 3, not(coupPerdantIA(3,G)), jouerIA(3,G).
-% jouerIA(G):- espaceRestant(6,G,E,L), finListe(L,o), E > 3, not(coupPerdantIA(6,G)), jouerIA(6,G).
-% jouerIA(G):- espaceRestant(2,G,E,L), finListe(L,o), E > 3, not(coupPerdantIA(2,G)), jouerIA(2,G).
-% jouerIA(G):- espaceRestant(7,G,E,L), finListe(L,o), E > 3, not(coupPerdantIA(7,G)), jouerIA(7,G).
-% jouerIA(G):- espaceRestant(1,G,E,L), finListe(L,o), E > 3, not(coupPerdantIA(1,G)), jouerIA(1,G).
+% % Si on a pas de coup immédiat on fait un coup au centre ou au plus près possible pour une victoire possible en verticale. : Inutile
+% jouerIA(G):- espaceRestant(4,G,E,L), lastItem(L,o), E > 3, not(coupPerdantIA(4,G)), jouerIA(4,G).
+% jouerIA(G):- espaceRestant(5,G,E,L), lastItem(L,o), E > 3, not(coupPerdantIA(5,G)), jouerIA(5,G).
+% jouerIA(G):- espaceRestant(3,G,E,L), lastItem(L,o), E > 3, not(coupPerdantIA(3,G)), jouerIA(3,G).
+% jouerIA(G):- espaceRestant(6,G,E,L), lastItem(L,o), E > 3, not(coupPerdantIA(6,G)), jouerIA(6,G).
+% jouerIA(G):- espaceRestant(2,G,E,L), lastItem(L,o), E > 3, not(coupPerdantIA(2,G)), jouerIA(2,G).
+% jouerIA(G):- espaceRestant(7,G,E,L), lastItem(L,o), E > 3, not(coupPerdantIA(7,G)), jouerIA(7,G).
+% jouerIA(G):- espaceRestant(1,G,E,L), lastItem(L,o), E > 3, not(coupPerdantIA(1,G)), jouerIA(1,G).
 % 
-% %Cinon jouer au plus près du centre quand même. : Inutile
+% % Sinon jouer au plus près du centre quand même. : Inutile
 % jouerIA(G):- jouerIA(4,G),not(coupPerdantIA(4,G)).
 % jouerIA(G):- jouerIA(5,G),not(coupPerdantIA(5,G)).
 % jouerIA(G):- jouerIA(3,G),not(coupPerdantIA(3,G)).
@@ -415,7 +410,7 @@ espaceRestant(C, [T|X], E, L) :-
 % jouerIA(G):- jouerIA(7,G),not(coupPerdantIA(7,G)).
 % jouerIA(G):- jouerIA(1,G),not(coupPerdantIA(1,G)).
 % 
-% %Déblocage de situation : Inutile
+% % Déblocage de situation : Inutile
 % jouerIA(G):- jouerIA(4,G).
 % jouerIA(G):- jouerIA(5,G).
 % jouerIA(G):- jouerIA(3,G).
@@ -427,7 +422,6 @@ espaceRestant(C, [T|X], E, L) :-
     
     
 %.......................................
-% 
 % square  On n'utilise pas cette structure
 %.......................................
 % The mark in a square(N) corresponds to an item in a list, as follows:
@@ -443,88 +437,35 @@ espaceRestant(C, [T|X], E, L) :-
 % square([_,_,_,_,_,_,_,_,M],9,M).
 
 
-% verification de la disponibilite de la colonne demandee
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%         MOVES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Checks if we can play in a given column 
 is_playable([L|_], 1) :- length(L, N), N<6.
 is_playable([_|B], C) :- C > 1, C < 8, C1 is C-1, is_playable(B, C1).
 
+% Remplit L avec les indices de toutes les colonnes jouables dans la board B
+available_columns(B, L) :- findall(C, is_playable(B, C), L).
 
-%.......................................
-% win
-%.......................................
-% Players win by having their mark in one of the following square configurations:
-
-win(B, M) :- % Controle si la marque M a gagne dans la grille B (l'utilise-t-on vraiment ?)
-    % ... -> TODO Lucas
-    .
-
-
-% %.......................................
-% % move	
-% %.......................................
-% % applies a move on the given board
-% % (put mark M in square C on board B and return the resulting board B2)
-% %
-% 
-move(B,C,M,B2) :-
-    set_item(B,C,M,B2)    
+% Applies a move on the given board
+% (put mark M in square C on board B and return the resulting board B2)
+move(B, C, M, B2) :-
+    set_item(B, C, M, B2)    
     % TODO : Controler si l'ajout de M a ete victorieux (utilisation de win ?)
     % Question : quelle doit etre la difference entre move et set_item ?
     .
     
-% Ajoute un M dans la grille B a la colonne C et renvoit la nouvelle grille B2
+% Adds a mark M in the board B at the column C and returns the new board B2
 set_item([L|B], 1, M, B2) :- addToColumn(M,L,L2), B2=[L2|B].
 set_item([L|B], C, M, [L|B2]) :- C > 0, C < 8, C1 is C-1, set_item(B, C1, M, B2).
 
 
-% %.......................................
-% % game_over
-% %.......................................
-% % determines when the game is over
-% %
-% game_over(P, B) :-
-%     game_over2(P, B)
-%     .
-% 
-% game_over2(P, B) :-
-%     opponent_mark(P, M),   %%% game is over if opponent wins
-%     win(B, M)
-%     .
-% 
-% game_over2(P, B) :-
-%     blank_mark(E),
-%     not(square(B,C,E))     %%% game is over if opponent wins
-%     .
-
-
-
-%%%%%%%%%%%%%%%% controle coup gagnant %%%%%%%%%%%%%%%
-
-% win_move(B, C, M) with B the board, C the column and M the mark (x or o).
-% Return Yes if the move let the player win, No if not.
-% Checks only the column and the line concerned by the move
-% PRECOND. : must be called after the move
-win_move(B, C, M) :- win_move_column(B, C, M), !.
-win_move(B, C, M) :- line_played(B, C, N), win_move_line(B, N, M).
-
-% Win condition (column) : 4 pieces of the same color (x or o) in a row
-% B board, C column to test, M mark
-win_move_column([L|_], 1, M) :- sublist([M,M,M,M], L), !.
-win_move_column([_|B], C, M) :- C1 is C-1, win_move_column(B, C1, M).
-
-% B board, C column played and N index of the line in which the piece went
-% Notice : the bottom line is the 1st and the top line is the 6th
-line_played([L|_], 1, N) :- length(L, N).
-line_played([_|B], C, N) :- C1 is C-1, line_played(B, C1, N).
-
-% Win condition (line) : 4 pieces of the same color (x or o) in a row
-% B board, N index of the line, M mark
-win_move_line(B, N, M) :- maplist(nthElem(N), B, L), sublist([M,M,M,M], L).
-
-
-
-% %.......................................
+% %........................
 % % make_move
-% %.......................................
+% %........................
 % % requests next move from human/computer, 
 % % then applies that move to the given board
 % %
@@ -579,11 +520,7 @@ make_move2(computer, P, B, B2) :-
     write(C),
     write('.')
     .
-
-
-% Remplit L avec les indices de toutes les colonnes jouables dans la board B
-available_columns(B, L) :- findall(C, is_playable(B, C), L).
-
+    
 
 %.......................................
 % moves
@@ -599,7 +536,70 @@ moves(B,L) :-
     available_columns(B, L),
     L \= []
     .
+    
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%         GAME OVER
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% % determines when the game is over
+% %
+% game_over(P, B) :-
+%     game_over2(P, B)
+%     .
+% 
+% game_over2(P, B) :-
+%     opponent_mark(P, M),   %%% game is over if opponent wins
+%     win(B, M)
+%     .
+% 
+% game_over2(P, B) :-
+%     blank_mark(E),
+%     not(square(B,C,E))     %%% game is over if opponent wins
+%     .
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%       WIN CONDITIONS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% win_move(B, C, M) with B the board, C the column and M the mark (x or o).
+% Return Yes if the move let the player win, No if not.
+% Checks only the column and the line concerned by the move
+% PRECOND. : must be called after the move
+win_move(B, C, M) :- win_move_column(B, C, M), !.
+win_move(B, C, M) :- line_played(B, C, N), win_move_line(B, N, M).
+
+% Win condition (column) : 4 pieces of the same color (x or o) in a row
+% B board, C column to test, M mark
+win_move_column([L|_], 1, M) :- sublist([M,M,M,M], L), !.
+win_move_column([_|B], C, M) :- C1 is C-1, win_move_column(B, C1, M).
+
+% B board, C column played and N index of the line in which the piece went
+% Notice : the bottom line is the 1st and the top line is the 6th
+line_played([L|_], 1, N) :- length(L, N).
+line_played([_|B], C, N) :- C1 is C-1, line_played(B, C1, N).
+
+% Win condition (line) : 4 pieces of the same color (x or o) in a row
+% B board, N index of the line, M mark
+win_move_line(B, N, M) :- maplist(nthElem(N), B, L), sublist([M,M,M,M], L).
+
+
+win(B, M) :- % Controle si la marque M a gagne dans la grille B (l'utilise-t-on vraiment ?)
+    % ... -> TODO Lucas
+    .
+
+% Writes a message to announce the winner P
+winner(P ) :- write('The player '), write(P ), write(' has won !').
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%    ARTIFICIAL INTELLIGENCE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %.......................................
 % utility  Determine qui est le gagnant d'une grille pleine (appelee par minimax quand la grille est pleine)
@@ -753,9 +753,9 @@ better2(D,R,M,C1,U1,C2,U2,  C,U) :-
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% OUTPUT
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 		  OUTPUT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 output_players :- 
     nl,
@@ -873,9 +873,9 @@ afficherElement([]):- write(' '),!.
 afficherElement(E):- write(E).
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% PCEUDO-RANDOM NUMBERC 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%      PSEUDO-RANDOM NUMBERS 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %.......................................
 % random_seed
@@ -902,7 +902,7 @@ random_seed(N) :-
     .
 
 /*****************************************
- OTHER COMPILER CUPPORT
+ OTHER COMPILER SUPPORT
 ******************************************
 
 arity_prolog___random_seed(N) :-
@@ -934,7 +934,7 @@ random_int_1n(N, V) :-
     .
 
 /*****************************************
- OTHER COMPILER CUPPORT
+ OTHER COMPILER SUPPORT
 ******************************************
 
 arity_prolog___random_int_1n(N, V) :-
@@ -950,15 +950,8 @@ arity_prolog___random_int_1n(N, V) :-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% LICT PROCECCING
+%%%     LIST PROCESSING (OTHERS)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-member([V|T], V).
-member([_|T], V) :- member(T,V).
-
-append([], L, L).
-append([H|T1], L2, [H|T3]) :- append(T1, L2, T3).
-
 
 % %.......................................
 % % set_item   Primitives inutiles
