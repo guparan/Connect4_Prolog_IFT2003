@@ -134,7 +134,7 @@ goodbye :-
     nl,
     nl,
     write('Game over: '),
-    output_winner(B), % TODO
+    output_winner(B), % TODO -> a quoi sert cette fonction ?
     retract(board(_)),
     retract(player(_,_)),
     read_play_again(V), !,
@@ -466,11 +466,12 @@ win(B, M) :- % Controle si la marque M a gagne dans la grille B (l'utilise-t-on 
 % %
 % 
 move(B,C,M,B2) :-
-%     set_item(B,C,M,B2)
-    % TODO : ajouter un M dans la grille B a la colonne C et renvoyer la nouvelle grille B2
-    % -> voir les fonctions d'ajout, ligne 251
-    % Controler si l'ajout de M a ete victorieux (utilisation de win ?)
+    set_item(B,C,M,B2)    
+    % TODO : Controler si l'ajout de M a ete victorieux (utilisation de win ?)
+    % Question : quelle doit etre la difference entre move et set_item ?
     .
+    
+% Ajoute un M dans la grille B a la colonne C et renvoit la nouvelle grille B2
 set_item([L|B], 1, M, B2) :- addToColumn(M,L,L2), B2=[L2|B].
 set_item([L|B], C, M, [L|B2]) :- C > 0, C < 8, C1 is C-1, set_item(B, C1, M, B2).
 
@@ -595,7 +596,7 @@ moves(B,L) :-
     not(win(B,o)),
 %     blank_mark(E),			% init de E a la valeur du blank_mark
 %     findall(N, square(B,N,E), L), 	% remplit L avec toutes les positions N des cases vides (qui correspondent a square(B,N,E))
-    available_columns(B, L),		% TODO : remplit L avec toutes les colonnes jouables
+    available_columns(B, L),
     L \= []
     .
 
