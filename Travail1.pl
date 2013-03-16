@@ -217,7 +217,7 @@ addToColumn(V, [H|T1], [H|T2]) :- addToColumn(V,T1,T2).
 lastItem([], _).
 lastItem(L, V) :- last(L, V).
 
-% Gives a sub-list from a list L
+% Searches a sub-list in a list L
 /* Parametres : C sub-list, L list */
 prefix(P, L) :- append(P, _, L).
 sublist(C, L) :- prefix(C, L).
@@ -228,11 +228,6 @@ sublist(C, [_|T]) :- sublist(C, T).
 nthElem(N, L, []) :- length(L, N1), N1 < N.
 nthElem(N, L, V) :- nth1(N, L, V).                            
 
-member([V|T], V).
-member([_|T], V) :- member(T,V).
-
-append([], L, L).
-append([H|T1], L2, [H|T3]) :- append(T1, L2, T3).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
