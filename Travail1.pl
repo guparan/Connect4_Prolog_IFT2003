@@ -235,19 +235,24 @@ nth_elem(N, L, V) :- nth1(N, L, V).
 is_playable([L|_], 1) :- length(L, N), N<6.
 is_playable([_|B], C) :- C > 1, C < 8, C1 is C-1, is_playable(B, C1).
 
-% Remplit L avec les indices de toutes les colonnes jouables dans la board B
-% available_columns(B, L) :- findall(C, is_playable(B, C), L).
+% Adds the index of the column C of the board B in the list L and save the result in L2
+% if the colomn can be played
 add_available_column(B, C, L, L2) :- is_playable(B, C), add_to_column(C, L, L2), !.
 add_available_column(B, C, L, L2) :- L2 = L.
+
+% Fills L with the indices of all playable columns in the board B
 available_columns(B, L) :-
-    add_available_column(B, 1, [], L1),
-    add_available_column(B, 2, L1, L2),
-    add_available_column(B, 3, L2, L3),
-    add_available_column(B, 4, L3, L4),
-    add_available_column(B, 5, L4, L5),
-    add_available_column(B, 6, L5, L6),
-    add_available_column(B, 7, L6, L)
-    .
+	add_available_column(B, 1, [], L1),
+	add_available_column(B, 2, L1, L2),
+	add_available_column(B, 3, L2, L3),
+	add_available_column(B, 4, L3, L4),
+	add_available_column(B, 5, L4, L5),
+	add_available_column(B, 6, L5, L6),
+	add_available_column(B, 7, L6, L)
+	.
+	
+% Other version of available_columns : doesn't work
+% available_columns(B, L) :- findall(C, is_playable(B, C), L).
 
 
 % retrieves a list of available moves on a board.
