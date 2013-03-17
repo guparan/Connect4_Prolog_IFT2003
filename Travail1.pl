@@ -237,7 +237,7 @@ is_playable([_|B], C) :- C > 1, C < 8, C1 is C-1, is_playable(B, C1).
 
 % Remplit L avec les indices de toutes les colonnes jouables dans la board B
 % available_columns(B, L) :- findall(C, is_playable(B, C), L).
-available_columns(B, L) :- L is [2, 3, 4, 5, 6, 7].
+available_columns(B, L) :- L = [1, 2, 3, 4, 5, 6, 7].
 
 % retrieves a list of available moves on a board.
 available_moves(B,L) :-
@@ -414,8 +414,8 @@ minimax(Dmax, D, [[],[],[],[],[],[],[]], M, C, U) :-   % Si la board est vide
     !
     .
     
-% Ligne a decommenter pour tester l'IA en mode RANDOM %
-minimax(Dmax, D, B, M, C, U) :- minimax(Dmax, D, [[],[],[],[],[],[],[]], M, C, U), !.
+% Ligne a decommenter pour tester avec l'IA en mode RANDOM %
+% minimax(Dmax, D, B, M, C, U) :- minimax(Dmax, D, [[],[],[],[],[],[],[]], M, C, U), !.
 
 minimax(Dmax, D, B, M, C, U) :-	% SINON (la board n'est pas vide)
     D < Dmax,
@@ -439,7 +439,8 @@ minimax(Dmax, D, B, M, C, U) :-
 %
 
 % if there is only one move left in the list ( [C1] )
-best(Dmax,D,B,M,[C1],C,U) :-		
+best(Dmax,D,B,M,[C1],C,U) :-	
+%     is_playable(B,C1),	
     move(B,C1,M,B2),        %%% apply that move to the board,
     inverse_mark(M,M2), 	% recuperation de la mark de l'adversaire de M dans M2
     !,  
@@ -451,6 +452,7 @@ best(Dmax,D,B,M,[C1],C,U) :-
 
 % if there is more than one move in the list ( [C1|T] )
 best(Dmax,D,B,M,[C1|T],C,U) :-
+%     is_playable(B,C1),
     move(B,C1,M,B2),			%%% apply the first move (in the list) to the board,
     inverse_mark(M,M2), 		% recuperation de la mark de l'adversaire de M dans M2
     !,
