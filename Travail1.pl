@@ -237,7 +237,19 @@ is_playable([_|B], C) :- C > 1, C < 8, C1 is C-1, is_playable(B, C1).
 
 % Remplit L avec les indices de toutes les colonnes jouables dans la board B
 % available_columns(B, L) :- findall(C, is_playable(B, C), L).
-available_columns(B, L) :- L = [1, 2, 3, 4, 5, 6, 7].
+% available_columns(B, L) :- L = [1, 2, 3, 4, 5, 6, 7].
+add_available_column(B, C, L, L2) :- is_playable(B, C), add_to_column(C, L, L2), !.
+add_available_column(B, C, L, L2) :- L2 = L.
+available_columns(B, L) :-
+	add_available_column(B, 1, [], L1),
+	add_available_column(B, 2, L1, L2),
+	add_available_column(B, 3, L2, L3),
+	add_available_column(B, 4, L3, L4),
+	add_available_column(B, 5, L4, L5),
+	add_available_column(B, 6, L5, L6),
+	add_available_column(B, 7, L6, L),
+	.
+
 
 % retrieves a list of available moves on a board.
 available_moves(B,L) :-
@@ -370,6 +382,22 @@ game_over2(P, B) :-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%    ARTIFICIAL INTELLIGENCE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Looking for three pieces in a row plus one available
+
+% Colomns : 3 pieces of the same color (x or o) in a row plus one available
+% B board, M mark                                                                         
+ai_three_column([L|_], M):- sublist([[],M,M,M], L),!.
+ai_three_column([L|_], M):- sublist([M,M,M,[]], L),!.
+ai_three_column([_|B], M):- ai_three_column(B, M).
+
+% Lines : 3 pieces of the same color (x or o) in a row plus one available
+% B board, N index of the first line to check, M mark
+ai_three_line(N, B, M):- maplist(nth_elem(N), B, L), sublist([[],M,M,M],L),!.
+ai_three_line(N, B, M):- maplist(nth_elem(N), B, L), sublist([M,M,M,[]],L),!.
+ai_three_line(N, B, M):- N > 0, N1 is N-1, ai_three_line(N1, B, M).
+ai_three_line(B, M):- ai_three_line(6, B, M).
+
 
 % utility determines the value of a given board position
 utility(B,U) :-
