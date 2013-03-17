@@ -287,48 +287,24 @@ make_move2(human, P, B, B2) :-
 make_move2(human, P, B, B2) :-
     nl,
     nl,
-    write('Error : Please select a numbered column.'),		% Message d'erreur
+    write('Error : Please select a valid column.'),		% Message d'erreur
     make_move2(human, P, B, B2)				% reexecution de la fonction precedente
     .
 
 % Demande d'un coup a l'ordinateur
 make_move2(computer, P, B, B2) :-
-    nl,
-    nl,
+    nl, nl,
     write('Computer is thinking about next move...'),
     player_mark(P, M),		% recuperation de la marque M du joueur P
     minimax(4, B, M, C, U),	% calcul de la position C a jouer avec M
     move(B,C,M,B2),		% enregistrement du coup 
-
-    nl,
-    nl,
+    nl, nl,
     write('Computer places '),
     write(M),
     write(' in column '),
     write(C),
     write('.')
     .  
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%         GAME OVER
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% determines when the game is over
-%
-game_over(P, B) :-
-    game_over2(P, B)
-    .
-
-game_over2(P, B) :-
-    opponent_mark(P, M),   %%% game is over if opponent wins
-    win(B, M)
-    .
-
-% game_over2(P, B) :-
-%     not(is_playable(B, C))     %%% game is over if board is full
-%     .
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -376,6 +352,19 @@ win_line(B, M):- win_line(6, B, M).
 % Writes a message to announce the winner P
 % winner(P ) :- write('The player '), write(P ), write(' has won !').
 
+% determines when the game is over
+game_over(P, B) :-
+    game_over2(P, B)
+    .
+
+game_over2(P, B) :-
+    opponent_mark(P, M),   %%% game is over if opponent wins
+    win(B, M)
+    .
+
+% game_over2(P, B) :-
+%     not(is_playable(B, C))     %%% game is over if board is full
+%     .
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -424,6 +413,9 @@ minimax(Dmax, D, [[],[],[],[],[],[],[]], M, C, U) :-   % Si la board est vide
     random_int_1n(7, C),	% On choisit une position a jouer au hasard
     !
     .
+    
+% Ligne a decommenter pour tester l'IA en mode RANDOM %
+minimax(Dmax, D, B, M, C, U) :- minimax(Dmax, D, [[],[],[],[],[],[],[]], M, C, U), !.
 
 minimax(Dmax, D, B, M, C, U) :-	% SINON (la board n'est pas vide)
     D < Dmax,
