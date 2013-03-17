@@ -237,18 +237,17 @@ is_playable([_|B], C) :- C > 1, C < 8, C1 is C-1, is_playable(B, C1).
 
 % Remplit L avec les indices de toutes les colonnes jouables dans la board B
 % available_columns(B, L) :- findall(C, is_playable(B, C), L).
-% available_columns(B, L) :- L = [1, 2, 3, 4, 5, 6, 7].
 add_available_column(B, C, L, L2) :- is_playable(B, C), add_to_column(C, L, L2), !.
 add_available_column(B, C, L, L2) :- L2 = L.
 available_columns(B, L) :-
-	add_available_column(B, 1, [], L1),
-	add_available_column(B, 2, L1, L2),
-	add_available_column(B, 3, L2, L3),
-	add_available_column(B, 4, L3, L4),
-	add_available_column(B, 5, L4, L5),
-	add_available_column(B, 6, L5, L6),
-	add_available_column(B, 7, L6, L),
-	.
+    add_available_column(B, 1, [], L1),
+    add_available_column(B, 2, L1, L2),
+    add_available_column(B, 3, L2, L3),
+    add_available_column(B, 4, L3, L4),
+    add_available_column(B, 5, L4, L5),
+    add_available_column(B, 6, L5, L6),
+    add_available_column(B, 7, L6, L)
+    .
 
 
 % retrieves a list of available moves on a board.
@@ -308,7 +307,7 @@ make_move2(computer, P, B, B2) :-
     nl, nl,
     write('Computer is thinking about next move...'),
     player_mark(P, M),		% recuperation de la marque M du joueur P
-    minimax(4, B, M, C, U),	% calcul de la position C a jouer avec M
+    minimax(3, B, M, C, U),	% calcul de la position C a jouer avec M
     move(B,C,M,B2),		% enregistrement du coup 
     nl, nl,
     write('Computer places '),
@@ -374,9 +373,10 @@ game_over2(P, B) :-
     win(B, M)
     .
 
-% game_over2(P, B) :-
-%     not(is_playable(B, C))     %%% game is over if board is full
-%     .
+game_over2(P, B) :-
+    available_columns(B, L),     %%% game is over if board is full
+    L == []
+    .
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -402,15 +402,27 @@ ai_three_line(B, M):- ai_three_line(6, B, M).
 % utility determines the value of a given board position
 utility(B,U) :-
     win(B,'x'),		% si les 'x' gagnent
-    U = 1,		% alors U vaudra 1
+    U = 100,		% alors U vaudra 1
     !
     .
 
 utility(B,U) :-		% SINON (n'est execute que si la precedente a echoue)
     win(B,'o'),		% si les 'o' gagnent
-    U = (-1), 		% alors U vaudra -1
+    U = (-100), 		% alors U vaudra -1
     !
     .
+    
+utility(B,U) :-
+    ai_three_column(B,'x');
+    ai_three_line(B,'x'),
+    U = 60,
+    !.
+    
+utility(B,U) :-
+    ai_three_column(B,'o');
+    ai_three_line(B,'o'),
+    U = (-60),
+    !.
 
 utility(B,U) :-		% SINON (n'est execute que si la precedente a echoue)
     U = 0		% U vaudra 0
@@ -474,7 +486,7 @@ best(Dmax,D,B,M,[C1],C,U) :-
     !,  
     minimax(Dmax,D,B2,M2,_C,U),  %%% then recursively search for the utility value of that move. (???)
     C = C1, !,
-    output_value(D,C,U),
+%     output_value(D,C,U),
     !
     .
 
@@ -486,7 +498,7 @@ best(Dmax,D,B,M,[C1|T],C,U) :-
     !,
     minimax(Dmax,D,B2,M2,_C,U1),		%%% recursively search for the utility value of that move,
     best(Dmax,D,B,M,T,C2,U2),		%%% determine the best move of the remaining moves,
-    output_value(D,C1,U1),      
+%     output_value(D,C1,U1),      
     better(D,M,C1,U1,C2,U2,C,U)	%%% and choose the better of the two moves (based on their respective utility values)
     .
 
@@ -630,6 +642,7 @@ random_seed(N) :- var(N), !.
     
 % returns a random integer from 1 to N
 random_int_1n(N, V) :-
+%     write('Random number !\n'),
     V is random(N) + 1,
     !
     .
