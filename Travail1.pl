@@ -5,8 +5,6 @@
 
 /*
 
-The following conventions are used in this program...
-
 Single letter variables represent:
 
 L - a list
@@ -19,26 +17,8 @@ B - the board (a 7 item list of 6 item lists <=> 6x7 matrix)
     each case on the board can contain one of 2 values: x or o
 C - the index of a column on the board (1 - 9)
 M - a mark on a case (x or o)
-U - the utility value of a board position
-R - a random number
-D - the depth of the minimax search tree (for outputting utility values, and for debugging)
-
-Variables with a numeric suffix represent a variable based on another variable.
-(e.g. B2 is a new board position based on B)
 
 For predicates, the last variable is usually the "return" value.
-(e.g. opponent_mark(P,M), returns the opposing mark in variable M)
-
-Predicates with a numeric suffix represent a "nested" predicate.
-
-e.g. myrule2(...) is meant to be called from myrule(...) 
-     and myrule3(...) is meant to be called from myrule2(...)
-
-
-There are only two assertions that are used in this implementation
-
-asserta( board(B) ) - the current board 
-asserta( player(P, Type) ) - indicates which players are human/computer.
 
 */
 
@@ -308,6 +288,8 @@ make_move2(computer, P, B, B2) :-
 %%%       WIN CONDITIONS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%% Unused functions : checking only the line and the column concerned %%%%%%%%%%
+
 % win_move(B, C, M) with B the board, C the column and M the mark (x or o).
 % Return Yes if the move let the player win, No if not.
 % Checks only the column and the line concerned by the move
@@ -328,6 +310,9 @@ line_played([_|B], C, N) :- C1 is C-1, line_played(B, C1, N).
 % Win condition (line) : 4 pieces of the same color (x or o) in a row
 % B board, N index of the line, M mark
 win_move_line(B, N, M) :- maplist(nth_elem(N), B, L), sublist([M,M,M,M], L).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% End of unused functions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 win(B, M) :- % Controle si la marque M a gagne dans la grille B
     win_column(B, M); 
@@ -364,7 +349,6 @@ game_over(P, B) :-
 % minimax
 %.......................................
 % The minimax algorithm always assumes an optimal opponent.
-% For tic-tac-toe, optimal play will always result in a tie, so the algorithm is effectively playing not-to-lose.
 
 % For the opening move against an optimal player, the best minimax can ever hope for is a tie.
 % So, technically speaking, any opening move is acceptable.
