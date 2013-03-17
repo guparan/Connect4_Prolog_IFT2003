@@ -60,30 +60,14 @@ player_mark(2, 'o').
 opponent_mark(1, 'o').  %%% shorthand for the inverse mark of the given player
 opponent_mark(2, 'x').
 
-blank_mark('e').        %%% the mark used in an empty square
-
 maximizing('x').        %%% the player playing x is always trying to maximize the utility of the board position
 minimizing('o').        %%% the player playing o is always trying to minimize the utility of the board position
-
-corner_square(1, 1).    %%% map corner squares to board squares
-corner_square(2, 3).
-corner_square(3, 7).
-corner_square(4, 9).
-
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%     MAIN PROGRAM
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-% A quoi ca sert ..?    
-lancerIA :- jouerIA([[],[],[],[],[],[],[]]).
-
-% Lancement du jeu : grille de départ de 6*7 (vide). C'est le joueur 'o' qui commence, suivi par x, jusqu'à ce que l'un des deux gagne [ou GRILLE PLEINE]
-jouer:- jouerCoupO([[],[],[],[],[],[],[]]).
-
 
 run :-
     hello,          %%% Display welcome message, initialize game
@@ -274,7 +258,6 @@ move([L|B], C, M, [L|B2]) :- C > 0, C < 8, C1 is C-1, move(B, C1, M, B2).
 %........................
 % requests next move from human/computer, 
 % then applies that move to the given board
-%
 make_move(P, B) :-
     player(P, Type),			% recuperation du type du joueur p (human ou computer)
 
@@ -283,8 +266,8 @@ make_move(P, B) :-
     retract( board(_) ),	% remplacement de la board precedente
     asserta( board(B2) )	% par la nouvelle board
     .
-% 
-% % Demande d'un coup a un humain
+    
+% Demande d'un coup a un humain
 make_move2(human, P, B, B2) :-
     nl,
     nl,
@@ -292,13 +275,11 @@ make_move2(human, P, B, B2) :-
     write(P),
     write(' move? '),
     read(C),
-
-    blank_mark(E),		% definition de E a la valeur de la blank_mark (voir les predicats, blank_mark = 'e')
     is_playable(B, C),	    % verification de la disponibilite de la colonne demandee
     player_mark(P, M),		% recuperation de la marque M du joueur P
     move(B, C, M, B2), !	% realisation du coup 
     .
-% 
+
 % Fonction executee si la precedente echoue : l'utilisateur a entre un nombre invalide / la case est prise ou n'existe pas
 make_move2(human, P, B, B2) :-
     nl,
@@ -348,7 +329,6 @@ line_played([_|B], C, N) :- C1 is C-1, line_played(B, C1, N).
 % B board, N index of the line, M mark
 win_move_line(B, N, M) :- maplist(nth_elem(N), B, L), sublist([M,M,M,M], L).
 
-
 win(B, M) :- % Controle si la marque M a gagne dans la grille B
     win_column(B, M); 
     win_line(B, M)
@@ -365,20 +345,13 @@ win_line(N, B, M):- maplist(nth_elem(N), B, L), sublist([M,M,M,M],L),!.
 win_line(N, B, M):- N > 0, N1 is N-1, win_line(N1, B, M).
 win_line(B, M):- win_line(6, B, M). 
 
-% Writes a message to announce the winner P
-% winner(P ) :- write('The player '), write(P ), write(' has won !').
-
 % determines when the game is over
 game_over(P, B) :-
-    game_over2(P, B)
-    .
-
-game_over2(P, B) :-
     opponent_mark(P, M),   %%% game is over if opponent wins
     win(B, M)
     .
 
-game_over2(P, B) :-
+game_over(P, B) :-
     available_columns(B, L),     %%% game is over if board is full
     L == []
     .
@@ -387,55 +360,8 @@ game_over2(P, B) :-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%    ARTIFICIAL INTELLIGENCE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Looking for three pieces in a row plus one available
-
-% Colomns : 3 pieces of the same color (x or o) in a row plus one available
-% B board, M mark                                                                         
-ai_three_column([L|_], M):- sublist([[],M,M,M], L),!.
-ai_three_column([L|_], M):- sublist([M,M,M,[]], L),!.
-ai_three_column([_|B], M):- ai_three_column(B, M).
-
-% Lines : 3 pieces of the same color (x or o) in a row plus one available
-% B board, N index of the first line to check, M mark
-ai_three_line(N, B, M):- maplist(nth_elem(N), B, L), sublist([[],M,M,M],L),!.
-ai_three_line(N, B, M):- maplist(nth_elem(N), B, L), sublist([M,M,M,[]],L),!.
-ai_three_line(N, B, M):- N > 0, N1 is N-1, ai_three_line(N1, B, M).
-ai_three_line(B, M):- ai_three_line(6, B, M).
-
-
-% utility determines the value of a given board position
-utility(B,U) :-
-    win(B,'x'),		% si les 'x' gagnent
-    U = 100,		% alors U vaudra 1
-    !
-    .
-
-utility(B,U) :-		% SINON (n'est execute que si la precedente a echoue)
-    win(B,'o'),		% si les 'o' gagnent
-    U = (-100), 		% alors U vaudra -1
-    !
-    .
-    
-utility(B,U) :-
-    ai_three_column(B,'x');
-    ai_three_line(B,'x'),
-    U = 60,
-    !.
-    
-utility(B,U) :-
-    ai_three_column(B,'o');
-    ai_three_line(B,'o'),
-    U = (-60),
-    !.
-
-utility(B,U) :-		% SINON (n'est execute que si la precedente a echoue)
-    U = 0		% U vaudra 0
-    .
-
-
 %.......................................
-% minimax - TODO : A revoir, il faudrait gerer la profondeur max
+% minimax
 %.......................................
 % The minimax algorithm always assumes an optimal opponent.
 % For tic-tac-toe, optimal play will always result in a tie, so the algorithm is effectively playing not-to-lose.
@@ -443,7 +369,7 @@ utility(B,U) :-		% SINON (n'est execute que si la precedente a echoue)
 % For the opening move against an optimal player, the best minimax can ever hope for is a tie.
 % So, technically speaking, any opening move is acceptable.
 % Save the user the trouble of waiting  for the computer to search the entire minimax tree 
-% by simply selecting a random square.
+% by simply selecting a random column.
 
 % On connait Dmax : profondeur max de recherche
 % On connait D : profondeur actuelle de recherche
@@ -481,32 +407,74 @@ minimax(Dmax, D, B, M, C, U) :-
 % best
 %.......................................
 % determines the best move in a given list of moves by recursively calling minimax
-%
-
 % if there is only one move left in the list ( [C1] )
 best(Dmax,D,B,M,[C1],C,U) :-	
-%     is_playable(B,C1),	
     move(B,C1,M,B2),        %%% apply that move to the board,
     inverse_mark(M,M2), 	% recuperation de la mark de l'adversaire de M dans M2
     !,  
     minimax(Dmax,D,B2,M2,_C,U),  %%% then recursively search for the utility value of that move. (???)
     C = C1, !,
-%     output_value(D,C,U),
+    output_value(D,C,U),
     !
     .
 
 % if there is more than one move in the list ( [C1|T] )
 best(Dmax,D,B,M,[C1|T],C,U) :-
-%     is_playable(B,C1),
     move(B,C1,M,B2),			%%% apply the first move (in the list) to the board,
     inverse_mark(M,M2), 		% recuperation de la mark de l'adversaire de M dans M2
     !,
     minimax(Dmax,D,B2,M2,_C,U1),		%%% recursively search for the utility value of that move,
     best(Dmax,D,B,M,T,C2,U2),		%%% determine the best move of the remaining moves,
-%     output_value(D,C1,U1),      
+    output_value(D,C1,U1),      
     better(D,M,C1,U1,C2,U2,C,U)	%%% and choose the better of the two moves (based on their respective utility values)
     .
 
+%.......................................
+% utility methods
+%.......................................
+% Looking for three pieces in a row plus one available
+% Colomns : 3 pieces of the same color (x or o) in a row plus one available
+% B board, M mark                                                                         
+ai_three_column([L|_], M):- sublist([[],M,M,M], L),!.
+ai_three_column([L|_], M):- sublist([M,M,M,[]], L),!.
+ai_three_column([_|B], M):- ai_three_column(B, M).
+
+% Lines : 3 pieces of the same color (x or o) in a row plus one available
+% B board, N index of the first line to check, M mark
+ai_three_line(N, B, M):- maplist(nth_elem(N), B, L), sublist([[],M,M,M],L),!.
+ai_three_line(N, B, M):- maplist(nth_elem(N), B, L), sublist([M,M,M,[]],L),!.
+ai_three_line(N, B, M):- N > 0, N1 is N-1, ai_three_line(N1, B, M).
+ai_three_line(B, M):- ai_three_line(6, B, M).
+
+
+% utility determines the value of a given board position
+utility(B,U) :-
+    win(B,'x'),		% si les 'x' gagnent
+    U = 100,		% alors U vaudra 100
+    !
+    .
+
+utility(B,U) :-		% SINON (n'est execute que si la precedente a echoue)
+    win(B,'o'),		% si les 'o' gagnent
+    U = (-100), 	% alors U vaudra -100
+    !
+    .
+    
+utility(B,U) :-
+    ai_three_column(B,'x');
+    ai_three_line(B,'x'),
+    U = 60,
+    !.
+    
+utility(B,U) :-
+    ai_three_column(B,'o');
+    ai_three_line(B,'o'),
+    U = (-60),
+    !.
+
+utility(B,U) :-		% SINON (pas de cas favorable ou defavorable)
+    U = 0		% U vaudra 0
+    .
 
 %.......................................
 % better
@@ -543,21 +511,15 @@ better(D,M,C1,U1,C2,U2,C,U) :-        %%% otherwise, second move is better
     !
     .
 
-
-%.......................................
-% better2
-%.......................................
 % randomly selects two columns of the same utility value given a single probability
-%
-
-better2(D,R,M,C1,U1,C2,U2,  C,U) :-
+better2(D,R,M,C1,U1,C2,U2,C,U) :-
     R < 6,
     C = C1,
     U = U1, 
     !
     .
 
-better2(D,R,M,C1,U1,C2,U2,  C,U) :-
+better2(D,R,M,C1,U1,C2,U2,C,U) :-
     C = C2,
     U = U2,
     !
@@ -599,7 +561,7 @@ output_winner(B) :-
     .
 
 output_value(D,C,U) :-
-%     D == 1,
+    D == 1,
     nl,
     write('Column '),
     write(C),
@@ -619,13 +581,13 @@ output_board(B) :-
     .
 
 output_board(_,0).   
-output_board(G, N):- 
+output_board(B, N):- 
     N > 0, 
     N1 is N-1, 
-    maplist(nth_elem(N), G, L), 
+    maplist(nth_elem(N), B, L), 
     output_list(L),
     nl,
-    output_board(G, N1)
+    output_board(B, N1)
     .
  
 output_list([]):- write('|').
