@@ -98,7 +98,6 @@ run :-
 
 hello :-
     initialize,
-%    cls,
     nl,
     nl,
     nl,
@@ -109,7 +108,6 @@ hello :-
 
 initialize :-
     random_seed,          %%% use current time to initialize random number generator
-%     blank_mark(E),
     asserta( board([[],[],[],[],[],[],[]]) )
     .
 
@@ -309,7 +307,6 @@ make_move2(computer, P, B, B2) :-
 %.......................................
 % retrieves a list of available moves (empty squares) on a board.
 %
-
 moves(B,L) :-
     not(win(B,x)),                	%%% if either player already won, then there are no available moves
     not(win(B,o)),
@@ -334,9 +331,9 @@ game_over2(P, B) :-
     win(B, M)
     .
 
-game_over2(P, B) :-
-    not(is_playable(B, C))     %%% game is over if board is full
-    .
+% game_over2(P, B) :-
+%     not(is_playable(B, C))     %%% game is over if board is full
+%     .
 
 
 
@@ -366,8 +363,7 @@ line_played([_|B], C, N) :- C1 is C-1, line_played(B, C1, N).
 win_move_line(B, N, M) :- maplist(nthElem(N), B, L), sublist([M,M,M,M], L).
 
 
-win(B, M) :- % Controle si la marque M a gagne dans la grille B (l'utilise-t-on vraiment ?)
-    % ... -> TODO fonction qui check toute la board sans connaitre le dernier pion ajoute
+win(B, M) :- % Controle si la marque M a gagne dans la grille B
     win_column(B, M); 
     win_line(B, M)
     .
@@ -388,18 +384,11 @@ win_line(B, M):- win_line(6, B, M).
 
 
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%    ARTIFICIAL INTELLIGENCE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%.......................................
-% utility  Determine qui est le gagnant d'une grille pleine (appelee par minimax quand la grille est pleine)
-% 
-% Il faut faire en sorte de se passer de cette fonction. On ne veut pas tester la victoire sur une board pleine mais plutot a chaque coup
-%.......................................
-% determines the value of a given board position
-
+% utility determines the value of a given board position
 utility(B,U) :-
     win(B,'x'),		% si les 'x' gagnent
     U = 1,		% alors U vaudra 1
@@ -448,7 +437,7 @@ minimax(Dmax, D, B, M, C, U) :-	% SINON (la board n'est pas vide)
     D2 is D + 1,
     moves(B,L),          %%% get the list of available moves
     !,
-    best(D2,B,M,L,C,U),  %%% recursively determine the best available move
+    best(Dmax,D2,B,M,L,C,U),  %%% recursively determine the best available move
     !
     .
 
@@ -466,23 +455,23 @@ minimax(Dmax, D, B, M, C, U) :-
 %
 
 % if there is only one move left in the list ( [C1] )
-best(D,B,M,[C1],C,U) :-		
+best(Dmax,D,B,M,[C1],C,U) :-		
     move(B,C1,M,B2),        %%% apply that move to the board,
     inverse_mark(M,M2), 	% recuperation de la mark de l'adversaire de M dans M2
     !,  
-    minimax(D,B2,M2,_C,U),  %%% then recursively search for the utility value of that move. (???)
+    minimax(Dmax,D,B2,M2,_C,U),  %%% then recursively search for the utility value of that move. (???)
     C = C1, !,
     output_value(D,C,U),
     !
     .
 
 % if there is more than one move in the list ( [C1|T] )
-best(D,B,M,[C1|T],C,U) :-
+best(Dmax,D,B,M,[C1|T],C,U) :-
     move(B,C1,M,B2),			%%% apply the first move (in the list) to the board,
     inverse_mark(M,M2), 		% recuperation de la mark de l'adversaire de M dans M2
     !,
-    minimax(D,B2,M2,_C,U1),		%%% recursively search for the utility value of that move,
-    best(D,B,M,T,C2,U2),		%%% determine the best move of the remaining moves,
+    minimax(Dmax,D,B2,M2,_C,U1),		%%% recursively search for the utility value of that move,
+    best(Dmax,D,B,M,T,C2,U2),		%%% determine the best move of the remaining moves,
     output_value(D,C1,U1),      
     better(D,M,C1,U1,C2,U2,C,U)	%%% and choose the better of the two moves (based on their respective utility values)
     .
@@ -492,10 +481,9 @@ best(D,B,M,[C1|T],C,U) :-
 % better
 %.......................................
 % returns the better of two moves based on their respective utility values.
-%
 % if both moves have the same utility value, then one is chosen at random.
 
-better(D,M,C1,U1,C2,U2,     C,U) :-
+better(D,M,C1,U1,C2,U2,C,U) :-
     maximizing(M),                     %%% if the player is maximizing
     U1 > U2,                           %%% then greater is better.
     C = C1,
@@ -503,7 +491,7 @@ better(D,M,C1,U1,C2,U2,     C,U) :-
     !
     .
 
-better(D,M,C1,U1,C2,U2,     C,U) :-
+better(D,M,C1,U1,C2,U2,C,U) :-
     minimizing(M),                     %%% if the player is minimizing,
     U1 < U2,                           %%% then lesser is better.
     C = C1,
@@ -511,14 +499,14 @@ better(D,M,C1,U1,C2,U2,     C,U) :-
     !
     .
 
-better(D,M,C1,U1,C2,U2,     C,U) :-
+better(D,M,C1,U1,C2,U2,C,U) :-
     U1 == U2,                          %%% if moves have equal utility,
     random_int_1n(8,R),               %%% then pick one of them at random
     better2(D,R,M,C1,U1,C2,U2,C,U),    
     !
     .
 
-better(D,M,C1,U1,C2,U2,     C,U) :-        %%% otherwise, second move is better
+better(D,M,C1,U1,C2,U2,C,U) :-        %%% otherwise, second move is better
     C = C2,
     U = U2,
     !
@@ -528,7 +516,7 @@ better(D,M,C1,U1,C2,U2,     C,U) :-        %%% otherwise, second move is better
 %.......................................
 % better2
 %.......................................
-% randomly selects two squares of the same utility value given a single probability
+% randomly selects two columns of the same utility value given a single probability
 %
 
 better2(D,R,M,C1,U1,C2,U2,  C,U) :-
@@ -555,14 +543,13 @@ output_players :-
     player(1, V1),
     write('Player 1 is '),   %%% either human or computer
     write(V1),
-
     nl,
     player(2, V2),
     write('Player 2 is '),   %%% either human or computer
     write(V2), 
+    nl,
     !
     .
-
 
 output_winner(B) :-
     win(B,x),
@@ -581,7 +568,7 @@ output_winner(B) :-
     .
 
 output_value(D,C,U) :-
-    D == 1,
+%     D == 1,
     nl,
     write('Column '),
     write(C),
@@ -593,64 +580,42 @@ output_value(D,C,U) :- % If previous fails, do not stop the program
     true
     .
     
-    
-% ..............................
-%
-% Fonctions de puissance4.prolog
-% ..............................
-afficherGrille(_,0).                                                       
-afficherGrille(G, N):- 
+output_board(B) :- 
+    nl, 
+    output_list([1, 2, 3, 4, 5, 6, 7]),
+    nl,
+    output_board(B, 6)
+    .
+
+output_board(_,0).   
+output_board(G, N):- 
     N > 0, 
     N1 is N-1, 
     maplist(nthElem(N), G, L), 
-    afficherListe(L),
-    write('\n'), 
-    afficherGrille(G, N1)
+    output_list(L),
+    nl,
+    output_board(G, N1)
     .
-    
-output_board(B):- afficherGrille(B,6).
  
-afficherListe([]):- write('|').
-afficherListe([E|L]):-  write('|'), afficherElement(E), afficherListe(L).
+output_list([]):- write('|').
+output_list([E|L]):-  write('|'), output_element(E), output_list(L).
 
-afficherElement([]):- write(' '),!.
-afficherElement(E):- write(E).
+output_element([]):- write(' '),!.
+output_element(E):- write(E).
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      PSEUDO-RANDOM NUMBERS 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%.......................................
-% random_seed
-%.......................................
 % Initialize the random number generator...
 % If no seed is provided, use the current time
-%
-
 random_seed :-
     random_seed(_),
     !
     .
-
-random_seed(N) :-
-    nonvar(N),
-% Do nothing, SWI-Prolog does not support seeding the random number generator
-    !
-    .
-
-random_seed(N) :-
-    var(N),
-% Do nothing, SWI-Prolog does not support seeding the random number generator
-    !
-    .
-
-
-%.......................................
-% random_int_1n
-%.......................................
+    
 % returns a random integer from 1 to N
-%
 random_int_1n(N, V) :-
     V is random(N) + 1,
     !
