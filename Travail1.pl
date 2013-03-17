@@ -208,12 +208,12 @@ play(P) :-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Adds an item at the end of a list
-addToColumn(V, [], [V]).
-addToColumn(V, [H|T1], [H|T2]) :- addToColumn(V,T1,T2).
+add_to_column(V, [], [V]).
+add_to_column(V, [H|T1], [H|T2]) :- add_to_column(V,T1,T2).
 
 % Gives the last item of a list
-lastItem([], _).
-lastItem(L, V) :- last(L, V).
+last_item([], _).
+last_item(L, V) :- last(L, V).
 
 % Searches a sub-list in a list L
 /* Parametres : C sub-list, L list */
@@ -223,8 +223,8 @@ sublist(C, [_|T]) :- sublist(C, T).
 
 % Gives the Nth element of a list
 /* Parametres : N index of the element, L list, V element returned */
-nthElem(N, L, []) :- length(L, N1), N1 < N.
-nthElem(N, L, V) :- nth1(N, L, V).                            
+nth_elem(N, L, []) :- length(L, N1), N1 < N.
+nth_elem(N, L, V) :- nth1(N, L, V).                            
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -236,21 +236,29 @@ is_playable([L|_], 1) :- length(L, N), N<6.
 is_playable([_|B], C) :- C > 1, C < 8, C1 is C-1, is_playable(B, C1).
 
 % Remplit L avec les indices de toutes les colonnes jouables dans la board B
-available_columns(B, L) :- findall(C, is_playable(B, C), L).
+% available_columns(B, L) :- findall(C, is_playable(B, C), L).
+available_columns(B, L) :- L is [2, 3, 4, 5, 6, 7].
+
+% retrieves a list of available moves on a board.
+available_moves(B,L) :-
+    not(win(B,x)),                	%%% if either player already won, then there are no available moves
+    not(win(B,o)),
+    available_columns(B, L),
+    L \= []
+    .
 
 % Applies a move on the given board
 % Adds a mark M in the board B at the column C and returns the new board B2
-move([L|B], 1, M, B2) :- addToColumn(M,L,L2), B2=[L2|B].
+move([L|B], 1, M, B2) :- add_to_column(M,L,L2), B2=[L2|B].
 move([L|B], C, M, [L|B2]) :- C > 0, C < 8, C1 is C-1, move(B, C1, M, B2).
 
 
-% %........................
-% % make_move
-% %........................
-% % requests next move from human/computer, 
-% % then applies that move to the given board
-% %
-% 
+%........................
+% make_move
+%........................
+% requests next move from human/computer, 
+% then applies that move to the given board
+%
 make_move(P, B) :-
     player(P, Type),			% recuperation du type du joueur p (human ou computer)
 
@@ -299,21 +307,7 @@ make_move2(computer, P, B, B2) :-
     write(' in column '),
     write(C),
     write('.')
-    .
-    
-
-%.......................................
-% moves
-%.......................................
-% retrieves a list of available moves (empty squares) on a board.
-%
-moves(B,L) :-
-    not(win(B,x)),                	%%% if either player already won, then there are no available moves
-    not(win(B,o)),
-    available_columns(B, L),
-    L \= []
-    .
-    
+    .  
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -360,7 +354,7 @@ line_played([_|B], C, N) :- C1 is C-1, line_played(B, C1, N).
 
 % Win condition (line) : 4 pieces of the same color (x or o) in a row
 % B board, N index of the line, M mark
-win_move_line(B, N, M) :- maplist(nthElem(N), B, L), sublist([M,M,M,M], L).
+win_move_line(B, N, M) :- maplist(nth_elem(N), B, L), sublist([M,M,M,M], L).
 
 
 win(B, M) :- % Controle si la marque M a gagne dans la grille B
@@ -375,7 +369,7 @@ win_column([_|B], M):- win_column(B, M).
 
 % Win condition (line) : 4 pieces of the same color (x or o) in a row
 % B board, N index of the first line to check, M mark
-win_line(N, B, M):- maplist(nthElem(N), B, L), sublist([M,M,M,M],L),!.
+win_line(N, B, M):- maplist(nth_elem(N), B, L), sublist([M,M,M,M],L),!.
 win_line(N, B, M):- N > 0, N1 is N-1, win_line(N1, B, M).
 win_line(B, M):- win_line(6, B, M). 
 
@@ -427,7 +421,6 @@ utility(B,U) :-		% SINON (n'est execute que si la precedente a echoue)
 minimax(Dmax, B, M, C, U) :- minimax(Dmax, 0, B, M, C, U). % launcher
 
 minimax(Dmax, D, [[],[],[],[],[],[],[]], M, C, U) :-   % Si la board est vide
-%     blank_mark(E),		% toutes les cases matchent la blank_mark
     random_int_1n(7, C),	% On choisit une position a jouer au hasard
     !
     .
@@ -435,14 +428,13 @@ minimax(Dmax, D, [[],[],[],[],[],[],[]], M, C, U) :-   % Si la board est vide
 minimax(Dmax, D, B, M, C, U) :-	% SINON (la board n'est pas vide)
     D < Dmax,
     D2 is D + 1,
-    moves(B,L),          %%% get the list of available moves
+    available_moves(B,L),          %%% get the list of available moves
     !,
     best(Dmax,D2,B,M,L,C,U),  %%% recursively determine the best available move
     !
     .
 
-% A la fin de la simulation de coups, la board est pleine
-% TODO : ne pas avoir a attendre que la board soit pleine
+% A la fin de la simulation de coups, la profondeur max est atteinte
 minimax(Dmax, D, B, M, C, U) :-
     utility(B,U)      	% on retourne alors l'evaluation de la board
     .
@@ -591,7 +583,7 @@ output_board(_,0).
 output_board(G, N):- 
     N > 0, 
     N1 is N-1, 
-    maplist(nthElem(N), G, L), 
+    maplist(nth_elem(N), G, L), 
     output_list(L),
     nl,
     output_board(G, N1)
@@ -610,10 +602,9 @@ output_element(E):- write(E).
 
 % Initialize the random number generator...
 % If no seed is provided, use the current time
-random_seed :-
-    random_seed(_),
-    !
-    .
+random_seed :- random_seed(_), !.
+random_seed(N) :- nonvar(N), !.
+random_seed(N) :- var(N), !.
     
 % returns a random integer from 1 to N
 random_int_1n(N, V) :-
