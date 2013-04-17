@@ -1,0 +1,3346 @@
+"Corvid Ver. 5.3.1  .:. ,L"
+""
+""
+""
+""
+#FALSE#
+"255,255,255"
+"   OK   "
+"Back"
+"Restart"
+""
+""
+#FALSE#
+#FALSE#
+""
+""
+#FALSE#
+0
+0
+0
+0
+""
+""
+""
+#FALSE#
+"/CORVID/corvidsr"
+""
+""
+"-1000"
+5
+#FALSE#
+0
+13
+"A","Friendly_AD_name",0
+"Friendly AD Champion Name"
+""
+""
+""
+""
+""
+""
+0
+"B",#FALSE#
+#FALSE#
+#FALSE#
+#FALSE#
+0
+0
+#FALSE#
+""
+#FALSE#
+""
+#FALSE#
+0
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+"C",0
+0
+50
+15
+"Caitlyn"
+"Caitlyn"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"MissFortune"
+"MissFortune"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Ezreal"
+"Ezreal"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Tristana"
+"Tristana"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Vayne_not_supported"
+"Vayne (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Graves_not_supported"
+"Graves (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Varus_not_supported"
+"Varus (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Draven_not_supported"
+"Draven (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Ashe_not_supported"
+"Ashe (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Twitch_not_supported"
+"Twitch (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Sivir_not_supported"
+"Sivir (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Quinn_not_supported"
+"Quinn (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"KogMaw_not_supported"
+"KogMaw (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Corki_not_supported"
+"Corki (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Urgot_not_supported"
+"Urgot (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"D",0
+0
+"E",0
+0
+0
+""
+""
+""
+""
+""
+0
+0
+0
+0
+0
+"F",0
+""
+0
+0
+0
+0
+0
+""
+"G",0
+0
+0
+0
+0
+"H",0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+"I",0
+#TRUE#
+#FALSE#
+0
+""
+1
+0
+1
+1
+""
+""
+0
+0
+0
+0
+""
+"A","Friendly_AD_Support",0
+"Favorite supports of that AD:"
+""
+""
+""
+""
+""
+""
+0
+"B",#FALSE#
+#FALSE#
+#FALSE#
+#FALSE#
+0
+0
+#FALSE#
+""
+#FALSE#
+""
+#FALSE#
+0
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+"C",2
+0
+50
+14
+"Taric"
+"Taric"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Leona"
+"Leona"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Tresh_not_supported"
+"Tresh (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Lulu"
+"Lulu"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Sona"
+"Sona"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Blitzcrank_not_supported"
+"Blitzcrank (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Janna_not_supported"
+"Janna (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Alistar_not_supported"
+"Alistar (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Nunu_not_supported"
+"Nunu (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Soraka_not_supported"
+"Soraka (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Nami_not_supported"
+"Nami (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Karma_not_supported"
+"Karma (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Zyra_not_supported"
+"Zyra (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Fiddlestick_not_supported"
+"Fiddlestick (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"D",0
+0
+"E",0
+0
+0
+""
+""
+""
+""
+""
+0
+0
+0
+0
+0
+"F",0
+""
+0
+0
+0
+0
+0
+""
+"G",0
+0
+0
+0
+0
+"H",0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+"I",0
+#TRUE#
+#FALSE#
+0
+""
+1
+0
+1
+1
+""
+""
+0
+0
+0
+0
+""
+"A","Friendly_Support_name",0
+"Friendly Support Champion name"
+""
+""
+""
+""
+""
+""
+0
+"B",#FALSE#
+#FALSE#
+#FALSE#
+#FALSE#
+0
+0
+#FALSE#
+""
+#FALSE#
+""
+#FALSE#
+0
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+"C",2
+0
+50
+14
+"Taric"
+"Taric"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Leona"
+"Leona"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Tresh_not_supported"
+"Tresh (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Lulu"
+"Lulu"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Sona"
+"Sona"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Blitzcrank_not_supported"
+"Blitzcrank (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Janna_not_supported"
+"Janna (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Alistar_not_supported"
+"Alistar (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Nunu_not_supported"
+"Nunu (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Soraka_not_supported"
+"Soraka (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Nami_not_supported"
+"Nami (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Karma_not_supported"
+"Karma (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Zyra_not_supported"
+"Zyra (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Fiddlestick_not_supported"
+"Fiddlestick (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"D",0
+0
+"E",0
+0
+0
+""
+""
+""
+""
+""
+0
+0
+0
+0
+0
+"F",0
+""
+0
+0
+0
+0
+0
+""
+"G",0
+0
+0
+0
+0
+"H",0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+"I",0
+#TRUE#
+#FALSE#
+0
+""
+1
+0
+1
+1
+""
+""
+0
+0
+0
+0
+""
+"A","Enemy_AD_name",0
+"Enemy AD Champion name"
+""
+""
+""
+""
+""
+""
+0
+"B",#FALSE#
+#FALSE#
+#FALSE#
+#FALSE#
+0
+0
+#FALSE#
+""
+#FALSE#
+""
+#FALSE#
+0
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+"C",0
+0
+50
+15
+"Caitlyn"
+"Caitlyn"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Miss_Fortune"
+"Miss Fortune"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Ezreal"
+"Ezreal"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Tristana"
+"Tristana"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Vayne_not_supported"
+"Vayne (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Graves_not_supported"
+"Graves (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Varus_not_supported"
+"Varus (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Draven_not_supported"
+"Draven (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Ashe_not_supported"
+"Ashe (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Twitch_not_supported"
+"Twitch (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Sivir_not_supported"
+"Sivir (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Quinn_not_supported"
+"Quinn (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"KogMaw_not_supported"
+"KogMaw (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Corki_not_supported"
+"Corki (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Urgot_not_supported"
+"Urgot (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"D",0
+0
+"E",0
+0
+0
+""
+""
+""
+""
+""
+0
+0
+0
+0
+0
+"F",0
+""
+0
+0
+0
+0
+0
+""
+"G",0
+0
+0
+0
+0
+"H",0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+"I",0
+#TRUE#
+#FALSE#
+0
+""
+1
+0
+1
+1
+""
+""
+0
+0
+0
+0
+""
+"A","Enemy_Support_name",0
+"Enemy Support Champion name"
+""
+""
+""
+""
+""
+""
+0
+"B",#FALSE#
+#FALSE#
+#FALSE#
+#FALSE#
+0
+0
+#FALSE#
+""
+#FALSE#
+""
+#FALSE#
+0
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+"C",2
+0
+50
+14
+"Taric"
+"Taric"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Leona"
+"Leona"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Tresh_not_supported"
+"Tresh (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Lulu"
+"Lulu"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Sona"
+"Sona"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Blitzcrank_not_supported"
+"Blitzcrank (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Janna_not_supported"
+"Janna (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Alistar_not_supported"
+"Alistar (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Nunu_not_supported"
+"Nunu (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Soraka_not_supported"
+"Soraka (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Nami_not_supported"
+"Nami (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Karma_not_supported"
+"Karma (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Zyra_not_supported"
+"Zyra (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Fiddlestick_not_supported"
+"Fiddlestick (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"D",0
+0
+"E",0
+0
+0
+""
+""
+""
+""
+""
+0
+0
+0
+0
+0
+"F",0
+""
+0
+0
+0
+0
+0
+""
+"G",0
+0
+0
+0
+0
+"H",0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+"I",0
+#TRUE#
+#FALSE#
+0
+""
+1
+0
+1
+1
+""
+""
+0
+0
+0
+0
+""
+"A","Friendly_Support_Counter",0
+"Friendly_Support_Counter"
+""
+""
+""
+""
+""
+""
+0
+"B",#FALSE#
+#FALSE#
+#FALSE#
+#FALSE#
+0
+0
+#FALSE#
+""
+#FALSE#
+""
+#FALSE#
+0
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+"C",2
+0
+50
+14
+"Taric"
+"Taric"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Leona"
+"Leona"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Tresh_not_supported"
+"Tresh (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Lulu"
+"Lulu"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Sona"
+"Sona"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Blitzcrank_not_supported"
+"Blitzcrank (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Janna_not_supported"
+"Janna (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Alistar_not_supported"
+"Alistar (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Nunu_not_supported"
+"Nunu (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Soraka_not_supported"
+"Soraka (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Nami_not_supported"
+"Nami (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Karma_not_supported"
+"Karma (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Zyra_not_supported"
+"Zyra (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Fiddlestick_not_supported"
+"Fiddlestick (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"D",0
+0
+"E",0
+0
+0
+""
+""
+""
+""
+""
+0
+0
+0
+0
+0
+"F",0
+""
+0
+0
+0
+0
+0
+""
+"G",0
+0
+0
+0
+0
+"H",0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+"I",0
+#TRUE#
+#FALSE#
+0
+""
+1
+0
+1
+1
+""
+""
+0
+0
+0
+0
+""
+"A","Enemy_Support_Counter",0
+"Enemy_Support_Counter"
+""
+""
+""
+""
+""
+""
+0
+"B",#FALSE#
+#FALSE#
+#FALSE#
+#FALSE#
+0
+0
+#FALSE#
+""
+#FALSE#
+""
+#FALSE#
+0
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+"C",2
+0
+50
+14
+"Taric"
+"Taric"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Leona"
+"Leona"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Tresh_not_supported"
+"Tresh (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Lulu"
+"Lulu"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Sona"
+"Sona"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Blitzcrank_not_supported"
+"Blitzcrank (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Janna_not_supported"
+"Janna (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Alistar_not_supported"
+"Alistar (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Nunu_not_supported"
+"Nunu (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Soraka_not_supported"
+"Soraka (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Nami_not_supported"
+"Nami (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Karma_not_supported"
+"Karma (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Zyra_not_supported"
+"Zyra (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Fiddlestick_not_supported"
+"Fiddlestick (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"D",0
+0
+"E",0
+0
+0
+""
+""
+""
+""
+""
+0
+0
+0
+0
+0
+"F",0
+""
+0
+0
+0
+0
+0
+""
+"G",0
+0
+0
+0
+0
+"H",0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+"I",0
+#TRUE#
+#FALSE#
+0
+""
+1
+0
+1
+1
+""
+""
+0
+0
+0
+0
+""
+"A","Enemy_AD_Counter",0
+"Enemy_AD_Counter"
+""
+""
+""
+""
+""
+""
+0
+"B",#FALSE#
+#FALSE#
+#FALSE#
+#FALSE#
+0
+0
+#FALSE#
+""
+#FALSE#
+""
+#FALSE#
+0
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+"C",2
+0
+50
+14
+"Taric"
+"Taric"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Leona"
+"Leona"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Tresh_not_supported"
+"Tresh (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Lulu"
+"Lulu"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Sona"
+"Sona"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Blitzcrank_not_supported"
+"Blitzcrank (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Janna_not_supported"
+"Janna (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Alistar_not_supported"
+"Alistar (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Nunu_not_supported"
+"Nunu (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Soraka_not_supported"
+"Soraka (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Nami_not_supported"
+"Nami (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Karma_not_supported"
+"Karma (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Zyra_not_supported"
+"Zyra (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Fiddlestick_not_supported"
+"Fiddlestick (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"D",0
+0
+"E",0
+0
+0
+""
+""
+""
+""
+""
+0
+0
+0
+0
+0
+"F",0
+""
+0
+0
+0
+0
+0
+""
+"G",0
+0
+0
+0
+0
+"H",0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+"I",0
+#TRUE#
+#FALSE#
+0
+""
+1
+0
+1
+1
+""
+""
+0
+0
+0
+0
+""
+"A","Enemy_AD_Support",0
+"Enemy_AD_Support"
+""
+""
+""
+""
+""
+""
+0
+"B",#FALSE#
+#FALSE#
+#FALSE#
+#FALSE#
+0
+0
+#FALSE#
+""
+#FALSE#
+""
+#FALSE#
+0
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+"C",2
+0
+50
+14
+"Taric"
+"Taric"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Leona"
+"Leona"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Tresh_not_supported"
+"Tresh (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Lulu"
+"Lulu"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Sona"
+"Sona"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Blitzcrank_not_supported"
+"Blitzcrank (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Janna_not_supported"
+"Janna (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Alistar_not_supported"
+"Alistar (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Nunu_not_supported"
+"Nunu (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Soraka_not_supported"
+"Soraka (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Nami_not_supported"
+"Nami (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Karma_not_supported"
+"Karma (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Zyra_not_supported"
+"Zyra (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Fiddlestick_not_supported"
+"Fiddlestick (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"D",0
+0
+"E",0
+0
+0
+""
+""
+""
+""
+""
+0
+0
+0
+0
+0
+"F",0
+""
+0
+0
+0
+0
+0
+""
+"G",0
+0
+0
+0
+0
+"H",0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+"I",0
+#TRUE#
+#FALSE#
+0
+""
+1
+0
+1
+1
+""
+""
+0
+0
+0
+0
+""
+"A","Friendly_AD_Counter",0
+"Friendly_AD_Counter"
+""
+""
+""
+""
+""
+""
+0
+"B",#FALSE#
+#FALSE#
+#FALSE#
+#FALSE#
+0
+0
+#FALSE#
+""
+#FALSE#
+""
+#FALSE#
+0
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+"C",2
+0
+50
+14
+"Taric"
+"Taric"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Leona"
+"Leona"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Tresh_not_supported"
+"Tresh (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Lulu"
+"Lulu"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Sona"
+"Sona"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Blitzcrank_not_supported"
+"Blitzcrank (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Janna_not_supported"
+"Janna (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Alistar_not_supported"
+"Alistar (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Nunu_not_supported"
+"Nunu (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Soraka_not_supported"
+"Soraka (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Nami_not_supported"
+"Nami (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Karma_not_supported"
+"Karma (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Zyra_not_supported"
+"Zyra (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"Fiddlestick_not_supported"
+"Fiddlestick (not supported)"
+""
+""
+""
+""
+""
+""
+#FALSE#
+"D",0
+0
+"E",0
+0
+0
+""
+""
+""
+""
+""
+0
+0
+0
+0
+0
+"F",0
+""
+0
+0
+0
+0
+0
+""
+"G",0
+0
+0
+0
+0
+"H",0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+"I",0
+#TRUE#
+#FALSE#
+0
+""
+1
+0
+1
+1
+""
+""
+0
+0
+0
+0
+""
+"A","Enemy_lolking_Synergy",2
+"Enemy_lolking_Synergy"
+""
+""
+""
+""
+""
+""
+0
+"B",#FALSE#
+#FALSE#
+#FALSE#
+#FALSE#
+0
+0
+#FALSE#
+""
+#FALSE#
+""
+#FALSE#
+0
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+"C",2
+0
+50
+0
+"D",0
+0
+"E",0
+0
+0
+""
+""
+""
+""
+""
+0
+1
+0
+1
+10000
+"F",0
+""
+0
+0
+0
+0
+0
+""
+"G",0
+0
+0
+0
+0
+"H",0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+"I",0
+#TRUE#
+#FALSE#
+0
+""
+5
+0
+1
+1
+""
+""
+0
+0
+0
+0
+""
+"A","Friendly_lolking_Synergy",2
+"Friendly_lolking_Synergy"
+""
+""
+""
+""
+""
+""
+0
+"B",#FALSE#
+#FALSE#
+#FALSE#
+#FALSE#
+0
+0
+#FALSE#
+""
+#FALSE#
+""
+#FALSE#
+0
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+"C",2
+0
+50
+0
+"D",0
+0
+"E",0
+0
+0
+""
+""
+""
+""
+""
+0
+1
+0
+1
+10000
+"F",0
+""
+0
+0
+0
+0
+0
+""
+"G",0
+0
+0
+0
+0
+"H",0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+"I",0
+#TRUE#
+#FALSE#
+0
+""
+5
+0
+1
+1
+""
+""
+0
+0
+0
+0
+""
+"A","Matchup",4
+"Matchup"
+""
+""
+""
+""
+""
+""
+0
+"B",#FALSE#
+#FALSE#
+#FALSE#
+#FALSE#
+0
+0
+#FALSE#
+""
+#FALSE#
+""
+#FALSE#
+0
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+"C",2
+0
+50
+0
+"D",0
+0
+"E",0
+0
+0
+""
+""
+""
+""
+""
+0
+0
+0
+0
+0
+"F",0
+""
+0
+0
+0
+0
+0
+""
+"G",0
+0
+0
+0
+0
+"H",0
+0
+0
+0
+0
+0
+1
+0
+0
+0
+0
+"I",0
+#TRUE#
+#FALSE#
+0
+""
+5
+0
+1
+1
+""
+""
+0
+0
+0
+0
+""
+7,250
+"Enemy AD Setup",0,27
+"Top","IS55:0","Enemy_AD_name = Caitlyn","IF_INC"
+"IS55:0","TS56:0","Enemy_AD_Counter = Taric","THEN_STATIC"
+"IS55:0","TS57:2","Enemy_AD_Counter = Soraka_not_supported","THEN_STATIC"
+"IS55:0","TS57:0","Enemy_AD_Counter = Blitzcrank_not_supported","THEN_STATIC"
+"IS55:0","TS58:4","Enemy_AD_Support = Nunu_not_supported","THEN_STATIC"
+"IS55:0","TS58:0","Enemy_AD_Support = Lulu","THEN_STATIC"
+"Top","IS60:0","Enemy_AD_name = Miss_Fortune","IF_INC"
+"IS60:0","TS61:0","Enemy_AD_Counter = Fiddlestick_not_supported","THEN_STATIC"
+"IS60:0","TS62:9","Enemy_AD_Counter = Zyra_not_supported","THEN_STATIC"
+"IS60:0","TS62:0","Enemy_AD_Counter = Nunu_not_supported","THEN_STATIC"
+"IS60:0","TS63:11","Enemy_AD_Support = Nami_not_supported","THEN_STATIC"
+"IS60:0","TS63:0","Enemy_AD_Support = Taric","THEN_STATIC"
+"IS60:0","TS64:13","Enemy_AD_Support = Sona","THEN_STATIC"
+"Top","IS65:0","Enemy_AD_name = Ezreal","IF_INC"
+"IS65:0","TS66:0","Enemy_AD_Counter = Lulu","THEN_STATIC"
+"IS65:0","TS67:16","Enemy_AD_Counter = Fiddlestick_not_supported","THEN_STATIC"
+"IS65:0","TS67:0","Enemy_AD_Counter = Soraka_not_supported","THEN_STATIC"
+"IS65:0","TS68:18","Enemy_AD_Support = Sona","THEN_STATIC"
+"IS65:0","TS68:0","Enemy_AD_Support = Taric","THEN_STATIC"
+"IS65:0","TS69:20","Enemy_AD_Support = Lulu","THEN_STATIC"
+"Top","IS70:0","Enemy_AD_name = Tristana","IF_INC"
+"IS70:0","TS71:0","Enemy_AD_Counter = Nunu_not_supported","THEN_STATIC"
+"IS70:0","TS72:23","Enemy_AD_Counter = Janna_not_supported","THEN_STATIC"
+"IS70:0","TS72:0","Enemy_AD_Counter = Lulu","THEN_STATIC"
+"IS70:0","TS73:25","Enemy_AD_Support = Leona","THEN_STATIC"
+"IS70:0","TS73:0","Enemy_AD_Support = Nunu_not_supported","THEN_STATIC"
+"IS70:0","TS74:27","Enemy_AD_Support = Blitzcrank_not_supported","THEN_STATIC"
+""
+"0"
+"Enemy Support Setup",0,16
+"Top","IS75:0","Enemy_Support_name = Taric","IF_INC"
+"IS75:0","TS76:0","Enemy_Support_Counter = Nunu_not_supported","THEN_STATIC"
+"IS75:0","TS77:2","Enemy_Support_Counter = Alistar_not_supported","THEN_STATIC"
+"IS75:0","TS77:0","Enemy_Support_Counter = Zyra_not_supported","THEN_STATIC"
+"Top","IS78:0","Enemy_Support_name = Leona","IF_INC"
+"IS78:0","TS79:0","Enemy_Support_Counter = Alistar_not_supported","THEN_STATIC"
+"IS78:0","TS80:6","Enemy_Support_Counter = Janna_not_supported","THEN_STATIC"
+"IS78:0","TS80:0","Enemy_Support_Counter = Nunu_not_supported","THEN_STATIC"
+"Top","IS81:0","Enemy_Support_name = Lulu","IF_INC"
+"IS81:0","TS82:0","Enemy_Support_Counter = Soraka_not_supported","THEN_STATIC"
+"IS81:0","TS83:10","Enemy_Support_Counter = Leona","THEN_STATIC"
+"IS81:0","TS83:0","Enemy_Support_Counter = Blitzcrank_not_supported","THEN_STATIC"
+"Top","IS84:0","Enemy_Support_name = Sona","IF_INC"
+"IS84:0","TS85:0","Enemy_Support_Counter = Leona","THEN_STATIC"
+"IS84:0","TS86:14","Enemy_Support_Counter = Taric","THEN_STATIC"
+"IS84:0","TS86:0","Enemy_Support_Counter = Zyra_not_supported","THEN_STATIC"
+""
+"0"
+"Friendly AD Setup",0,28
+"Top","IS1:0","Friendly_AD_name = Caitlyn","IF_INC"
+"IS1:0","TS5:0","Friendly_AD_Support = Nunu_not_supported","THEN_STATIC"
+"IS1:0","TS35:0","Friendly_AD_Counter = Taric","THEN_STATIC"
+"IS1:0","TS36:17","Friendly_AD_Counter = Soraka_not_supported","THEN_STATIC"
+"IS1:0","TS36:0","Friendly_AD_Counter = Blitzcrank_not_supported","THEN_STATIC"
+"IS1:0","TS6:5","Friendly_AD_Support = Lulu","THEN_STATIC"
+"IS1:0","TS6:0","Friendly_AD_Support = Zyra_not_supported","THEN_STATIC"
+"Top","IS8:0","Friendly_AD_name = MissFortune","IF_INC"
+"IS8:0","TS12:0","Friendly_AD_Support = Nami_not_supported","THEN_STATIC"
+"IS8:0","TS13:12","Friendly_AD_Support = Taric","THEN_STATIC"
+"IS8:0","TS13:0","Friendly_AD_Support = Sona","THEN_STATIC"
+"IS8:0","TS37:0","Friendly_AD_Counter = Fiddlestick_not_supported","THEN_STATIC"
+"IS8:0","TS38:20","Friendly_AD_Counter = Zyra_not_supported","THEN_STATIC"
+"IS8:0","TS38:0","Friendly_AD_Counter = Nunu_not_supported","THEN_STATIC"
+"Top","IS15:0","Friendly_AD_name = Ezreal","IF_INC"
+"IS15:0","TS17:0","Friendly_AD_Support = Sona","THEN_STATIC"
+"IS15:0","TS18:19","Friendly_AD_Support = Taric","THEN_STATIC"
+"IS15:0","TS18:0","Friendly_AD_Support = Lulu","THEN_STATIC"
+"IS15:0","TS39:0","Friendly_AD_Counter = Lulu","THEN_STATIC"
+"IS15:0","TS40:23","Friendly_AD_Counter = Fiddlestick_not_supported","THEN_STATIC"
+"IS15:0","TS40:0","Friendly_AD_Counter = Soraka_not_supported","THEN_STATIC"
+"Top","IS19:0","Friendly_AD_name = Tristana","IF_INC"
+"IS19:0","TS21:0","Friendly_AD_Support = Leona","THEN_STATIC"
+"IS19:0","TS22:26","Friendly_AD_Support = Nunu_not_supported","THEN_STATIC"
+"IS19:0","TS22:0","Friendly_AD_Support = Blitzcrank_not_supported","THEN_STATIC"
+"IS19:0","TS41:0","Friendly_AD_Counter = Nunu_not_supported","THEN_STATIC"
+"IS19:0","TS42:26","Friendly_AD_Counter = Janna_not_supported","THEN_STATIC"
+"IS19:0","TS42:0","Friendly_AD_Counter = Lulu","THEN_STATIC"
+""
+"0"
+"Friendly Support Setup",0,16
+"Top","IS43:0","Friendly_Support_name = Taric","IF_INC"
+"IS43:0","TS44:0","Friendly_Support_Counter = Nunu_not_supported","THEN_STATIC"
+"IS43:0","TS45:2","Friendly_Support_Counter = Blitzcrank_not_supported","THEN_STATIC"
+"IS43:0","TS45:0","Friendly_Support_Counter = Zyra_not_supported","THEN_STATIC"
+"Top","IS46:0","Friendly_Support_name = Leona","IF_INC"
+"IS46:0","TS47:0","Friendly_Support_Counter = Blitzcrank_not_supported","THEN_STATIC"
+"IS46:0","TS48:6","Friendly_Support_Counter = Janna_not_supported","THEN_STATIC"
+"IS46:0","TS48:0","Friendly_Support_Counter = Nunu_not_supported","THEN_STATIC"
+"Top","IS49:0","Friendly_Support_name = Lulu","IF_INC"
+"IS49:0","TS50:0","Friendly_Support_Counter = Soraka_not_supported","THEN_STATIC"
+"IS49:0","TS51:10","Friendly_Support_Counter = Leona","THEN_STATIC"
+"IS49:0","TS51:0","Friendly_Support_Counter = Blitzcrank_not_supported","THEN_STATIC"
+"Top","IS52:0","Friendly_Support_name = Sona","IF_INC"
+"IS52:0","TS53:0","Friendly_Support_Counter = Leona","THEN_STATIC"
+"IS52:0","TS54:14","Friendly_Support_Counter = Taric","THEN_STATIC"
+"IS52:0","TS54:0","Friendly_Support_Counter = Zyra_not_supported","THEN_STATIC"
+""
+"0"
+"lolking Synergy",0,48
+"Top","IS99:0","Friendly_AD_name = Caitlyn","IF_INC"
+"IS99:0","IS135:0","Friendly_Support_name = Taric","IF_INC"
+"IS135:0","TE136:0","[Friendly_lolking_Synergy] = 4690","THEN_CONT"
+"Top","IS101:0","Friendly_AD_name = Caitlyn","IF_INC"
+"IS101:0","IS137:3","Friendly_Support_name = Leona","IF_FULL_BOT"
+"IS137:3","TE134:0","[Friendly_lolking_Synergy] = 5120","THEN_CONT"
+"Top","IS103:0","Friendly_AD_name = Caitlyn","IF_INC"
+"IS103:0","IS138:5","Friendly_Support_name = Lulu","IF_FULL_BOT"
+"IS138:5","TE152:0","[Friendly_lolking_Synergy] = 4760","THEN_CONT"
+"Top","IS105:0","Friendly_AD_name = Caitlyn","IF_INC"
+"IS105:0","IS139:7","Friendly_Support_name = Sona","IF_FULL_BOT"
+"IS139:7","TE153:0","[Friendly_lolking_Synergy] = 5760","THEN_CONT"
+"Top","IS107:0","Friendly_AD_name = MissFortune","IF_INC"
+"IS107:0","IS140:9","Friendly_Support_name = Taric","IF_FULL_BOT"
+"IS140:9","TE154:0","[Friendly_lolking_Synergy] = 5450","THEN_CONT"
+"Top","IS109:0","Friendly_AD_name = MissFortune","IF_INC"
+"IS109:0","IS141:11","Friendly_Support_name = Leona","IF_FULL_BOT"
+"IS141:11","TE155:0","[Friendly_lolking_Synergy] = 5450","THEN_CONT"
+"Top","IS111:0","Friendly_AD_name = MissFortune","IF_INC"
+"IS111:0","IS142:13","Friendly_Support_name = Lulu","IF_FULL_BOT"
+"IS142:13","TE156:0","[Friendly_lolking_Synergy] = 5030","THEN_CONT"
+"Top","IS114:15","Friendly_Support_name = Sona","IF_INC"
+"IS114:15","IS143:0","Friendly_AD_name = MissFortune","IF_FULL_TOP"
+"IS143:0","TE157:0","[Friendly_lolking_Synergy] = 5880","THEN_CONT"
+"Top","IS115:0","Friendly_AD_name = Ezreal","IF_INC"
+"IS115:0","IS144:17","Friendly_Support_name = Taric","IF_FULL_BOT"
+"IS144:17","TE158:0","[Friendly_lolking_Synergy] = 4610","THEN_CONT"
+"Top","IS117:0","Friendly_AD_name = Ezreal","IF_INC"
+"IS117:0","IS145:19","Friendly_Support_name = Leona","IF_FULL_BOT"
+"IS145:19","TE159:0","[Friendly_lolking_Synergy] = 5030","THEN_CONT"
+"Top","IS119:0","Friendly_AD_name = Ezreal","IF_INC"
+"IS119:0","IS146:21","Friendly_Support_name = Lulu","IF_FULL_BOT"
+"IS146:21","TE160:0","[Friendly_lolking_Synergy] = 4590","THEN_CONT"
+"Top","IS121:0","Friendly_AD_name = Ezreal","IF_INC"
+"IS121:0","IS147:23","Friendly_Support_name = Sona","IF_FULL_BOT"
+"IS147:23","TE161:0","[Friendly_lolking_Synergy] = 5480","THEN_CONT"
+"Top","IS125:0","Friendly_AD_name = Tristana","IF_INC"
+"IS125:0","IS148:27","Friendly_Support_name = Taric","IF_FULL_BOT"
+"IS148:27","TE162:0","[Friendly_lolking_Synergy] = 4660","THEN_CONT"
+"Top","IS127:0","Friendly_AD_name = Tristana","IF_INC"
+"IS127:0","IS149:29","Friendly_Support_name = Leona","IF_FULL_BOT"
+"IS149:29","TE163:0","[Friendly_lolking_Synergy] = 4900","THEN_CONT"
+"Top","IS129:0","Friendly_AD_name = Tristana","IF_INC"
+"IS129:0","IS150:30","Friendly_Support_name = Lulu","IF_FULL_BOT"
+"IS150:30","TE164:0","[Friendly_lolking_Synergy] = 4450","THEN_CONT"
+"Top","IS131:0","Friendly_AD_name = Tristana","IF_INC"
+"IS131:0","IS151:32","Friendly_Support_name = Sona","IF_FULL_BOT"
+"IS151:32","TE165:0","[Friendly_lolking_Synergy] = 5610","THEN_CONT"
+""
+"0"
+"Final Matchup",0,15
+"Top","IE173:0","MATCHES([Enemy_AD_Counter], [Friendly_Support_name]) ","IF_INC"
+"IE173:0","TE174:0","[Matchup] = 60","THEN_CONF"
+"Top","IE192:0","MATCHES([Enemy_AD_Support], [Enemy_Support_name]) ","IF_INC"
+"IE192:0","TE193:0","[Matchup] = 40","THEN_CONF"
+"Top","IE175:0","MATCHES([Enemy_Support_Counter], [Friendly_Support_name]) ","IF_INC"
+"IE175:0","TE176:0","[Matchup] = 60","THEN_CONF"
+"Top","IE177:0","MATCHES([Friendly_AD_Counter], [Enemy_Support_name]) ","IF_INC"
+"IE177:0","TE178:0","[Matchup] = 40","THEN_CONF"
+"Top","IE179:0","MATCHES([Friendly_Support_Counter], [Enemy_Support_name]) ","IF_INC"
+"IE179:0","TE180:0","[Matchup] = 40","THEN_CONF"
+"Top","IE186:0","1=1","IF_INC"
+"IE186:0","TE187:0","[Matchup] = [Friendly_lolking_Synergy]/100","THEN_CONF"
+"IE186:0","TE188:0","[Matchup] = 100-[Enemy_lolking_Synergy]/100","THEN_CONF"
+"Top","IE190:0","MATCHES([Friendly_AD_Support], [Friendly_Support_name]) ","IF_INC"
+"IE190:0","TE191:0","[Matchup] = 60","THEN_CONF"
+""
+"0"
+"Default Command Block",1,39
+"Top","C205:0","ASK  [Enemy_AD_name]","CMD_BASIC"
+"Top","C194:0","FORWARD BLOCK=Enemy AD Setup","CMD_BASIC"
+"Top","C206:0","ASK  [Enemy_Support_name]","CMD_BASIC"
+"Top","C1204:0","FORWARD BLOCK=Enemy Support Setup","CMD_BASIC"
+"Top","I2218:0","MATCHES([Enemy_AD_name] , CORVIDQUOTEIDCaitlynCORVIDQUOTEID) ","CMD_IF"
+"I2218:0","C2220:0","SET  [Friendly_AD_name]  Caitlyn","CMD_IN_IF"
+"Top","C2221:0","// IF End","CMD_BASIC"
+"Top","I2226:0","MATCHES([Enemy_AD_name] , CORVIDQUOTEIDMissFortuneCORVIDQUOTEID) ","CMD_IF"
+"I2226:0","C2227:0","SET  [Friendly_AD_name]  MissFortune","CMD_IN_IF"
+"Top","C2228:0","// IF End","CMD_BASIC"
+"Top","I2229:0","MATCHES([Enemy_AD_name] , CORVIDQUOTEIDEzrealCORVIDQUOTEID) ","CMD_IF"
+"I2229:0","C2230:0","SET  [Friendly_AD_name]  Ezreal","CMD_IN_IF"
+"Top","C2231:0","// IF End","CMD_BASIC"
+"Top","I2232:0","MATCHES([Enemy_AD_name] , CORVIDQUOTEIDTristanaCORVIDQUOTEID) ","CMD_IF"
+"I2232:0","C2233:0","SET  [Friendly_AD_name]  Tristana","CMD_IN_IF"
+"Top","C2234:0","// IF End","CMD_BASIC"
+"Top","I223:0","MATCHES([Enemy_Support_name], CORVIDQUOTEIDTaricCORVIDQUOTEID) ","CMD_IF"
+"I223:0","C225:0","SET  [Friendly_Support_name]  Taric","CMD_IN_IF"
+"Top","C224:0","// IF End","CMD_BASIC"
+"Top","I2235:0","MATCHES([Enemy_Support_name], CORVIDQUOTEIDLeonaCORVIDQUOTEID) ","CMD_IF"
+"I2235:0","C2236:0","SET  [Friendly_Support_name]  Leona","CMD_IN_IF"
+"Top","C2237:0","// IF End","CMD_BASIC"
+"Top","I2238:0","MATCHES([Enemy_Support_name], CORVIDQUOTEIDLuluCORVIDQUOTEID) ","CMD_IF"
+"I2238:0","C2239:0","SET  [Friendly_Support_name]  Lulu","CMD_IN_IF"
+"Top","C2240:0","// IF End","CMD_BASIC"
+"Top","I2241:0","MATCHES([Enemy_Support_name], CORVIDQUOTEIDSonaCORVIDQUOTEID) ","CMD_IF"
+"I2241:0","C2242:0","SET  [Friendly_Support_name]  Sona","CMD_IN_IF"
+"Top","C2243:0","// IF End","CMD_BASIC"
+"Top","C198:0","FORWARD BLOCK=lolking Synergy","CMD_BASIC"
+"Top","C199:0","SET  [Enemy_lolking_Synergy]  [Friendly_lolking_Synergy]","CMD_BASIC"
+"Top","C248:0","RESET BLOCK=lolking Synergy","CMD_BASIC"
+"Top","C207:0","ASK  [Friendly_AD_name]","CMD_BASIC"
+"Top","C200:0","FORWARD BLOCK=Friendly AD Setup","CMD_BASIC"
+"Top","C208:0","ASK  [Friendly_Support_name]","CMD_BASIC"
+"Top","C201:0","FORWARD BLOCK=Friendly Support Setup","CMD_BASIC"
+"Top","C2250:0","RESET [Friendly_lolking_Synergy]","CMD_BASIC"
+"Top","C202:0","FORWARD BLOCK=lolking Synergy","CMD_BASIC"
+"Top","C203:0","FORWARD BLOCK=Final Matchup","CMD_BASIC"
+"Top","C2:0","RESULTS","CMD_BASIC"
+""
+"0"
+1
+"Main"
+4
+"Enemy_AD_name"
+"Enemy_AD_name"
+"Enemy AD Champion name"
+"Enemy_AD_name"
+"Caitlyn,            Miss_Fortune,            Ezreal,            Tristana,            Vayne,            Graves,            Varus,            Draven,            Ashe,            Twitch,            Sivir,            Quinn,            KogMaw,            Corki,            Urgot"
+"Enemy_AD_name:::Caitlyn,            Miss_Fortune,            Ezreal,            Tristana,            Vayne,            Graves,            Varus,            Draven,            Ashe,            Twitch,            Sivir,            Quinn,            KogMaw,            Corki,            Urgot"
+"Exec Block"
+"L:Enemy AD Setup"
+""
+""
+""
+"Enemy_Support_name"
+"Enemy_Support_name"
+"Enemy Support Champion name"
+"Enemy_Support_name"
+"Taric,           Leona,           Tresh,           Lulu,           Sona,           Blitzcrank,           Janna,           Alistar,           Nunu,           Soraka,           Nami,           Karma,           Zyra,           Fiddlestick"
+"Enemy_Support_name:::Taric,           Leona,           Tresh,           Lulu,           Sona,           Blitzcrank,           Janna,           Alistar,           Nunu,           Soraka,           Nami,           Karma,           Zyra,           Fiddlestick"
+"Exec Block"
+"L:Enemy Support Setup"
+""
+""
+""
+"Friendly_AD_name"
+"Friendly_AD_name"
+"Friendly AD Champion Name"
+"Friendly_AD_name"
+"Caitlyn,            MissFortune,            Ezreal,            Tristana,            Vayne,            Graves,            Varus,            Draven,            Ashe,            Twitch,            Sivir,            Quinn,            KogMaw,            Corki,            Urgot"
+"Friendly_AD_name:::Caitlyn,            MissFortune,            Ezreal,            Tristana,            Vayne,            Graves,            Varus,            Draven,            Ashe,            Twitch,            Sivir,            Quinn,            KogMaw,            Corki,            Urgot"
+"Exec Block"
+"L:Friendly AD Setup"
+""
+""
+""
+"Friendly_Support_name"
+"Friendly_Support_name"
+"Friendly Support Champion name"
+"Friendly_Support_name"
+"Taric,           Leona,           Tresh,           Lulu,           Sona,           Blitzcrank,           Janna,           Alistar,           Nunu,           Soraka,           Nami,           Karma,           Zyra,           Fiddlestick"
+"Friendly_Support_name:::Taric,           Leona,           Tresh,           Lulu,           Sona,           Blitzcrank,           Janna,           Alistar,           Nunu,           Soraka,           Nami,           Karma,           Zyra,           Fiddlestick"
+"Exec Block"
+"L:Friendly Support Setup"
+""
+""
+""
+8
+26
+9
+12
+18
+29
+0
+10
+"TEXT CORVIDQUOTEIDLa variable de confiance CORVIDQUOTEIDMatchupCORVIDQUOTEID vous donne le pourcentage de chances de gagnerCORVIDQUOTEID  FORMAT:  SIZE=14 STYLE=Bold&Italic "
+"[Matchup]  "
+"[Friendly_lolking_Synergy]  "
+"[Enemy_lolking_Synergy]  "
+"[Enemy_AD_name]  "
+"[Enemy_Support_name]  "
+"[Friendly_AD_name]  "
+"[Friendly_Support_name]  "
+"TEXT CORVIDQUOTEIDAutres variablesCORVIDQUOTEID "
+"VARIABLE  "
+0
+""
+#FALSE#
+#FALSE#
+#FALSE#
+#FALSE#
+#FALSE#
+0
+700
+400
+0
+0
+0
+""
+""
+""
+0
+0
+"Default Command Block"
+0
+0
+""
+""
+""
+""
+""
+""
+""
+#TRUE#
+#FALSE#
