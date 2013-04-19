@@ -1,7 +1,7 @@
 % Author:
 % Date: 4/17/2013
 /*
-    La grammaire complète permettant d’analyser les questions:
+    La grammaire complÃ¨te permettant dÂ’analyser les questions:
 phrase -> <groupe_nominal> <groupe_verbal>
 groupe_nominal-> <determinant> <nom>
 groupe_nominal-> <pronom_interrogatif>
@@ -11,8 +11,8 @@ nom-> nomPropre
 groupe_verbal-> <verbe> <groupe_nominal>
 pronom_interrogatif -> Qui |
 determinant -> le | de | des | les | un
-verbe -> est | mange-t-il | aime-t-il | aime-t-elle | possède-t-il
-nomCommun -> père | croquettes | chiens  | chats | chat
+verbe -> est | mange-t-il | aime-t-il | aime-t-elle | possÃ¨de-t-il
+nomCommun -> pÃ¨re | croquettes | chiens  | chats | chat
 nomPropre -> Felix | Pierre| Anne | Nicolas
 
 p( SEM ) --> gn(AGNT), gv(ACT, OBJ), {AGNT \= OBJ, SEM =..[ACT,AGNT, OBJ]}.
@@ -27,12 +27,12 @@ v( mordre ) --> [mord].
 qui est le pere de nicolas
 
 Texte :
-« Paul est le père de Nicolas. 
-Nicolas est le frère de Pierre et Anne. 
-Anne a un chat appelé Garfield.
-Anne aime les chats et les chiens mais son frère Pierre n'aime pas les chiens. 
+Â« Paul est le pÃ¨re de Nicolas. 
+Nicolas est le frÃ¨re de Pierre et Anne. 
+Anne a un chat appelÃ© Garfield.
+Anne aime les chats et les chiens mais son frÃ¨re Pierre n'aime pas les chiens. 
 Felix est un chat. 
-Les chats mangent des croquettes et du paté.»
+Les chats mangent des croquettes et du patÃ©.Â»
  */
  
  
@@ -55,12 +55,12 @@ Les chats mangent des croquettes et du paté.»
  
  
  %/////////////GRAMMAIRE DES QUESTIONS /////////////////////
-repondre(Fait) --> groupe_nominal(X), groupe_verbal(Y,Z), {Fait=..[Y,X,Z]}.
-groupe_nominal(X)--> determinant, nom(X).
+repondre(Fait) --> groupe_nominal(D,X), groupe_verbal(Y,Z), {Fait=..[Y,X,Z]}.
+groupe_nominal(D,X)--> determinant(D), nom(X).
 groupe_nominal(X)--> nom(X).
 groupe_nominal(X) --> pronom_interrogatif(X).
 groupe_nominal(Y,Z) --> determinant, lien(Y), determinant, nom(Z).
-groupe_verbal(Y,Z) --> verbe, groupe_nominal(Y,Z). %changement de X par Y et Y par Z pour compréhension
+groupe_verbal(Y,Z) --> verbe, groupe_nominal(Y,Z). %changement de X par Y et Y par Z pour comprÃ©hension
 groupe_verbal(Y,Z) --> verbe(Y), groupe_nominal(Z).
 nom(X) --> nomCommun(X).
 nom(X) --> nomPropre(X).
@@ -68,7 +68,8 @@ determinant-->[un].
 determinant-->[le].
 determinant-->[de].
 determinant-->[les].
-pronom_interrogatif(X)-->[qui].   %la réponse écrit artificiellement ici
+determinant-->[des].
+pronom_interrogatif(X)-->[qui].   %la rÃ©ponse Ã©crit artificiellement ici
 lien(frere)-->[frere].
 lien(pere)-->[pere].
 nomPropre(nicolas) --> [nicolas].
@@ -109,7 +110,7 @@ ecrire(S) :- S=..[Y,X,Z], dire([X, Y, Z]).
 ecrire(Phrase) --> <groupe_nominal2(GN)> <groupe_verbal2(GV)>, {Phrase=[GN,GV]}.
 groupe_nominal2(DET,NOM) --> <determinant2(DET)> <nom2(NOM)>.
 groupe_nominal2(DET,NOM,DET2,NOM2) --> determinant3(DET), lien2(NOM), determinant4(DET2), nom2(NOM2).
-groupe_verbal2(Y,Z) --> verbe2, groupe_nominal2(Y,Z). %changement de X par Y et Y par Z pour compréhension
+groupe_verbal2(Y,Z) --> verbe2, groupe_nominal2(Y,Z). %changement de X par Y et Y par Z pour comprÃ©hension
 groupe_verbal2(Y,Z) --> verbe2(Y), groupe_nominal2(Z).
 nom2(X) --> nomCommun2(X).
 nom2(X) --> nomPropre2(X).
@@ -135,7 +136,7 @@ verbe2 --> [est].
 verbe2(mange) --> [mange].
 verbe2(aime) --> [aime].
 verbe2(aime) --> [aime].
-verbe2(possede) --> [possède].
+verbe2(possede) --> [possÃ¨de].
  */
 %//////////////LANCER INTERFACE//////////////////
 
@@ -158,10 +159,10 @@ lancer :-
 dire([X|R]) :- write(X), write(' '), dire(R).
 dire([]).
 
-% Le prédicat lire/2 lit une chaîne de caractères Chaine entre apostrophes
-% et terminée par un point.
-% Resultat correspond à la liste des mots contenus dans la phrase.
-% Les signes de ponctuation ne sont pas gérés.
+% Le prÃ©dicat lire/2 lit une chaÃ®ne de caractÃ¨res Chaine entre apostrophes
+% et terminÃ©e par un point.
+% Resultat correspond Ã  la liste des mots contenus dans la phrase.
+% Les signes de ponctuation ne sont pas gÃ©rÃ©s.
 lire(Resultat):- 
     write('Entrer la phrase (exit pour quitter) '),nl, 
     read(Chaine),
@@ -173,12 +174,12 @@ lire(Resultat):-
 lire(Resultat) :-
     abort.
                        
-% Prédicat de transformation de chaîne en liste
+% PrÃ©dicat de transformation de chaÃ®ne en liste
 chaine_liste([],[]).
 chaine_liste(Liste,[Mot|Reste]):- separer(Liste,32,A,B), name(Mot,A),
 chaine_liste(B,Reste).
 
-% Sépare une liste par rapport à un élément
+% SÃ©pare une liste par rapport Ã  un Ã©lÃ©ment
 separer([],X,[],[]):-!.
 separer([X|R],X,[],R):-!.
 separer([A|R],X,[A|Av],Ap):- X\==A, !, separer(R,X,Av,Ap).
