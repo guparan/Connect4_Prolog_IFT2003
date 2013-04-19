@@ -30,7 +30,7 @@ Texte :
 « Paul est le père de Nicolas. 
 Nicolas est le frère de Pierre et Anne. 
 Anne a un chat appelé Garfield.
-Anne aime les chats et les chiens mais son frère Pierre n'aime pas les chiens. 
+Anne aime les chats et les chiens mais son frère Pierre n’aime pas les chiens. 
 Felix est un chat. 
 Les chats mangent des croquettes et du paté.»
  */
@@ -55,8 +55,8 @@ Les chats mangent des croquettes et du paté.»
  
  
  %/////////////GRAMMAIRE DES QUESTIONS /////////////////////
-repondre(Fait) --> groupe_nominal(D,X), groupe_verbal(Y,Z), {Fait=..[Y,X,Z]}.
-groupe_nominal(D,X)--> determinant(D), nom(X).
+repondre(Fait) --> groupe_nominal(X), groupe_verbal(Y,Z), {Fait=..[Y,X,Z]}.
+groupe_nominal(X)--> determinant, nom(X).
 groupe_nominal(X)--> nom(X).
 groupe_nominal(X) --> pronom_interrogatif(X).
 groupe_nominal(Y,Z) --> determinant, lien(Y), determinant, nom(Z).
@@ -68,7 +68,6 @@ determinant-->[un].
 determinant-->[le].
 determinant-->[de].
 determinant-->[les].
-determinant-->[des].
 pronom_interrogatif(X)-->[qui].   %la réponse écrit artificiellement ici
 lien(frere)-->[frere].
 lien(pere)-->[pere].
