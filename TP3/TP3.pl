@@ -1,7 +1,7 @@
 % Author:
 % Date: 4/17/2013
 /*
-    La grammaire complète permettant d’analyser les questions:
+    La grammaire complète permettant d'analyser les questions:
 phrase -> <groupe_nominal> <groupe_verbal>
 groupe_nominal-> <determinant> <nom>
 groupe_nominal-> <pronom_interrogatif>
@@ -25,6 +25,14 @@ nc( homme ) --> [homme].                       #
 v( mordre ) --> [mord].
 
 qui est le pere de nicolas
+
+Texte :
+« Paul est le père de Nicolas. 
+Nicolas est le frère de Pierre et Anne. 
+Anne a un chat appelé Garfield.
+Anne aime les chats et les chiens mais son frère Pierre n'aime pas les chiens. 
+Felix est un chat. 
+Les chats mangent des croquettes et du paté.»
  */
  
  
@@ -126,14 +134,14 @@ verbe2(possede) --> [possède].
 %//////////////LANCER INTERFACE//////////////////
 
 lancer :-
-    lire(Chaine,Phrase),
+    lire(Phrase),
     valide(Phrase),
+    write('Phrase valide\n'), 
     lancer
     .
 
 lancer :-
-    write('Erreur : phrase non comprise'),
-    nl,
+    write('Phrase invalide\n'),
     lancer
     .
 
@@ -145,7 +153,7 @@ dire([]).
 % et terminée par un point.
 % Resultat correspond à la liste des mots contenus dans la phrase.
 % Les signes de ponctuation ne sont pas gérés.
-lire(Chaine,Resultat):- 
+lire(Resultat):- 
     write('Entrer la phrase (exit pour quitter) '),nl, 
     read(Chaine),
     Chaine \= 'exit',
@@ -153,7 +161,7 @@ lire(Chaine,Resultat):-
     chaine_liste(Temp, Resultat),
     !.
 
-lire(Chaine, Resultat) :-
+lire(Resultat) :-
     abort.
                        
 % Prédicat de transformation de chaîne en liste
