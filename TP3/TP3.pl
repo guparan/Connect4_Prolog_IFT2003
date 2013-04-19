@@ -69,9 +69,12 @@ nom(X) --> nomCommun(X).
 nom(X) --> nomPropre(X).
 
 determinant-->[un].
+determinant-->[une].
 determinant-->[le].
-determinant-->[de].
+determinant-->[la].
 determinant-->[les].
+determinant-->[du].
+determinant-->[de].
 determinant-->[des].
 
 pronom_interrogatif(X)-->[qui].   %la réponse écrit artificiellement ici
