@@ -1,7 +1,7 @@
 % Author:
 % Date: 4/17/2013
 /*
-    La grammaire complète permettant d'analyser les questions:
+    La grammaire complète permettant d’analyser les questions:
 phrase -> <groupe_nominal> <groupe_verbal>
 groupe_nominal-> <determinant> <nom>
 groupe_nominal-> <pronom_interrogatif>
@@ -87,17 +87,23 @@ verbe(aime) --> [aimetelle].
 verbe(possede) --> [possedetil].
 
 %//////////////VALIDATION///////////////////////////////////
-
-valide(E):- repondre(S,E,[]), verifie(S).
+valide(E):- verifie(E).
 verifie(pere(X,Z)):- pere(X,Z).
 verifie(frere(X,Z)):- frere(X,Z).
 verifie(mange(X,Z)):- mange(X,Z).
 verifie(aime(X,Z)):- aime(X,Z).
 verifie(possede(X,Z)):- possede(X,Z).
 
+% valide2(E,R):- repondre(S,E,[]), verifie2(S, R).
+% verifie2(pere(X,Z), X):- pere(X,Z).
+% verifie2(frere(X,Z), X):- frere(X,Z).
+% verifie2(mange(X,Z), X):- mange(X,Z).
+% verifie2(aime(X,Z), X):- aime(X,Z).
+% verifie2(possede(X,Z), X):- possede(X,Z).
+
 %//////////////GRAMMAIRE DES REPONSES //////////////////////
 % Methode 1  :
-ecrire(S,Reponse):-  {S=..[Y,X,Z]},{Reponse=[GN,GV]}.
+ecrire(S) :- S=..[Y,X,Z], dire([X, Y, Z]).
 
   /* Methode 2  :
 ecrire(Phrase) --> <groupe_nominal2(GN)> <groupe_verbal2(GV)>, {Phrase=[GN,GV]}.
@@ -134,9 +140,12 @@ verbe2(possede) --> [possède].
 %//////////////LANCER INTERFACE//////////////////
 
 lancer :-
-    lire(Phrase),
-    valide(Phrase),
-    write('Phrase valide\n'), 
+    lire(Question),			%% L'utilisateur pose sa question
+    repondre(Reponse,Question,[]), 	%% On charge la reponse
+    valide(Reponse),			%% On la verifie
+    ecrire(Reponse),			%% On l'ecrit
+    nl,
+    write('Phrase valide\n'),
     lancer
     .
 
