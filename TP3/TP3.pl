@@ -55,7 +55,7 @@ Les chats mangent des croquettes et du paté.»
  
  
  %/////////////GRAMMAIRE DES QUESTIONS /////////////////////
-repondre(Fait) --> groupe_nominal(X), groupe_verbal(Y,Z), {Fait=..[Y,X,Z]}.
+formater(Fait) --> groupe_nominal(X), groupe_verbal(Y,Z), {Fait=..[Y,X,Z]}.
 groupe_nominal(X)--> determinant, nom(X).
 groupe_nominal(X)--> nom(X).
 groupe_nominal(X) --> pronom_interrogatif(X).
@@ -88,23 +88,25 @@ verbe(aime) --> [aimetelle].
 verbe(possede) --> [possedetil].
 
 %//////////////VALIDATION///////////////////////////////////
-valide(E):- verifie(E).
-verifie(pere(X,Z)):- pere(X,Z).
-verifie(frere(X,Z)):- frere(X,Z).
-verifie(mange(X,Z)):- mange(X,Z).
-verifie(aime(X,Z)):- aime(X,Z).
-verifie(possede(X,Z)):- possede(X,Z).
+repondre(Faits, Reponse):- verifier(Faits), Reponse = Faits.
+repondre(Faits, Reponse):- Reponse = 'false'.
+verifier(pere(X,Z)):- pere(X,Z).
+verifier(frere(X,Z)):- frere(X,Z).
+verifier(mange(X,Z)):- mange(X,Z).
+verifier(aime(X,Z)):- aime(X,Z).
+verifier(possede(X,Z)):- possede(X,Z).
 
-% valide2(E,R):- repondre(S,E,[]), verifie2(S, R).
-% verifie2(pere(X,Z), X):- pere(X,Z).
-% verifie2(frere(X,Z), X):- frere(X,Z).
-% verifie2(mange(X,Z), X):- mange(X,Z).
-% verifie2(aime(X,Z), X):- aime(X,Z).
-% verifie2(possede(X,Z), X):- possede(X,Z).
+% valide2(E,R):- repondre(S,E,[]), repondre2(S, R).
+% repondre2(pere(X,Z), X):- pere(X,Z).
+% repondre2(frere(X,Z), X):- frere(X,Z).
+% repondre2(mange(X,Z), X):- mange(X,Z).
+% repondre2(aime(X,Z), X):- aime(X,Z).
+% repondre2(possede(X,Z), X):- possede(X,Z).
 
 %//////////////GRAMMAIRE DES REPONSES //////////////////////
 % Methode 1  :
-ecrire(S) :- S=..[Y,X,Z], dire([X, Y, Z]).
+ecrire(Faits) :- Faits=='false', dire(['Non.']), nl.
+ecrire(Faits) :- Faits=..[Y,X,Z], dire([X, Y, Z]), nl.
 
   /* Methode 2  :
 ecrire(Phrase) --> <groupe_nominal2(GN)> <groupe_verbal2(GV)>, {Phrase=[GN,GV]}.
@@ -142,11 +144,13 @@ verbe2(possede) --> [possède].
 
 lancer :-
     lire(Question),			%% L'utilisateur pose sa question
-    repondre(Reponse,Question,[]), 	%% On charge la reponse
-    valide(Reponse),			%% On la verifie
-    ecrire(Reponse),			%% On l'ecrit
-    nl,
-    write('Phrase valide\n'),
+%     write('Lecture OK\n'),
+    formater(Faits,Question,[]), 	%% On formate la question
+%     write('Formatage OK\n'),
+    repondre(Faits, Reponse),		%% On y repond
+%     write('Reponse OK\n'),
+    write('Reponse : '),
+    ecrire(Reponse),			%% On ecrit la réponse
     lancer
     .
 
@@ -164,7 +168,7 @@ dire([]).
 % Resultat correspond à la liste des mots contenus dans la phrase.
 % Les signes de ponctuation ne sont pas gérés.
 lire(Resultat):- 
-    write('Entrer la phrase (exit pour quitter) '),nl, 
+    write('Question (exit pour quitter) : '), 
     read(Chaine),
     Chaine \= 'exit',
     name(Chaine, Temp), 
