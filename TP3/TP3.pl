@@ -56,36 +56,51 @@ Les chats mangent des croquettes et du paté.»
  
  %/////////////GRAMMAIRE DES QUESTIONS /////////////////////
 formater(Fait) --> groupe_nominal(X), groupe_verbal(Y,Z), {Fait=..[Y,X,Z]}.
+
 groupe_nominal(X)--> determinant, nom(X).
 groupe_nominal(X)--> nom(X).
 groupe_nominal(X) --> pronom_interrogatif(X).
 groupe_nominal(Y,Z) --> determinant, lien(Y), determinant, nom(Z).
+
 groupe_verbal(Y,Z) --> verbe, groupe_nominal(Y,Z). %changement de X par Y et Y par Z pour compréhension
 groupe_verbal(Y,Z) --> verbe(Y), groupe_nominal(Z).
+
 nom(X) --> nomCommun(X).
 nom(X) --> nomPropre(X).
+
 determinant-->[un].
 determinant-->[le].
 determinant-->[de].
 determinant-->[les].
 determinant-->[des].
+
 pronom_interrogatif(X)-->[qui].   %la réponse écrit artificiellement ici
+
 lien(frere)-->[frere].
 lien(pere)-->[pere].
-nomPropre(nicolas) --> [nicolas].
-nomPropre(felix) --> [felix].
-nomPropre(pierre) --> [pierre].
+
 nomPropre(anne) --> [anne].
+nomPropre(nicolas) --> [nicolas].
+nomPropre(pierre) --> [pierre].
+nomPropre(paul) --> [paul].
+nomPropre(felix) --> [felix].
+nomPropre(garfield) --> [garfield].
+
 nomCommun(pate) --> [pate].
 nomCommun(croquettes) --> [croquettes].
+nomCommun(chien) --> [chien].
 nomCommun(chiens) --> [chiens].
-nomCommun(chats) --> [chats].
 nomCommun(chat) --> [chat].
+nomCommun(chats) --> [chats].
+
 verbe --> [est].
 verbe(mange) --> [mangetil].
+verbe(mange) --> [mangetelle].
 verbe(aime) --> [aimetil].
 verbe(aime) --> [aimetelle].
 verbe(possede) --> [possedetil].
+verbe(possede) --> [possedetelle].
+
 
 %//////////////VALIDATION///////////////////////////////////
 repondre(Faits, Reponse):- verifier(Faits), Reponse = Faits.
@@ -97,11 +112,11 @@ verifier(aime(X,Z)):- aime(X,Z).
 verifier(possede(X,Z)):- possede(X,Z).
 
 % valide2(E,R):- repondre(S,E,[]), repondre2(S, R).
-% repondre2(pere(X,Z), X):- pere(X,Z).
-% repondre2(frere(X,Z), X):- frere(X,Z).
-% repondre2(mange(X,Z), X):- mange(X,Z).
-% repondre2(aime(X,Z), X):- aime(X,Z).
-% repondre2(possede(X,Z), X):- possede(X,Z).
+% verifier2(pere(X,Z), X):- pere(X,Z).
+% verifier2(frere(X,Z), X):- frere(X,Z).
+% verifier2(mange(X,Z), X):- mange(X,Z).
+% verifier2(aime(X,Z), X):- aime(X,Z).
+% verifier2(possede(X,Z), X):- possede(X,Z).
 
 %//////////////GRAMMAIRE DES REPONSES //////////////////////
 % Methode 1  :
