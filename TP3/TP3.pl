@@ -103,23 +103,22 @@ verbe(possede) --> [possedetelle].
 
 
 %//////////////VALIDATION///////////////////////////////////
-repondre(Faits, Reponse):- verifier(Faits), Reponse = Faits.
+repondre(pere(X,Z),Reponse):- nonvar(X), nonvar(Z), pere(X,Z), Reponse = 'true'.
+repondre(pere(X,Z),Reponse):- pere(X,Z), Reponse = pere(X,Z).
+repondre(frere(X,Z),Reponse):- nonvar(X), nonvar(Z), frere(X,Z), Reponse = 'true'.
+repondre(frere(X,Z),Reponse):- frere(X,Z), Reponse = frere(X,Z).
+repondre(mange(X,Z),Reponse):- nonvar(X), nonvar(Z), mange(X,Z), Reponse = 'true'.
+repondre(mange(X,Z),Reponse):- mange(X,Z), Reponse = mange(X,Z).
+repondre(aime(X,Z),Reponse):- nonvar(X), nonvar(Z), aime(X,Z), Reponse = 'true'.
+repondre(aime(X,Z),Reponse):- aime(X,Z), Reponse = aime(X,Z).
+repondre(possede(X,Z),Reponse):- nonvar(X), nonvar(Z), possede(X,Z), Reponse = 'true'.
+repondre(possede(X,Z),Reponse):- possede(X,Z), Reponse = possede(X,Z).
 repondre(Faits, Reponse):- Reponse = 'false'.
-verifier(pere(X,Z)):- pere(X,Z).
-verifier(frere(X,Z)):- frere(X,Z).
-verifier(mange(X,Z)):- mange(X,Z).
-verifier(aime(X,Z)):- aime(X,Z).
-verifier(possede(X,Z)):- possede(X,Z).
 
-% valide2(E,R):- repondre(S,E,[]), repondre2(S, R).
-% verifier2(pere(X,Z), X):- pere(X,Z).
-% verifier2(frere(X,Z), X):- frere(X,Z).
-% verifier2(mange(X,Z), X):- mange(X,Z).
-% verifier2(aime(X,Z), X):- aime(X,Z).
-% verifier2(possede(X,Z), X):- possede(X,Z).
 
 %//////////////GRAMMAIRE DES REPONSES //////////////////////
 % Methode 1  :
+ecrire(Faits) :- Faits=='true', dire(['Oui.']), nl.
 ecrire(Faits) :- Faits=='false', dire(['Non.']), nl.
 ecrire(Faits) :- Faits=..[Y,X,Z], dire([X, Y, Z]), nl.
 
@@ -202,3 +201,27 @@ chaine_liste(B,Reste).
 separer([],X,[],[]):-!.
 separer([X|R],X,[],R):-!.
 separer([A|R],X,[A|Av],Ap):- X\==A, !, separer(R,X,Av,Ap).
+
+
+
+%//////////////QUESTIONS DE TEST//////////////////
+test(QuestionChaine) :-
+write('Question : '),
+write(QuestionChaine),
+nl,
+name(QuestionChaine, Temp),
+chaine_liste(Temp, QuestionListe),
+formater(Faits,QuestionListe,[]), %% On formate la question
+repondre(Faits, Reponse), %% On y repond
+write('Reponse : '),
+ecrire(Reponse),
+nl
+.
+
+tests :-
+test('qui est le pere de nicolas'),
+test('felix mangetil des croquettes'),
+test('pierre aimetil les chiens'),
+test('anne aimetelle les chats'),
+test('nicolas possedetil un chat')
+.
