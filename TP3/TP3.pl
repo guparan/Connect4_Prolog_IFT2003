@@ -21,8 +21,10 @@ gv( ACT,OBJ ) --> v(ACT), gn(OBJ).
 art --> [le].
 art --> [un].
 nc( chien ) --> [chien].
-nc( homme ) --> [homme].
+nc( homme ) --> [homme].                       #
 v( mordre ) --> [mord].
+
+qui est le pere de nicolas
  */
  
  
@@ -45,7 +47,7 @@ v( mordre ) --> [mord].
  
  
  %/////////////GRAMMAIRE DES QUESTIONS /////////////////////
-phrase(Fait) --> groupe_nominal(X), groupe_verbal(Y,Z), {Fait=..[Y,X,Z]}.
+repondre(Fait) --> groupe_nominal(X), groupe_verbal(Y,Z), {Fait=..[Y,X,Z]}.
 groupe_nominal(X)--> determinant, nom(X).
 groupe_nominal(X)--> nom(X).
 groupe_nominal(X) --> pronom_interrogatif(X).
@@ -58,7 +60,7 @@ determinant-->[un].
 determinant-->[le].
 determinant-->[de].
 determinant-->[les].
-pronom_interrogatif(x)-->[qui].   %la réponse écrit artificiellement ici
+pronom_interrogatif(X)-->[qui].   %la réponse écrit artificiellement ici
 lien(frere)-->[frere].
 lien(pere)-->[pere].
 nomPropre(nicolas) --> [nicolas].
@@ -71,7 +73,80 @@ nomCommun(chiens) --> [chiens].
 nomCommun(chats) --> [chats].
 nomCommun(chat) --> [chat].
 verbe --> [est].
-verbe(mange) --> [mange-t-il].
-verbe(aime) --> [aime-t-il].
-verbe(aime) --> [aime-t-elle].
-verbe(possede) --> [possède-t-il].
+verbe(mange) --> [mangetil].
+verbe(aime) --> [aimetil].
+verbe(aime) --> [aimetelle].
+verbe(possede) --> [possedetil].
+
+%//////////////VALIDATION///////////////////////////////////
+
+valide(E):- repondre(S,E,[]), verifie(S).
+verifie(pere(X,Z)):- pere(X,Z).
+verifie(frere(X,Z)):- frere(X,Z).
+verifie(mange(X,Z)):- mange(X,Z).
+verifie(aime(X,Z)):- aime(X,Z).
+verifie(possede(X,Z)):- possede(X,Z).
+
+%//////////////GRAMMAIRE DES REPONSES //////////////////////
+% Methode 1  :
+ecrire(S,Reponse):-  {S=..[Y,X,Z]},{Reponse=[GN,GV]}.
+
+  /* Methode 2  :
+ecrire(Phrase) --> <groupe_nominal2(GN)> <groupe_verbal2(GV)>, {Phrase=[GN,GV]}.
+groupe_nominal2(DET,NOM) --> <determinant2(DET)> <nom2(NOM)>.
+groupe_nominal2(DET,NOM,DET2,NOM2) --> determinant3(DET), lien2(NOM), determinant4(DET2), nom2(NOM2).
+groupe_verbal2(Y,Z) --> verbe2, groupe_nominal2(Y,Z). %changement de X par Y et Y par Z pour compréhension
+groupe_verbal2(Y,Z) --> verbe2(Y), groupe_nominal2(Z).
+nom2(X) --> nomCommun2(X).
+nom2(X) --> nomPropre2(X).
+determinant2(un)-->[un].
+determinant2(le)-->[le].
+determinant2(de)-->[de].
+determinant2(les)-->[les].
+determinant2(des)-->[des].
+determinant3(le)
+determinant4(de)
+lien2(frere)-->[frere].
+lien2(pere)-->[pere].
+nomPropre2(nicolas) --> [nicolas].
+nomPropre2(felix) --> [felix].
+nomPropre2(pierre) --> [pierre].
+nomPropre2(anne) --> [anne].
+nomCommun2(pate) --> [pate].
+nomCommun2(croquettes) --> [croquettes].
+nomCommun2(chiens) --> [chiens].
+nomCommun2(chats) --> [chats].
+nomCommun2(chat) --> [chat].
+verbe2 --> [est].
+verbe2(mange) --> [mange].
+verbe2(aime) --> [aime].
+verbe2(aime) --> [aime].
+verbe2(possede) --> [possède].
+ */
+%//////////////LANCER INTERFACE//////////////////
+
+lancer :-
+    lire(Chaine,Phrase),
+    valide(Phrase)
+    .
+
+%Fonction qui exprime une liste en une phrase.
+dire([X|R]) :- write(X), write(' '), dire(R).
+dire([]).
+
+% Le prédicat lire/2 lit une chaîne de caractères Chaine entre apostrophes
+% et terminée par un point.
+% Resultat correspond à la liste des mots contenus dans la phrase.
+% Les signes de ponctuation ne sont pas gérés.
+lire(Chaine,Resultat):- write('Entrer la phrase '),nl, read(Chaine),
+                        name(Chaine, Temp), chaine_liste(Temp, Resultat),!.
+                        
+% Prédicat de transformation de chaîne en liste
+chaine_liste([],[]).
+chaine_liste(Liste,[Mot|Reste]):- separer(Liste,32,A,B), name(Mot,A),
+chaine_liste(B,Reste).
+
+% Sépare une liste par rapport à un élément
+separer([],X,[],[]):-!.
+separer([X|R],X,[],R):-!.
+separer([A|R],X,[A|Av],Ap):- X\==A, !, separer(R,X,Av,Ap).
