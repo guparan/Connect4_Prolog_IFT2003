@@ -34,7 +34,7 @@ qui est le pere de nicolas
  frere(nicolas, pierre).
  frere(nicolas, anne).
  frere(X,Y):- frere(Y,X).
- frere(X,Y):- frere(X,Z), frere(X,Y).
+ frere(X,Y):- frere(X,Z), frere(Z,Y).
  est(garfield, chat).
  est(felix, chat).
  possede(anne, garfield).
@@ -127,7 +127,14 @@ verbe2(possede) --> [possède].
 
 lancer :-
     lire(Chaine,Phrase),
-    valide(Phrase)
+    valide(Phrase),
+    lancer
+    .
+
+lancer :-
+    write('Erreur : phrase non comprise'),
+    nl,
+    lancer
     .
 
 %Fonction qui exprime une liste en une phrase.
@@ -138,9 +145,17 @@ dire([]).
 % et terminée par un point.
 % Resultat correspond à la liste des mots contenus dans la phrase.
 % Les signes de ponctuation ne sont pas gérés.
-lire(Chaine,Resultat):- write('Entrer la phrase '),nl, read(Chaine),
-                        name(Chaine, Temp), chaine_liste(Temp, Resultat),!.
-                        
+lire(Chaine,Resultat):- 
+    write('Entrer la phrase (exit pour quitter) '),nl, 
+    read(Chaine),
+    Chaine \= 'exit',
+    name(Chaine, Temp), 
+    chaine_liste(Temp, Resultat),
+    !.
+
+lire(Chaine, Resultat) :-
+    abort.
+                       
 % Prédicat de transformation de chaîne en liste
 chaine_liste([],[]).
 chaine_liste(Liste,[Mot|Reste]):- separer(Liste,32,A,B), name(Mot,A),
