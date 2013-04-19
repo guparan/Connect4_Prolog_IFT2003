@@ -1,7 +1,7 @@
 % Author:
 % Date: 4/17/2013
 /*
-    La grammaire complète permettant danalyser les questions:
+    La grammaire complète permettant d'analyser les questions:
 phrase -> <groupe_nominal> <groupe_verbal>
 groupe_nominal-> <determinant> <nom>
 groupe_nominal-> <pronom_interrogatif>
@@ -68,6 +68,7 @@ determinant-->[un].
 determinant-->[le].
 determinant-->[de].
 determinant-->[les].
+determinant-->[des].
 pronom_interrogatif(X)-->[qui].   %la réponse écrit artificiellement ici
 lien(frere)-->[frere].
 lien(pere)-->[pere].
