@@ -94,33 +94,40 @@ ecrire(Faits) :- Faits=..[Y,X,Z], dire([X, Y, Z]), nl.
 
   /* Methode 2  :
 ecrire(Phrase) --> <groupe_nominal2(GN)> <groupe_verbal2(GV)>, {Phrase=[GN,GV]}.
+
 groupe_nominal2(DET,NOM) --> <determinant2(DET)> <nom2(NOM)>.
 groupe_nominal2(DET,NOM,DET2,NOM2) --> determinant3(DET), lien2(NOM), determinant4(DET2), nom2(NOM2).
-groupe_verbal2(Y,Z) --> verbe2, groupe_nominal2(Y,Z). %changement de X par Y et Y par Z pour compréhension
+
+groupe_verbal2(Y,Z) --> verbe2, groupe_nominal2(Y,Z). 
 groupe_verbal2(Y,Z) --> verbe2(Y), groupe_nominal2(Z).
+
 nom2(X) --> nomCommun2(X).
 nom2(X) --> nomPropre2(X).
+
 determinant2(un)-->[un].
 determinant2(le)-->[le].
-determinant2(de)-->[de].
 determinant2(les)-->[les].
+determinant2(de)-->[de].
 determinant2(des)-->[des].
-determinant3(le)
-determinant4(de)
+determinant3(le)-->[le].
+determinant4(de)-->[de].
+
 lien2(frere)-->[frere].
 lien2(pere)-->[pere].
+
 nomPropre2(nicolas) --> [nicolas].
 nomPropre2(felix) --> [felix].
 nomPropre2(pierre) --> [pierre].
 nomPropre2(anne) --> [anne].
+
 nomCommun2(pate) --> [pate].
 nomCommun2(croquettes) --> [croquettes].
 nomCommun2(chiens) --> [chiens].
 nomCommun2(chats) --> [chats].
 nomCommun2(chat) --> [chat].
+
 verbe2 --> [est].
 verbe2(mange) --> [mange].
-verbe2(aime) --> [aime].
 verbe2(aime) --> [aime].
 verbe2(possede) --> [possède].
  */
