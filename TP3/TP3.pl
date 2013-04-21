@@ -1,60 +1,23 @@
-% Author:
-% Date: 4/17/2013
-/*
-    La grammaire complète permettant d'analyser les questions:
-phrase -> <groupe_nominal> <groupe_verbal>
-groupe_nominal-> <determinant> <nom>
-groupe_nominal-> <pronom_interrogatif>
-groupe_nominal-> <determinant> <nom> <determinant> <nom>
-nom-> nomCommun
-nom-> nomPropre
-groupe_verbal-> <verbe> <groupe_nominal>
-pronom_interrogatif -> Qui |
-determinant -> le | de | des | les | un
-verbe -> est | mange-t-il | aime-t-il | aime-t-elle | possède-t-il
-nomCommun -> père | croquettes | chiens  | chats | chat
-nomPropre -> Felix | Pierre| Anne | Nicolas
+%//////////////// BASE DE CONNAISSANCES ////////////////////
 
-p( SEM ) --> gn(AGNT), gv(ACT, OBJ), {AGNT \= OBJ, SEM =..[ACT,AGNT, OBJ]}.
-gn( AGNT ) --> art, nc(AGNT).
-gv( ACT,OBJ ) --> v(ACT), gn(OBJ).
-art --> [le].
-art --> [un].
-nc( chien ) --> [chien].
-nc( homme ) --> [homme].                       #
-v( mordre ) --> [mord].
+pere(paul,nicolas).
+frere(nicolas, pierre).
+frere(nicolas, anne).
+frere(X,Y):- frere(Y,X).
+frere(X,Y):- frere(X,Z), frere(Z,Y).
+est(garfield, chat).
+est(felix, chat).
+possede(anne, garfield).
+aime(anne, chats).
+aime(anne, chiens).
+not(aime(pierre,chien)).
+mange(X, croquettes) :- est(X, chat).
+mange(X, pate):- est(X, chat).
 
-qui est le pere de nicolas
 
-Texte :
-« Paul est le père de Nicolas. 
-Nicolas est le frère de Pierre et Anne. 
-Anne a un chat appelé Garfield.
-Anne aime les chats et les chiens mais son frère Pierre n’aime pas les chiens. 
-Felix est un chat. 
-Les chats mangent des croquettes et du paté.»
- */
- 
- 
- %//////////////// BASE DE CONNAISSANCES ////////////////////
- 
- pere(paul,nicolas).
- frere(nicolas, pierre).
- frere(nicolas, anne).
- frere(X,Y):- frere(Y,X).
- frere(X,Y):- frere(X,Z), frere(Z,Y).
- est(garfield, chat).
- est(felix, chat).
- possede(anne, garfield).
- aime(anne, chats).
- aime(anne, chiens).
- not(aime(pierre,chien)).
- mange(X, croquettes) :- est(X, chat).
- mange(X, pate):- est(X, chat).
- 
- 
- 
- %/////////////GRAMMAIRE DES QUESTIONS /////////////////////
+
+%///////////// GRAMMAIRE DES QUESTIONS /////////////////////
+
 formater(Fait) --> groupe_nominal(X), groupe_verbal(Y,Z), {Fait=..[Y,X,Z]}.
 
 groupe_nominal(X)--> determinant, nom(X).
@@ -62,7 +25,7 @@ groupe_nominal(X)--> nom(X).
 groupe_nominal(X) --> pronom_interrogatif(X).
 groupe_nominal(Y,Z) --> determinant, lien(Y), determinant, nom(Z).
 
-groupe_verbal(Y,Z) --> verbe, groupe_nominal(Y,Z). %changement de X par Y et Y par Z pour compréhension
+groupe_verbal(Y,Z) --> verbe, groupe_nominal(Y,Z).
 groupe_verbal(Y,Z) --> verbe(Y), groupe_nominal(Z).
 
 nom(X) --> nomCommun(X).
@@ -77,7 +40,7 @@ determinant-->[du].
 determinant-->[de].
 determinant-->[des].
 
-pronom_interrogatif(X)-->[qui].   %la réponse écrit artificiellement ici
+pronom_interrogatif(X)-->[qui].
 
 lien(frere)-->[frere].
 lien(pere)-->[pere].
@@ -105,7 +68,9 @@ verbe(possede) --> [possedetil].
 verbe(possede) --> [possedetelle].
 
 
-%//////////////VALIDATION///////////////////////////////////
+
+%/////////////////// VALIDATION /////////////////////
+
 repondre(pere(X,Z),Reponse):- nonvar(X), nonvar(Z), pere(X,Z), Reponse = 'true'.
 repondre(pere(X,Z),Reponse):- pere(X,Z), Reponse = pere(X,Z).
 repondre(frere(X,Z),Reponse):- nonvar(X), nonvar(Z), frere(X,Z), Reponse = 'true'.
@@ -119,7 +84,9 @@ repondre(possede(X,Z),Reponse):- possede(X,Z), Reponse = possede(X,Z).
 repondre(Faits, Reponse):- Reponse = 'false'.
 
 
-%//////////////GRAMMAIRE DES REPONSES //////////////////////
+
+%//////////////// GRAMMAIRE DES REPONSES /////////////////
+
 % Methode 1  :
 ecrire(Faits) :- Faits=='true', dire(['Oui.']), nl.
 ecrire(Faits) :- Faits=='false', dire(['Non.']), nl.
@@ -157,17 +124,20 @@ verbe2(aime) --> [aime].
 verbe2(aime) --> [aime].
 verbe2(possede) --> [possède].
  */
-%//////////////LANCER INTERFACE//////////////////
+ 
+ 
+
+%////////////// LANCER INTERFACE //////////////////
 
 lancer :-
-    lire(Question),			%% L'utilisateur pose sa question
+    lire(Question),                     %% L'utilisateur pose sa question
 %     write('Lecture OK\n'),
-    formater(Faits,Question,[]), 	%% On formate la question
+    formater(Faits,Question,[]),        %% On formate la question
 %     write('Formatage OK\n'),
-    repondre(Faits, Reponse),		%% On y repond
+    repondre(Faits, Reponse),           %% On y repond
 %     write('Reponse OK\n'),
     write('Reponse : '),
-    ecrire(Reponse),			%% On ecrit la réponse
+    ecrire(Reponse),                    %% On ecrit la réponse
     lancer
     .
 
@@ -207,24 +177,26 @@ separer([A|R],X,[A|Av],Ap):- X\==A, !, separer(R,X,Av,Ap).
 
 
 
-%//////////////QUESTIONS DE TEST//////////////////
+%/////////////// QUESTIONS DE TEST //////////////////
+
 test(QuestionChaine) :-
-write('Question : '),
-write(QuestionChaine),
-nl,
-name(QuestionChaine, Temp),
-chaine_liste(Temp, QuestionListe),
-formater(Faits,QuestionListe,[]), %% On formate la question
-repondre(Faits, Reponse), %% On y repond
-write('Reponse : '),
-ecrire(Reponse),
-nl
-.
+	write('Question : '),
+	write(QuestionChaine),
+	nl,
+	name(QuestionChaine, Temp),
+	chaine_liste(Temp, QuestionListe),
+	formater(Faits,QuestionListe,[]),  %% On formate la question
+	repondre(Faits, Reponse),          %% On y repond
+	write('Reponse : '),
+	ecrire(Reponse),
+	nl
+	.
 
 tests :-
-test('qui est le pere de nicolas'),
-test('felix mangetil des croquettes'),
-test('pierre aimetil les chiens'),
-test('anne aimetelle les chats'),
-test('nicolas possedetil un chat')
-.
+	test('qui est le pere de nicolas'),
+	test('felix mangetil des croquettes'),
+	test('pierre aimetil les chiens'),
+	test('anne aimetelle les chats'),
+	test('nicolas possedetil un chat'),
+	test('qui est le frere de anne')
+	.
